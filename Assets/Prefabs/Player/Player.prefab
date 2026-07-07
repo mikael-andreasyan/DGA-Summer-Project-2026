@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2385017416331466857}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,10 +186,7 @@ MonoBehaviour:
   friction: 70
   airAcceleration: 40
   airFriction: 30
-  jumpHeight: 3
-  jumpTimeToPeak: 0.4
-  jumpTimeToDescent: 0.3
-  jumpCutMultiplier: 0.5
+  jumpVelocity: 4
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   groundCheck: {fileID: 7010329476067719845}
@@ -197,6 +194,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  gravityScale: 1
 --- !u!1 &8731642440388604302
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.6f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("Ground Check")]
+    [Header("Gravity")]
     [SerializeField] private float gravityScale = 1f;
 
     private Rigidbody2D rb;
@@ -62,8 +62,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {   print(coyoteTime);
-        print(jumpBufferTime);
+    {   
         CheckGrounded();
         UpdateTimers();
         HandleJumpStart();
@@ -116,7 +115,6 @@ public class PlayerController : MonoBehaviour
         // Start a jump if buffered and coyote time is still available
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
-            print("Jumping");
             velocity.y = jumpVelocity;
             isJumping = true;
             jumpBufferTimer = 0f;
