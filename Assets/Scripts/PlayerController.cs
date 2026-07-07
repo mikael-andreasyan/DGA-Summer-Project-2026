@@ -1,23 +1,6 @@
 using UnityEngine;
 
-/// <summary>
-/// Celeste-style 2D Player Controller (Unity, legacy Input Manager)
-/// - Ground movement with acceleration/deceleration toward a top speed
-///   (not instant, not floaty).
-/// - Variable-height jump: hold Space to reach full jump height,
-///   release early to cut the jump short and fall sooner.
-///
-/// Setup:
-/// - Attach to a GameObject with Rigidbody2D + Collider2D.
-/// - Rigidbody2D: set Gravity Scale to 0 (this script drives gravity manually
-///   so it can use different values for rising vs falling).
-/// - Assign a "Ground" layer to your floor/platform colliders and set
-///   groundLayer in the inspector, plus add a groundCheck child transform
-///   near the player's feet.
-/// - Uses the legacy Input Manager: Input.GetAxisRaw("Horizontal") and
-///   Input.GetButton*("Jump") (Space is bound to "Jump" by default in
-///   Unity's Input Manager).
-/// </summary>
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
