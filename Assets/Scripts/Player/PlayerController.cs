@@ -12,10 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airFriction = 30f;
 
     [Header("Jump")]
-    [SerializeField] private float jumpHeight = 3f;          // max height in units
-    [SerializeField] private float jumpTimeToPeak = 0.4f;    // seconds to reach apex if held
-    [SerializeField] private float jumpTimeToDescent = 0.3f; // seconds to fall back down
-    [SerializeField] private float jumpCutMultiplier = 0.5f; // velocity multiplier when jump released early
+    [SerializeField] private float jumpVelocity = 4f;         // the velocity that the player's y receives
 
     [Header("Quality of Life")]
     [SerializeField] private float coyoteTime = 0.1f;        // grace period to jump after leaving a ledge
@@ -26,12 +23,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.6f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Ground Check")]
+    [SerializeField] private float gravityScale = 1f;
+
     private Rigidbody2D rb;
     private Vector2 velocity;
-
-    private float jumpVelocity;
-    private float jumpGravity;
-    private float fallGravity;
 
     private float coyoteTimer;
     private float jumpBufferTimer;
@@ -41,42 +37,35 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f; // gravity is applied manually, so we don't need 
+        rb.gravityScale = gravityScale;
 
-        // Derive jump velocity and the two gravity values (rising vs falling)
-        // from the desired height and timing, so tuning stays intuitive:
-        // just set "how high" and "how long", not raw physics constants.
-        jumpVelocity = (2f * jumpHeight) / jumpTimeToPeak; // v = 2 * h / t, kinematics eqaution
-        jumpGravity = (2f * jumpHeight) / (jumpTimeToPeak * jumpTimeToPeak); // g = 2 * h / t^2, another kinematics equation
-        fallGravity = (2f * jumpHeight) / (jumpTimeToDescent * jumpTimeToDescent); // steeper gravity for falling
     }
 
-    private void Update()
+   private void Update()
     {
         // Input reads happen in Update so button presses aren't missed
         // between fixed steps.
         if (Input.GetButtonDown("Jump"))
         {
             jumpBufferTimer = jumpBufferTime;
+            print("Jump button pressed");
         }
         else
         {
             jumpBufferTimer = Mathf.Max(jumpBufferTimer - Time.deltaTime, 0f);
         }
-
-        if (isJumping && Input.GetButtonUp("Jump") && velocity.y > 0f) //if jump is released while player is ascending
+ 
+        if (isJumping && Input.GetButtonUp("Jump") && velocity.y > 0f)
         {
-            
-            velocity.y *= jumpCutMultiplier;
             isJumping = false;
         }
     }
 
     private void FixedUpdate()
-    {
+    {   print(coyoteTime);
+        print(jumpBufferTime);
         CheckGrounded();
         UpdateTimers();
-        ApplyGravity();
         HandleJumpStart();
         HandleHorizontalMovement();
 
@@ -88,13 +77,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CheckGrounded()
+    private bool CheckGrounded()
     {
         isGrounded = groundCheck != null &&
             Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
 
         velocity = rb.linearVelocity;
+        return isGrounded;
     }
+    
 
     private void UpdateTimers()
     {
@@ -118,25 +109,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ApplyGravity()
-    {
-        if (velocity.y > 0f && Input.GetButton("Jump")) //if the player is ascending and holding jump
-        {
-            
-            velocity.y -= jumpGravity * Time.fixedDeltaTime; //decrease its velocity by the jump gravity, the gravity that applies to the player while ascending
-        }
-        else
-        {
-            // if the player is falling, however, or ascending and not holding jump, apply the fall gravity, which is a steeper gravity that makes the player fall faster
-            velocity.y -= fallGravity * Time.fixedDeltaTime;
-        }
-    }
+   
 
     private void HandleJumpStart()
     {
         // Start a jump if buffered and coyote time is still available
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
+            print("Jumping");
             velocity.y = jumpVelocity;
             isJumping = true;
             jumpBufferTimer = 0f;
