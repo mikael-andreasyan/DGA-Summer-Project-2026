@@ -186,7 +186,7 @@ MonoBehaviour:
   friction: 70
   airAcceleration: 40
   airFriction: 30
-  jumpVelocity: 4
+  jumpVelocity: 8
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   groundCheck: {fileID: 7010329476067719845}
@@ -195,6 +195,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   gravityScale: 1
+  coyoteTimer: 0
+  jumpBufferTimer: 0
+  isGrounded: 0
 --- !u!1 &8731642440388604302
 GameObject:
   m_ObjectHideFlags: 0
