@@ -86,18 +86,6 @@ public class RainCloud : BasicCloud
         }
     }
 
-
-    protected override void FixedUpdate()
-    {
-        if (state == RainCloudStates.Vapor)
-        {
-            //ReturnToPos();
-            return;
-        }
-        base.FixedUpdate();
-    }
-
-
     private void StartVapor()
     {
         // Raining -> Vapor
@@ -126,19 +114,6 @@ public class RainCloud : BasicCloud
         if (col != null) // Back to enabled collision
         {
             col.enabled = true;
-        }
-    }
-
-
-    private void ReturnToPos()
-    {
-        if (rb.position.y >= startY)
-        {
-            rb.linearVelocityY = settleSpeed * -1; // Start moving down once cloud has reached certain height
-        }
-        else if (rb.position.y <= startY)
-        {
-            rb.linearVelocityY = 0; // Stop moving down if cloud is too low
         }
     }
 }
