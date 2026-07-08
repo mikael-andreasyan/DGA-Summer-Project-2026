@@ -130,22 +130,16 @@ public class RainCloud : BasicCloud
     }
 
 
-    //private void ReturnToPos()
-    //{
-    //    float test = rb.position.y - startY;
-    //    if (rb.position.y >= startY)
-    //    {
-    //        rb.linearVelocityY = settleSpeed * -1f; // Start moving down once cloud has reached certain height
-    //    }
-    //    else if (rb.position.y < startY)
-    //    {
-    //        rb.linearVelocityY = settleSpeed; // Stop moving down if cloud is too low
-    //    }
-    //    else
-    //    {
-    //        rb.linearVelocityY = 0f;
-    //    }
-
-    //}
+    private void ReturnToPos()
+    {
+        if (rb.position.y >= startY)
+        {
+            rb.linearVelocityY = settleSpeed * -1; // Start moving down once cloud has reached certain height
+        }
+        else if (rb.position.y <= startY)
+        {
+            rb.linearVelocityY = 0; // Stop moving down if cloud is too low
+        }
+    }
 }
 

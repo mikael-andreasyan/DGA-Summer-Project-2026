@@ -16,28 +16,27 @@ public class BasicCloud : MonoBehaviour
     protected SpriteRenderer sr;
     protected Rigidbody2D playerRB;
     protected float startY; // Cloud's starting y position
+    protected Collider2D col; // Added to parent Cloud class so we can alter collision in rain/storm cloud
+    protected SpriteRenderer sr; // Added to parent Cloud class so we can change sprites in subclesses
 
     protected bool hasScored; // Whether the GameManager has already scored points for landing on this cloud
 
     protected bool isSettling; // Whether the cloud is settling downwards after bobbing 
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
-
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        sr = GetComponent<SpriteRenderer>();
         startY = rb.position.y;
-        hasScored = false;
-        isSettling = false;
+
+
+      hasScored = false;
+      isSettling = false;
+>>>>>>>>> Temporary merge branch 2
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
 
     protected virtual void FixedUpdate()
     {
@@ -62,8 +61,8 @@ public class BasicCloud : MonoBehaviour
             rb.linearVelocityY = downSpeed * -1; // Start moving down if player is on top of it
             if (!hasScored)
             {
-                // GameManager.Instance.RegisterCloudBounce();
-                // hasScored = true;
+                 GameManager.Instance.RegisterCloudBounce();
+                 hasScored = true;
             }
         }
     }
