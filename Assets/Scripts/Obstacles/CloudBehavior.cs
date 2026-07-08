@@ -14,25 +14,33 @@ public class CloudBehavior : MonoBehaviour
 
     private SpriteRenderer sr;
     private Collider2D col;
+    private Rigidbody2D rb;
     private Vector3 startPosition;
-    private bool isEnabled;
-    private float timer; 
 
+    private float timer;
+    private float driftClock = 0f;
+
+    //for player
+    private bool isJumpAvailable;
+    private bool isPlayerOn;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
+
+        rb.bodyType = RigidbodyType2D.Kinematic;
         startPosition = transform.position;
     }
 
 
     void Start()
     {
-        isEnabled = true;
-        col.enabled = isEnabled;
-        sr.sprite = isEnabled ? collideSprite : phaseSprite;
-        timer = isEnabled ? collideDuration : phaseDuration;
+        isJumpAvailable = true;
+        col.enabled = true;
+        sr.sprite = isJumpAvailable ? collideSprite : phaseSprite;
+        timer = isJumpAvailable ? collideDuration : phaseDuration;
         
     }
 
@@ -42,12 +50,17 @@ public class CloudBehavior : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            isEnabled = !isEnabled;
-            col.enabled = isEnabled;
+            isJumpAvailable = !isJumpAvailable;
+  
             // Looking to add an additional state to this cloud for an 'indicator/intermediate' phase, but below works for now
-            sr.sprite = isEnabled ? collideSprite : phaseSprite;
-            timer = isEnabled ? collideDuration : phaseDuration;
+            sr.sprite = isJumpAvailable ? collideSprite : phaseSprite;
+            timer = isJumpAvailable ? collideDuration : phaseDuration;
         }
+    }
+
+
+    void FixedUpdate()
+    {
         Drift();
     }
 
@@ -57,7 +70,73 @@ public class CloudBehavior : MonoBehaviour
      * */
     private void Drift()
     {
-        float dist = Mathf.Sin( Time.time * cloudMoveSpeed ) * cloudMoveDistance;
-        transform.position = startPosition + (new Vector3(0f, dist, 0f));
+        if (!isPlayerOn)
+        {
+            easeDown();
+            return;
+        }
+        else
+        {
+            driftClock += Time.deltaTime;
+            float dist = Mathf.Sin(driftClock * cloudMoveSpeed) * cloudMoveDistance;
+            rb.MovePosition(startPosition + (new Vector3(0f, dist, 0f)));
+        }
+        
     }
+
+    // to be called by player
+    public bool canJump()
+    {
+        return isJumpAvailable;
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerOnCloud();
+        }
+    }
+
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerOffCloud();
+        }
+    }
+
+
+    private void playerOnCloud()
+    {
+        if (!isPlayerOn)
+        {
+            isPlayerOn = true;
+            driftClock = 0f;
+        }
+    }
+
+
+    private void playerOffCloud()
+    {
+        isPlayerOn = false; 
+    }
+
+
+    private void easeDown()
+    {
+        if ((Vector3)rb.position == startPosition)
+            return;
+
+        Vector3 newpos = Vector3.Lerp(rb.position, startPosition, Time.deltaTime * cloudMoveSpeed);
+
+        if ((newpos - startPosition).sqrMagnitude < 0.0001f)
+            newpos = startPosition;
+
+        rb.MovePosition(newpos);
+
+    }
+
 }

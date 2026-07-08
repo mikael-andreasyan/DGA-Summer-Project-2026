@@ -202,8 +202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   collideSprite: {fileID: 7482667652216324306, guid: 0f7c30347cc03412ca20934790dd748d, type: 3}
   phaseSprite: {fileID: 0}
-  collideDuration: 3
-  phaseDuration: 2
+  collideDuration: 15
+  phaseDuration: 1
   cloudMoveSpeed: 1
   cloudMoveDistance: 1
 --- !u!1001 &601712134
