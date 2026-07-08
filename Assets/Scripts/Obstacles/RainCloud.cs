@@ -133,7 +133,7 @@ public class RainCloud : BasicCloud
     {
         if (rb.position.y >= startY)
         {
-            rb.linearVelocityY = speed * -1; // Start moving down once cloud has reached certain height
+            rb.linearVelocityY = settleSpeed * -1; // Start moving down once cloud has reached certain height
         }
         else if (rb.position.y <= startY)
         {

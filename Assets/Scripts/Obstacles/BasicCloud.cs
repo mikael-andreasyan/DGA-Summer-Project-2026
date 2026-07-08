@@ -19,6 +19,7 @@ public class BasicCloud : MonoBehaviour
     protected SpriteRenderer sr; // Added to parent Cloud class so we can change sprites in subclesses
 
     protected bool isSettling; // Whether the cloud is settling downwards after bobbing 
+    protected bool hasScored; // Whether game has scored for this cloud
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
