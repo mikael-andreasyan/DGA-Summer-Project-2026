@@ -21,7 +21,8 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 target = new Vector3(
             player.position.x,
-            highestY
+            highestY,
+            -10f
         );
 
         transform.position = Vector3.Lerp(
