@@ -394,17 +394,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 63693507264350217, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2891556040024829139, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
       propertyPath: m_Name
       value: Raincloud
       objectReference: {fileID: 0}
     - target: {fileID: 7425748155176544147, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.2325
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425748155176544147, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.264
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425748155176544147, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.94
+      value: 3.5562
       objectReference: {fileID: 0}
     - target: {fileID: 7425748155176544147, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.56021214
+      value: -0.5742
       objectReference: {fileID: 0}
     - target: {fileID: 7425748155176544147, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -437,6 +449,26 @@ PrefabInstance:
     - target: {fileID: 7425748155176544147, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007312313328241214, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
+      propertyPath: downSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007312313328241214, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
+      propertyPath: rainDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007312313328241214, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
+      propertyPath: maxDistanceUp
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007312313328241214, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
+      propertyPath: vaporDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007312313328241214, guid: 46be85471531f7e439b5c18fa3a4d1b2, type: 3}
+      propertyPath: maxDistanceDown
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
