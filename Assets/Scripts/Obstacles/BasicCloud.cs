@@ -57,8 +57,8 @@ public class BasicCloud : MonoBehaviour
             rb.linearVelocityY = downSpeed * -1; // Start moving down if player is on top of it
             if (!hasScored)
             {
-                // GameManager.Instance.RegisterCloudBounce();
-                // hasScored = true;
+                 GameManager.Instance.RegisterCloudBounce();
+                 hasScored = true;
             }
         }
     }
