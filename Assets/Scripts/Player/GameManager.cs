@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        TickComboTimer();
+        // CheckOutOfBounds();
     }
 
     //Called by cloud when player bounces updates points
@@ -71,7 +73,16 @@ public class GameManager : MonoBehaviour
     // Tick down the combo timer
     private void TickComboTimer()
     {
+        if (Combo == 0)
+        {
+            return;
+        }
 
+        comboTimer -= Time.deltaTime;
+        if (comboTimer <= 0)
+        {
+            Combo = 0;
+        }
     }
 
     // check player tranform to see if outside camera bounds
