@@ -77,4 +77,9 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // Returns player reference
+    public Transform GetPlayer() {
+        return player;
+    }
+
 }
