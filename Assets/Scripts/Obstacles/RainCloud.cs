@@ -91,7 +91,7 @@ public class RainCloud : BasicCloud
     {
         if (state == RainCloudStates.Vapor)
         {
-            ReturnToPos();
+            //ReturnToPos();
             return;
         }
         base.FixedUpdate();
@@ -120,6 +120,7 @@ public class RainCloud : BasicCloud
         // Vapor -> Idle
         state = RainCloudStates.Idle;
         timer = 0f;
+        offTimer = 0f;
         sr.sprite = idleCloudSprite; 
 
         if (col != null) // Back to enabled collision
@@ -129,15 +130,22 @@ public class RainCloud : BasicCloud
     }
 
 
-    private void ReturnToPos()
-    {
-        if (rb.position.y >= startY)
-        {
-            rb.linearVelocityY = speed * -1; // Start moving down once cloud has reached certain height
-        }
-        else if (rb.position.y <= startY)
-        {
-            rb.linearVelocityY = 0; // Stop moving down if cloud is too low
-        }
-    }
+    //private void ReturnToPos()
+    //{
+    //    float test = rb.position.y - startY;
+    //    if (rb.position.y >= startY)
+    //    {
+    //        rb.linearVelocityY = settleSpeed * -1f; // Start moving down once cloud has reached certain height
+    //    }
+    //    else if (rb.position.y < startY)
+    //    {
+    //        rb.linearVelocityY = settleSpeed; // Stop moving down if cloud is too low
+    //    }
+    //    else
+    //    {
+    //        rb.linearVelocityY = 0f;
+    //    }
+
+    //}
 }
+

@@ -11,8 +11,10 @@ public class BasicCloud : MonoBehaviour
     [SerializeField] protected float boostThreshold = 2f; // Where the player can get a boost off the cloud
     protected bool isCollidingPlayer;
 
-    protected Rigidbody2D playerRB;
     protected Rigidbody2D rb;
+    protected Collider2D col;
+    protected SpriteRenderer sr;
+    protected Rigidbody2D playerRB;
     protected float startY; // Cloud's starting y position
 
     protected bool hasScored; // Whether the GameManager has already scored points for landing on this cloud
