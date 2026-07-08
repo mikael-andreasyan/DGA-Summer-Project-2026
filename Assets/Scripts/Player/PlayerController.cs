@@ -12,11 +12,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airFriction = 30f;
 
     [Header("Jump")]
-    [SerializeField] private float jumpVelocity = 4f;         // the velocity that the player's y receives
+    [SerializeField] public float jumpVelocity = 4f;      // the velocity that the player's y receives
 
     [Header("Quality of Life")]
-    [SerializeField] private float coyoteTime = 0.1f;        // grace period to jump after leaving a ledge
-    [SerializeField] private float jumpBufferTime = 0.1f;    // grace period if jump pressed before landing
+    [SerializeField] public float coyoteTime = 0.1f;        // grace period to jump after leaving a ledge
+    [SerializeField] public float jumpBufferTime = 0.1f;    // grace period if jump pressed before landing
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
@@ -29,10 +29,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 velocity;
 
-    private float coyoteTimer;
-    private float jumpBufferTimer;
+    public float coyoteTimer;
+    public float jumpBufferTimer;
     private bool isJumping;
-    private bool isGrounded;
+    public bool isGrounded;
 
     private void Awake()
     {
@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             jumpBufferTimer = jumpBufferTime;
-            print("Jump button pressed");
         }
         else
         {
@@ -147,4 +146,16 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
     }
+
+// Public API for external sources to trigger a jump directly,
+// bypassing coyote time / jump buffering (e.g. double-jump powerups, bounce pads).
+public void ForceJump(float velocityMultiplier = 1f)
+{
+    Vector2 v = rb.linearVelocity;
+    v.y = jumpVelocity * velocityMultiplier;
+    rb.linearVelocity = v;
+    velocity = v; // keep the cached field in sync so FixedUpdate doesn't fight it
+    isJumping = true;
+}
+
 }
