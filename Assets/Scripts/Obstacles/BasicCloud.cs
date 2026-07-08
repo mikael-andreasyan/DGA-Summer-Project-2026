@@ -3,23 +3,27 @@ using UnityEngine;
 
 public class BasicCloud : MonoBehaviour
 {
-    [SerializeField] private float speed = 2f; // How fast the cloud should bob up & down
-    [SerializeField] private float maxDistance = 3f; // How far the cloud moves up
-    [SerializeField] private float boostThreshold = 2f; // Where the player can get a boost off the cloud
-    private bool isCollidingPlayer;
+    [SerializeField] protected float speed = 2f; // How fast the cloud should bob up & down
+    [SerializeField] protected float maxDistance = 3f; // How far the cloud moves up
+    [SerializeField] protected float boostThreshold = 2f; // Where the player can get a boost off the cloud
+    protected bool isCollidingPlayer;
 
-    private Rigidbody2D playerRB;
-    private Rigidbody2D rb;
-    private float startY; // Cloud's starting y position
+    protected Rigidbody2D playerRB;
+    protected Rigidbody2D rb;
+    protected float startY; // Cloud's starting y position
+    protected Collider2D col; // Added to parent Cloud class so we can alter collision in rain/storm cloud
+    protected SpriteRenderer sr; // Added to parent Cloud class so we can change sprites in subclesses
 
-    private bool hasScored; // Whether the GameManager has already scored points for landing on this cloud
+    protected bool hasScored; // Whether the GameManager has already scored points for landing on this cloud
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
-      rb = GetComponent<Rigidbody2D>();
-      startY = rb.position.y;
-      hasScored = false;
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
+        startY = rb.position.y;
+        hasScored = false;
     }
 
     // Update is called once per frame
@@ -28,7 +32,7 @@ public class BasicCloud : MonoBehaviour
         
     // }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (rb.position.y >= startY + maxDistance)
         {
@@ -51,7 +55,7 @@ public class BasicCloud : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other) {
+    protected virtual void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Player"))
         {
             isCollidingPlayer = true;
@@ -61,7 +65,7 @@ public class BasicCloud : MonoBehaviour
             }
         }
     }
-    void OnCollisionExit2D(Collision2D other)
+    protected virtual void OnCollisionExit2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
