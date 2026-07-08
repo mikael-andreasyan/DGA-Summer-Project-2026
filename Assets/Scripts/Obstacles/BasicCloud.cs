@@ -11,30 +11,30 @@ public class BasicCloud : MonoBehaviour
     [SerializeField] protected float boostThreshold = 2f; // Where the player can get a boost off the cloud
     protected bool isCollidingPlayer;
 
-    protected Rigidbody2D playerRB;
     protected Rigidbody2D rb;
+    protected Rigidbody2D playerRB;
     protected float startY; // Cloud's starting y position
+    protected Collider2D col; // Added to parent Cloud class so we can alter collision in rain/storm cloud
+    protected SpriteRenderer sr; // Added to parent Cloud class so we can change sprites in subclesses
 
     protected bool hasScored; // Whether the GameManager has already scored points for landing on this cloud
 
     protected bool isSettling; // Whether the cloud is settling downwards after bobbing 
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
-      rb = GetComponent<Rigidbody2D>();
-      startY = rb.position.y;
-      hasScored = false;
-      isSettling = false;
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
+        startY = rb.position.y;
+        hasScored = false;
+        isSettling = false;
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (isSettling && rb.position.y <= startY)
         {
@@ -63,7 +63,7 @@ public class BasicCloud : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other) {
+    protected virtual void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Player"))
         {
             isCollidingPlayer = true;
@@ -73,7 +73,7 @@ public class BasicCloud : MonoBehaviour
             }
         }
     }
-    void OnCollisionExit2D(Collision2D other)
+    protected virtual void OnCollisionExit2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
