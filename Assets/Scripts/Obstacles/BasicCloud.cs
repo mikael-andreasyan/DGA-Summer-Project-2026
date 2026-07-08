@@ -12,8 +12,6 @@ public class BasicCloud : MonoBehaviour
     protected bool isCollidingPlayer;
 
     protected Rigidbody2D rb;
-    protected Collider2D col;
-    protected SpriteRenderer sr;
     protected Rigidbody2D playerRB;
     protected float startY; // Cloud's starting y position
     protected Collider2D col; // Added to parent Cloud class so we can alter collision in rain/storm cloud
@@ -29,12 +27,10 @@ public class BasicCloud : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
         startY = rb.position.y;
-
-
-      hasScored = false;
-      isSettling = false;
->>>>>>>>> Temporary merge branch 2
+        hasScored = false;
+        isSettling = false;
     }
 
 
