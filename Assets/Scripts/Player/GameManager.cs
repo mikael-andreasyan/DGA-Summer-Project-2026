@@ -20,6 +20,17 @@ public class GameManager : MonoBehaviour
     private float comboTimer;
     private bool isAlive = true;
 
+    public int Score
+    {
+        get;
+        private set;
+    }
+    public int Combo
+    {
+        get;
+        private set;
+    }
+
     private void Awake()
     {
         // making sure no multiple instances
@@ -47,16 +58,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // called by player when getting pointS
-    private void UpdateScore()
+    //Called by cloud when player bounces updates points
+    public void RegisterCloudBounce()
     {
+        Combo++;
+        comboTimer = comboTime;
 
-    }
-
-    //Called by cloud when player bounces
-    private void RegisterCloudBounce()
-    {
-
+        Score += pointsPerCloud * Combo;
     }
 
 
