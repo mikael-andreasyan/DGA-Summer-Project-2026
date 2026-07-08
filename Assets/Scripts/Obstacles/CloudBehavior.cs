@@ -12,19 +12,19 @@ public class CloudBehavior : MonoBehaviour
     public float cloudMoveSpeed = 1f;
     public float cloudMoveDistance = 1f;
 
-    private SpriteRenderer sr;
-    private Collider2D col;
-    private Rigidbody2D rb;
-    private Vector3 startPosition;
+    protected SpriteRenderer sr;
+    protected Collider2D col;
+    protected Rigidbody2D rb;
+    protected Vector3 startPosition;
 
-    private float timer;
-    private float driftClock = 0f;
+    protected float timer;
+    protected float driftClock = 0f;
 
     //for player
-    private bool isJumpAvailable;
-    private bool isPlayerOn;
+    protected bool isJumpAvailable;
+    protected bool isPlayerOn;
 
-    private void Awake()
+    protected void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
@@ -35,7 +35,7 @@ public class CloudBehavior : MonoBehaviour
     }
 
 
-    void Start()
+    protected virtual void Start()
     {
         isJumpAvailable = true;
         col.enabled = true;
@@ -45,7 +45,7 @@ public class CloudBehavior : MonoBehaviour
     }
 
 
-    void Update()
+    protected virtual void Update()
     {
         timer -= Time.deltaTime;
         if (timer <= 0)
@@ -59,7 +59,7 @@ public class CloudBehavior : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         Drift();
     }
@@ -68,7 +68,7 @@ public class CloudBehavior : MonoBehaviour
      * Drift() controls the movement of the cloud using a sine function.
      * It moves the cloud platform up and down in a cyclical manner. 
      * */
-    private void Drift()
+    protected virtual void Drift()
     {
         if (!isPlayerOn)
         {
@@ -91,7 +91,7 @@ public class CloudBehavior : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -100,7 +100,7 @@ public class CloudBehavior : MonoBehaviour
     }
 
 
-    private void OnCollisionExit2D(Collision2D collision)
+    protected void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -109,7 +109,7 @@ public class CloudBehavior : MonoBehaviour
     }
 
 
-    private void playerOnCloud()
+    protected virtual void playerOnCloud()
     {
         if (!isPlayerOn)
         {
@@ -119,13 +119,13 @@ public class CloudBehavior : MonoBehaviour
     }
 
 
-    private void playerOffCloud()
+    protected virtual void playerOffCloud()
     {
         isPlayerOn = false; 
     }
 
 
-    private void easeDown()
+    protected virtual void easeDown()
     {
         if ((Vector3)rb.position == startPosition)
             return;
