@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5651574313165561686}
   - component: {fileID: 7042113327840556033}
   - component: {fileID: 8128619192738486134}
+  - component: {fileID: 6382466959112618006}
   - component: {fileID: 7788954654332788305}
   m_Layer: 0
   m_Name: Cloud
@@ -160,6 +161,33 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!50 &6382466959112618006
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6344514261124166572}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &7788954654332788305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,3 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc23244d10a33344b3ba31d8635b503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicCloud
+  speed: 1
+  maxDistance: 1.5
+  boostThreshold: 1
