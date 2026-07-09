@@ -20,6 +20,17 @@ public class GameManager : MonoBehaviour
     private float comboTimer;
     private bool isAlive = true;
 
+    public int Score
+    {
+        get;
+        private set;
+    }
+    public int Combo
+    {
+        get;
+        private set;
+    }
+
     private void Awake()
     {
         // making sure no multiple instances
@@ -45,25 +56,33 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        TickComboTimer();
+        // CheckOutOfBounds();
     }
 
-    // called by player when getting pointS
-    private void UpdateScore()
+    //Called by cloud when player bounces updates points
+    public void RegisterCloudBounce()
     {
+        Combo++;
+        comboTimer = comboTime;
 
-    }
-
-    //Called by cloud when player bounces
-    private void RegisterCloudBounce()
-    {
-
+        Score += pointsPerCloud * Combo;
     }
 
 
     // Tick down the combo timer
     private void TickComboTimer()
     {
+        if (Combo == 0)
+        {
+            return;
+        }
 
+        comboTimer -= Time.deltaTime;
+        if (comboTimer <= 0)
+        {
+            Combo = 0;
+        }
     }
 
     // check player tranform to see if outside camera bounds
@@ -75,6 +94,11 @@ public class GameManager : MonoBehaviour
     private void PlayerDeath()
     {
 
+    }
+
+    // Returns player reference
+    public Transform GetPlayer() {
+        return player;
     }
 
 }
