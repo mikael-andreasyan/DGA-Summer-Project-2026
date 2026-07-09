@@ -154,3 +154,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Wings
   boostDistance: 50
   boostSpeed: 20
+  wingsMovementSpeed: 20
