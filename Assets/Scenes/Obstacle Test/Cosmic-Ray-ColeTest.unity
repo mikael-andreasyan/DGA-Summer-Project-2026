@@ -290,56 +290,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ea9504a45ccef4c9f17d45778bcce2, type: 3}
---- !u!1 &568890657
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 568890659}
-  - component: {fileID: 568890658}
-  m_Layer: 0
-  m_Name: RaySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &568890658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568890657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99869a86fb3458448dc0599865b5208, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  cosmicRayPrefab: {fileID: 4038817631084059660, guid: 39d807ed777c6e148babe30b54fcb94a, type: 3}
-  player: {fileID: 856354159}
-  minTimer: 5
-  maxTimer: 8
-  maxPlayerDist: 3
-  minPlayerDist: 1
---- !u!4 &568890659
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568890657}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &581734442
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,12 +774,73 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39d807ed777c6e148babe30b54fcb94a, type: 3}
+--- !u!1001 &8618768043044424943
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 249791965911890602, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 856354159}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3300171330777090525, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: m_Name
+      value: RaySpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c3a195842dfe864892261540c231952, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 581734445}
-  - {fileID: 568890659}
+  - {fileID: 8618768043044424943}
   - {fileID: 220183353}
   - {fileID: 1550171123}
   - {fileID: 1016690344}

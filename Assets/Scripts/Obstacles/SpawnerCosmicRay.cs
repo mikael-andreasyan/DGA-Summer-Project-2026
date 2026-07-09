@@ -8,7 +8,7 @@ public class SpawnerCosmicRay : MonoBehaviour
     public Transform player;
 
     public float minTimer = 5f;
-    public float maxTimer = 10;
+    public float maxTimer = 10f;
 
     public float maxPlayerDist = 5f;
     public float minPlayerDist = 1f;
