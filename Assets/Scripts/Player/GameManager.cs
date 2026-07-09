@@ -119,4 +119,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    // Returns player reference
+    public Transform GetPlayer() {
+        return player;
+    }
+
 }
