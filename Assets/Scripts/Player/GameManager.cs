@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         }
 
         Vector3 viewPos = cam.WorldToViewportPoint(player.position);
-        if (viewPos.y < -2f)
+        if (viewPos.y < -0.1f)
         {
             PlayerDeath();
         }
@@ -120,7 +120,8 @@ public class GameManager : MonoBehaviour
     }
 
     // Returns player reference
-    public Transform GetPlayer() {
+    public Transform GetPlayer()
+    {
         return player;
     }
 
