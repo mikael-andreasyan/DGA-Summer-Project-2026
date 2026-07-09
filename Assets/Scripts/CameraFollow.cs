@@ -20,7 +20,7 @@ public class CameraFollow : MonoBehaviour
         highestY = Mathf.Max(highestY, player.position.y);
 
         Vector3 target = new Vector3(
-            player.position.x,
+            transform.position.x,
             highestY,
             -10f
         );
