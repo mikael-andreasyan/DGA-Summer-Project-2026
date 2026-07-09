@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     [Header("Death")]
     [SerializeField] private Transform player;
     [SerializeField] private Camera cam;
+
+    [Header("UI")]
+    [SerializeField] private GameObject gameOverPanel;
 
     private float comboTimer;
     private bool isAlive = true;
@@ -50,14 +54,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // do some death stuff
         if (!isAlive)
         {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RestartLevel();
+            }
             return;
         }
 
         TickComboTimer();
-        // CheckOutOfBounds();
+        CheckOutOfBounds();
     }
 
     //Called by cloud when player bounces updates points
@@ -88,12 +95,28 @@ public class GameManager : MonoBehaviour
     // check player tranform to see if outside camera bounds
     private void CheckOutOfBounds()
     {
+        if (player == null)
+        {
+            return;
+        }
 
+        Vector3 viewPos = cam.WorldToViewportPoint(player.position);
+        if (viewPos.y < -2f)
+        {
+            PlayerDeath();
+        }
     }
 
     private void PlayerDeath()
     {
+        isAlive = false;
+        gameOverPanel.SetActive(true);
+    }
 
+    // Made a function just in case anything else is needed to restart the level in the future
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }
