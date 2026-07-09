@@ -20,7 +20,9 @@ public class ComboComb : MonoBehaviour
     IEnumerator enableComboPreservation()
     {
         isComboPreserved = true;
+        print("Combo preserved for " + comboPreserveTime + " seconds.");
         yield return new WaitForSeconds(comboPreserveTime);
+        print("Combo preservation time is over.");
         isComboPreserved = false;
         Destroy(gameObject); // Destroy the combo comb after the combo preservation time is over
     }
