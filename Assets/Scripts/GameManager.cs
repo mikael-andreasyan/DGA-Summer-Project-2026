@@ -125,4 +125,10 @@ public class GameManager : MonoBehaviour
         return player;
     }
 
+    // Returns camera reference
+    public Camera GetCamera()
+    {
+        return cam;
+    }
+
 }
