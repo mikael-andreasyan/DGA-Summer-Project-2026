@@ -46,5 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   pointsPerCloud: 100
   comboTime: 2
-  player: {fileID: 0}
-  cam: {fileID: 0}
+  player: {fileID: 3059071132818059648, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
+  cam: {fileID: 4412529803897734136, guid: 94607622e8afd4f1daad894bb8db089a, type: 3}
+  gameOverPanel: {fileID: 8420238295536252399, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
