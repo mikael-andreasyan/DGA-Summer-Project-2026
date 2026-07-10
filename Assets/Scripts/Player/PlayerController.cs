@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 velocity;
+    private Rigidbody2D cloudRB;
 
     public float coyoteTimer;
     public float jumpBufferTimer;
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
         UpdateTimers();
         HandleJumpStart();
         HandleHorizontalMovement();
+        RideCloud();
 
         rb.linearVelocity = velocity;
 
@@ -77,8 +79,12 @@ public class PlayerController : MonoBehaviour
 
     private bool CheckGrounded()
     {
-        isGrounded = groundCheck != null &&
-            Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
+        Collider2D ground = groundCheck != null
+            ? Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer)
+            : null;
+
+        isGrounded = ground != null;
+        cloudRB = ground != null ? ground.attachedRigidbody : null;
 
         velocity = rb.linearVelocity;
         return isGrounded;
@@ -107,8 +113,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
-
     private void HandleJumpStart()
     {
         // Start a jump if buffered and coyote time is still available
@@ -123,6 +127,11 @@ public class PlayerController : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
+        if (cloudRB != null){
+            velocity.x = 0;
+            return;
+        }
+        
         float inputDir = Input.GetAxisRaw("Horizontal");
 
         float accel = isGrounded ? acceleration : airAcceleration; //a.i told me this is a shorthand notation for if statements, so if isGrounded is true, accel = acceleration, otherwise accel = airAcceleration
@@ -137,6 +146,13 @@ public class PlayerController : MonoBehaviour
         {
             // No input: decelerate back to 0 using friction
             velocity.x = Mathf.MoveTowards(velocity.x, 0f, fric * Time.fixedDeltaTime);
+        }
+    }
+    
+    // Moves w/ platform if not mid jump
+    private void RideCloud(){
+        if (cloudRB != null && !isJumping){
+            velocity.y = cloudRB.linearVelocity.y;
         }
     }
 
