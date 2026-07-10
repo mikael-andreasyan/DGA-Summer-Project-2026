@@ -123,6 +123,11 @@ public class GameManager : MonoBehaviour
         return player;
     }
 
+    // Returns camera reference
+    public Camera GetCamera()
+    {
+        return cam;
+    }
     public void PreserveCombo()
     {
         if (Combo > 0)
