@@ -10,9 +10,16 @@ public class GameManager : MonoBehaviour
         private set;
     }
 
+    public enum GameState {PreStart, Playing, Paused, GameOver }
+    public GameState CurrentState { get; private set; } = GameState.PreStart;
+
     [Header("Scoring")]
     [SerializeField] private int pointsPerCloud = 100; // whatever we want
     [SerializeField] private float comboTime = 2f; // whatever we want
+
+    [Header("Bounds")]
+    [Tooltip("The width of the boundaries that the player will be confined to.")]
+    [SerializeField] public float boundaryWidth = 30f;
 
     [Header("Death")]
     [SerializeField] private Transform player;
@@ -37,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        CurrentState = GameState.PreStart;
         // making sure no multiple instances
         if (Instance != null && Instance != this)
         {
@@ -54,6 +62,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(CurrentState == GameState.PreStart && Input.GetButtonDown("Jump"))
+            CurrentState = GameState.Playing;
+
+
+
         if (!isAlive)
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -64,7 +77,6 @@ public class GameManager : MonoBehaviour
         }
 
         TickComboTimer();
-        CheckOutOfBounds();
     }
 
     //Called by cloud when player bounces updates points
@@ -92,20 +104,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // check player tranform to see if outside camera bounds
-    private void CheckOutOfBounds()
-    {
-        if (player == null)
-        {
-            return;
-        }
-
-        Vector3 viewPos = cam.WorldToViewportPoint(player.position);
-        if (viewPos.y < -0.1f)
-        {
-            PlayerDeath();
-        }
-    }
 
     public void PlayerDeath()
     {
