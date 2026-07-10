@@ -3,151 +3,109 @@ using UnityEngine;
 
 public class ChunkManager : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private GameObject chunkPrefab;
-    [SerializeField] private Camera cam;
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private GameObject[] chunkPrefabs;
 
-    [Header("Chunk Loading")]
     [SerializeField] private int chunksAhead = 5;
 
-    private readonly List<GameObject> activeChunks = new();
+    private readonly List<GameObject> loadedChunks = new();
 
-    private float chunkHeight;
-    private int highestChunkIndex;
+    private GameObject highestChunk;
 
     private void Start()
     {
-        if (cam == null)
+        SpawnFirstChunk();
+
+        while (GetChunksAbovePlayer() < chunksAhead)
         {
-            cam = Camera.main;
+            SpawnNextChunk();
         }
-
-        if (player == null && GameManager.Instance != null)
-        {
-            player = GameManager.Instance.GetPlayer();
-        }
-
-        DetermineChunkSize();
-
-        // Spawn initial chunks
-        for (int i = 0; i <= chunksAhead; i++)
-        {
-            SpawnChunk(i);
-        }
-
-        highestChunkIndex = chunksAhead;
     }
 
     private void Update()
     {
-        if (player == null)
+        while (GetChunksAbovePlayer() < chunksAhead)
         {
+            SpawnNextChunk();
+        }
+
+        UnloadChunks();
+    }
+
+    private void SpawnFirstChunk()
+    {
+        GameObject chunk = Instantiate(
+            chunkPrefabs[Random.Range(0, chunkPrefabs.Length)]
+        );
+
+        loadedChunks.Add(chunk);
+        highestChunk = chunk;
+    }
+
+    private void SpawnNextChunk()
+    {
+        Transform previousTop =
+            highestChunk.transform.Find("Top");
+
+        GameObject chunk = Instantiate(
+            chunkPrefabs[Random.Range(0, chunkPrefabs.Length)]
+        );
+
+        Transform newBottom =
+            chunk.transform.Find("Bottom");
+
+        if (previousTop == null || newBottom == null)
+        {
+            Debug.LogError("Chunk missing Top or Bottom marker.");
+            Destroy(chunk);
             return;
         }
 
-        LoadAhead();
-        UnloadBehind();
+        chunk.transform.position +=
+            previousTop.position - newBottom.position;
+
+        loadedChunks.Add(chunk);
+        highestChunk = chunk;
     }
 
-    private void DetermineChunkSize()
+    private int GetChunksAbovePlayer()
     {
-        GameObject tempChunk = Instantiate(chunkPrefab);
+        int count = 0;
 
-        Bounds bounds = GetChunkBounds(tempChunk);
-        chunkHeight = bounds.size.y;
-
-        Destroy(tempChunk);
-
-        if (chunkHeight <= 0)
+        foreach (GameObject chunk in loadedChunks)
         {
-            Debug.LogError("Chunk height could not be determined.");
-        }
-    }
+            Transform bottom = chunk.transform.Find("Bottom");
 
-    private void LoadAhead()
-    {
-        float playerY = player.position.y;
-
-        while ((highestChunkIndex * chunkHeight) < playerY + (chunksAhead * chunkHeight))
-        {
-            highestChunkIndex++;
-            SpawnChunk(highestChunkIndex);
-        }
-    }
-
-    private void UnloadBehind()
-    {
-        float cameraBottom =
-            cam.transform.position.y -
-            cam.orthographicSize;
-
-        for (int i = activeChunks.Count - 1; i >= 0; i--)
-        {
-            GameObject chunk = activeChunks[i];
-
-            if (chunk == null)
+            if (bottom != null &&
+                bottom.position.y > cameraTransform.position.y)
             {
-                activeChunks.RemoveAt(i);
-                continue;
+                count++;
             }
+        }
 
-            Bounds bounds = GetChunkBounds(chunk);
+        return count;
+    }
 
-            // Entire chunk below camera
-            if (bounds.max.y < cameraBottom)
+    private void UnloadChunks()
+    {
+        float unloadY =
+            cameraTransform.position.y -
+            Camera.main.orthographicSize * 4f;
+
+        for (int i = loadedChunks.Count - 1; i >= 0; i--)
+        {
+            GameObject chunk = loadedChunks[i];
+
+            if (chunk == highestChunk)
+                continue;
+
+            Transform top = chunk.transform.Find("Top");
+
+            if (top != null && top.position.y < unloadY)
             {
-                activeChunks.RemoveAt(i);
+                loadedChunks.RemoveAt(i);
                 Destroy(chunk);
             }
         }
-    }
-
-    private void SpawnChunk(int index)
-    {
-        Vector3 position = new Vector3(
-            0f,
-            index * chunkHeight,
-            0f);
-
-        GameObject chunk = Instantiate(
-            chunkPrefab,
-            position,
-            Quaternion.identity);
-
-        activeChunks.Add(chunk);
-    }
-
-    private Bounds GetChunkBounds(GameObject chunk)
-    {
-        Renderer[] renderers = chunk.GetComponentsInChildren<Renderer>();
-
-        if (renderers.Length > 0)
-        {
-            Bounds bounds = renderers[0].bounds;
-
-            for (int i = 1; i < renderers.Length; i++)
-            {
-                bounds.Encapsulate(renderers[i].bounds);
-            }
-
-            return bounds;
-        }
-
-        Collider2D collider2D = chunk.GetComponentInChildren<Collider2D>();
-
-        if (collider2D != null)
-        {
-            return collider2D.bounds;
-        }
-
-        Collider collider3D = chunk.GetComponentInChildren<Collider>();
-
-        if (collider3D != null)
-        {
-            return collider3D.bounds;
-        }
-
-        return new Bounds(chunk.transform.position, Vector3.one);
     }
 }
