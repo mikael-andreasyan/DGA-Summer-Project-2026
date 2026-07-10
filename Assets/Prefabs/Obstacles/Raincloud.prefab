@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2936332787209690985}
   - component: {fileID: 8007312313328241214}
   m_Layer: 6
-  m_Name: RainCloud
+  m_Name: Raincloud
   m_TagString: Cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.39220366, g: 0.4339623, b: 0.39718023, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -200,11 +200,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376a09806dffd72409829dad14dd5f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  speed: 1
-  maxDistance: 1.5
+  downSpeed: 5
+  upSpeed: 3
+  settleSpeed: 2
+  maxDistanceDown: 3
+  maxDistanceUp: 3
   boostThreshold: 1
+  leftBoost: {fileID: 0}
+  middleBoost: {fileID: 0}
+  rightBoost: {fileID: 0}
+  weakpointLifetime: 1
   idleCloudSprite: {fileID: 0}
   rainingCloudSprite: {fileID: 7482667652216324306, guid: 0f7c30347cc03412ca20934790dd748d, type: 3}
   fadedVaporSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   rainDuration: 5
   vaporDuration: 3
+  resetTimer: 3

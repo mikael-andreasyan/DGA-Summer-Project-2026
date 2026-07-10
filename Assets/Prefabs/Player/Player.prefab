@@ -186,7 +186,7 @@ MonoBehaviour:
   friction: 70
   airAcceleration: 40
   airFriction: 30
-  jumpVelocity: 8
+  jumpVelocity: 11
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   groundCheck: {fileID: 7010329476067719845}
