@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void PlayerDeath()
+    public void PlayerDeath()
     {
         isAlive = false;
         gameOverPanel.SetActive(true);

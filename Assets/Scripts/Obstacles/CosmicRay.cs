@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CosmicRay : MonoBehaviour
@@ -191,7 +192,10 @@ public class CosmicRay : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"CosmicRay hit: {other.name}. Placeholder until activate player death");
+        if (other.CompareTag("Player") && GameManager.Instance != null)
+        {
+            GameManager.Instance.PlayerDeath();
+        }
     }
 
 }
