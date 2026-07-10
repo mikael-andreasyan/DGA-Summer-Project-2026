@@ -72,8 +72,8 @@ public class GameManager : MonoBehaviour
     {
         Combo++;
         comboTimer = comboTime;
-
         Score += pointsPerCloud * Combo;
+        print("Combo: " + Combo + " Score: " + Score);
     }
 
 
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void PlayerDeath()
+    public void PlayerDeath()
     {
         isAlive = false;
         gameOverPanel.SetActive(true);
@@ -123,6 +123,14 @@ public class GameManager : MonoBehaviour
     public Transform GetPlayer()
     {
         return player;
+    }
+
+    public void PreserveCombo()
+    {
+        if (Combo > 0)
+        {
+            comboTimer += Time.deltaTime;
+        }
     }
 
 }
