@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int pointsPerCloud = 100; // whatever we want
     [SerializeField] private float comboTime = 2f; // whatever we want
 
+    [Header("Bounds")]
+    [Tooltip("The width of the boundaries that the player will be confined to.")]
+    [SerializeField] private float boundaryWidth = 30f;
+
     [Header("Death")]
     [SerializeField] private Transform player;
     [SerializeField] private Camera cam;
@@ -92,20 +96,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // check player tranform to see if outside camera bounds
-    private void CheckOutOfBounds()
-    {
-        if (player == null)
-        {
-            return;
-        }
-
-        Vector3 viewPos = cam.WorldToViewportPoint(player.position);
-        if (viewPos.y < -0.1f)
-        {
-            PlayerDeath();
-        }
-    }
 
     private void PlayerDeath()
     {
