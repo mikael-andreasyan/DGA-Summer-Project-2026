@@ -11,9 +11,9 @@ public class ScoreUI : MonoBehaviour
     void Update()
     {
         int score = GameManager.Instance.Score;
-        scoreText.text = $"Score: {score}";
+        scoreText.text = $"{score}";
 
         int combo = GameManager.Instance.Combo;
-        comboText.text = $"Combo: {combo}";
+        comboText.text = $"{combo}";
     }
 }
