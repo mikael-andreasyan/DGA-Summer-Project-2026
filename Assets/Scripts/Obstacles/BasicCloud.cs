@@ -46,7 +46,7 @@ public class BasicCloud : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         sr = GetComponent<SpriteRenderer>();
-        startY = rb.position.y;
+        startY = transform.position.y;
         hasScored = false;
         isSettling = false;
         landingTime = -1;
