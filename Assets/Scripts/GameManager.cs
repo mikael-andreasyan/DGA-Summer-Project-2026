@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
         private set;
     }
 
-    public enum GameState {PreStart, Playing, Paused, GameOver }
+    public enum GameState { PreStart, Playing, Paused, GameOver }
     public GameState CurrentState { get; private set; } = GameState.PreStart;
 
     [Header("Scoring")]
@@ -62,10 +62,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(CurrentState == GameState.PreStart && Input.GetButtonDown("Jump"))
+        if (CurrentState == GameState.PreStart && Input.GetButtonDown("Jump"))
             CurrentState = GameState.Playing;
-
-
 
         if (!isAlive)
         {
@@ -77,6 +75,12 @@ public class GameManager : MonoBehaviour
         }
 
         TickComboTimer();
+        CheckOutOfBounds();
+
+        if (CurrentState == GameState.Playing)
+        {
+            CheckOutOfBounds();
+        }
     }
 
     //Called by cloud when player bounces updates points
@@ -104,10 +108,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void CheckOutOfBounds()
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        Vector3 viewPos = cam.WorldToViewportPoint(player.position);
+        if (viewPos.y < -1f)
+        {
+            PlayerDeath();
+        }
+    }
+
 
     public void PlayerDeath()
     {
         isAlive = false;
+        CurrentState = GameState.GameOver;
         gameOverPanel.SetActive(true);
     }
 
