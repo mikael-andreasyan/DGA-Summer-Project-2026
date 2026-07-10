@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         UpdateTimers();
         HandleJumpStart();
         HandleHorizontalMovement();
+        restrictPlayerWithinBounds();
 
         rb.linearVelocity = velocity;
 
@@ -145,6 +146,9 @@ public class PlayerController : MonoBehaviour
         if (groundCheck == null) return;
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(new Vector3(0f, 0f, 0f), new Vector3(GameManager.Instance.boundaryWidth, 1f, 1f));
     }
 
 // Public API for external sources to trigger a jump directly,
@@ -158,4 +162,26 @@ public void ForceJump(float velocityMultiplier = 1f)
     isJumping = true;
 }
 
+private void restrictPlayerWithinBounds()
+{
+    float halfBoundaryWidth = GameManager.Instance.boundaryWidth / 2f;
+    Vector3 position = transform.position;
+
+    if (position.x < -halfBoundaryWidth)
+    {
+        position.x = -halfBoundaryWidth;
+        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        transform.position = position;
+    }
+    else if (position.x > halfBoundaryWidth)
+    {
+        position.x = halfBoundaryWidth;
+        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+    }
+
+    transform.position = position;
+
+}
+
+    
 }

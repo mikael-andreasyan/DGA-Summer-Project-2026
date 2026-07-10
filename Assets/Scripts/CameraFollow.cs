@@ -10,11 +10,19 @@ public class CameraFollow : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+       transform.position = new Vector3(0,0, -10);
+
        player = GameManager.Instance.GetPlayer();
        highestY = player.position.y;
     }
 
     void LateUpdate()
+    {
+        if(GameManager.Instance.CurrentState == GameManager.GameState.Playing)
+            cameraMove();
+    }
+
+    private void cameraMove()
     {
         highestY += scrollSpeed * Time.deltaTime;
         highestY = Mathf.Max(highestY, player.position.y);
