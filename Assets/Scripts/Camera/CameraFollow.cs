@@ -5,9 +5,15 @@ public class CameraFollow : MonoBehaviour
     private Transform player;
     private float highestY;
     public float smooth = 3f;
-    public float scrollSpeed = 2f;
+    [Header("Camera Speed-Up Effect")]
+    public float scrollSpeed = 1f;
+    public float speedEffect = 0.5f;
+    public float maxSpeed = 10f;
+    public float timeInterval = 3f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool startedMoving = false;
+    private float incTime = 1f;
+
     void Start()
     {
        transform.position = new Vector3(0,0, -10);
@@ -19,11 +25,25 @@ public class CameraFollow : MonoBehaviour
     void LateUpdate()
     {
         if(GameManager.Instance.CurrentState == GameManager.GameState.Playing)
+        {
+            if (!startedMoving)
+            {
+                incTime = Time.time;
+                startedMoving = true;
+            }
             cameraMove();
+        }
     }
 
     private void cameraMove()
     {
+        // If we've capped the time 
+        if (scrollSpeed<maxSpeed && Time.time - incTime >= timeInterval) {
+                scrollSpeed = scrollSpeed + speedEffect;
+                scrollSpeed = Mathf.Max(scrollSpeed, maxSpeed);
+                incTime = Time.time;
+        }
+        Debug.Log(scrollSpeed);
         highestY += scrollSpeed * Time.deltaTime;
         highestY = Mathf.Max(highestY, player.position.y);
 

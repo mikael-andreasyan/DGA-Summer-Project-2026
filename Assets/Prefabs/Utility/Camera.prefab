@@ -153,7 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   smooth: 3
-  scrollSpeed: 2
+  scrollSpeed: 1
+  speedEffect: 0.5
+  maxSpeed: 10
+  timeInterval: 5
 --- !u!1 &5280750505826781269
 GameObject:
   m_ObjectHideFlags: 0
