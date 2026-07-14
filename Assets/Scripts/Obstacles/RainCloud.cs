@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -24,10 +25,18 @@ public class RainCloud : BasicCloud
     [SerializeField] private float vaporDuration = 4f;
     [SerializeField] private float resetTimer = 3f;
 
+    [SerializeField] private float flashWindow = 1f;
+    [SerializeField] private float flashInterval = 0.15f;
+    [SerializeField] private float flashAlpha = 0.3f;
+
     private RainCloudStates state = RainCloudStates.Idle;
     private float timer = 0f; // This will count how long a state has been active 
     private float offTimer = 0f; // This one counts how long the player has been off, in order to reset the rain.
     // **Update: timer has a problem b/c the player bounces off at the top of a jump. Switched to cumulative method.
+    private float flashTimer = 0f;
+    private bool isFlashing = true;
+
+    
 
 
     protected override void Start()
@@ -61,6 +70,15 @@ public class RainCloud : BasicCloud
                 {
                     offTimer = 0f;
                     timer += Time.deltaTime;
+                    float remainingTime = rainDuration - timer;
+                    if (remainingTime <= flashWindow)
+                    {
+                        FlashWarning();
+                    }
+                    else if (!isFlashing)
+                    {
+                        ResetFlash();
+                    }
                     if (timer >= rainDuration)
                     {
                         StartVapor();
@@ -100,6 +118,38 @@ public class RainCloud : BasicCloud
         {
             col.enabled = false;
         } 
+    }
+
+    
+    private void FlashWarning()
+    {
+        flashTimer += Time.deltaTime;
+        if (flashTimer >= flashInterval)
+        {
+            flashTimer = 0f;
+            isFlashing = !isFlashing;
+            SetAlpha(isFlashing ? 1f : flashAlpha);
+        }
+    }
+
+
+    private void SetAlpha(float alpha)
+    {
+        if (sr == null)
+        {
+            return;
+        }
+        Color temp = sr.color;
+        temp.a = alpha;
+        sr.color = temp;
+    }
+
+
+    private void ResetFlash()
+    {
+        flashTimer = 0f;
+        isFlashing = true;
+        SetAlpha(1f);
     }
 
 
