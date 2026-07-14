@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement")]
+       [Header("Movement")]
     [SerializeField] private float maxSpeed = 8f;          // top horizontal speed (units/s)
     [SerializeField] private float acceleration = 60f;      // units/s^2 while holding a direction
     [SerializeField] private float friction = 70f;           // units/s^2 when no input (ground)
@@ -12,33 +12,45 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airFriction = 30f;
 
     [Header("Jump")]
-    [SerializeField] public float jumpVelocity = 4f;      // the velocity that the player's y receives
+    [SerializeField] private float jumpHeight = 3f;          // max height in units
+    [SerializeField] private float jumpTimeToPeak = 0.4f;    // seconds to reach apex if held
+    [SerializeField] private float jumpTimeToDescent = 0.3f; // seconds to fall back down
+    [SerializeField] private float jumpCutMultiplier = 0.5f; // velocity multiplier when jump released early
 
     [Header("Quality of Life")]
-    [SerializeField] public float coyoteTime = 0.1f;        // grace period to jump after leaving a ledge
-    [SerializeField] public float jumpBufferTime = 0.1f;    // grace period if jump pressed before landing
+    [SerializeField] private float coyoteTime = 0.1f;        // grace period to jump after leaving a ledge
+    [SerializeField] private float jumpBufferTime = 0.1f;    // grace period if jump pressed before landing
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.6f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("Gravity")]
-    [SerializeField] private float gravityScale = 1f;
-
     private Rigidbody2D rb;
     private Vector2 velocity;
-    private Rigidbody2D cloudRB;
 
-    public float coyoteTimer;
-    public float jumpBufferTimer;
+    private float jumpVelocity;
+    private float jumpGravity;
+    private float fallGravity;
+
+    private float coyoteTimer;
+    private float jumpBufferTimer;
     private bool isJumping;
     public bool isGrounded;
 
+    private Rigidbody2D cloudRB;
+
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = gravityScale;
+         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f; // gravity is applied manually below
+
+        // Derive jump velocity and the two gravity values (rising vs falling)
+        // from the desired height and timing, so tuning stays intuitive:
+        // just set "how high" and "how long", not raw physics constants.
+        jumpVelocity = (2f * jumpHeight) / jumpTimeToPeak;
+        jumpGravity = (2f * jumpHeight) / (jumpTimeToPeak * jumpTimeToPeak);
+        fallGravity = (2f * jumpHeight) / (jumpTimeToDescent * jumpTimeToDescent);
 
     }
 
@@ -54,9 +66,12 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferTimer = Mathf.Max(jumpBufferTimer - Time.deltaTime, 0f);
         }
- 
+
         if (isJumping && Input.GetButtonUp("Jump") && velocity.y > 0f)
         {
+            // Variable height: releasing early while still rising cuts
+            // upward velocity short, so gravity takes over sooner.
+            velocity.y *= jumpCutMultiplier;
             isJumping = false;
         }
     }
@@ -65,6 +80,7 @@ public class PlayerController : MonoBehaviour
     {   
         CheckGrounded();
         UpdateTimers();
+        ApplyGravity();
         HandleJumpStart();
         HandleHorizontalMovement();
         restrictPlayerWithinBounds();
@@ -78,7 +94,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool CheckGrounded()
+    public bool CheckGrounded()
     {
         Collider2D ground = groundCheck != null
             ? Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer)
@@ -126,6 +142,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void ApplyGravity()
+       {
+          if (velocity.y > 0f)
+         {
+            // Rising: use the "to peak" gravity
+            velocity.y -= jumpGravity * Time.fixedDeltaTime;
+         }
+         else
+        {
+            // Falling: use the steeper "descent" gravity for a snappier feel
+            velocity.y -= fallGravity * Time.fixedDeltaTime;
+        }
+    }
     private void HandleHorizontalMovement()
     {
         if (cloudRB != null){
@@ -145,8 +174,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // No input: decelerate back to 0 using friction
-            velocity.x = Mathf.MoveTowards(velocity.x, 0f, fric * Time.fixedDeltaTime);
+           
+            velocity.x = 0f;
         }
     }
     
@@ -201,3 +230,4 @@ private void restrictPlayerWithinBounds()
 
     
 }
+
