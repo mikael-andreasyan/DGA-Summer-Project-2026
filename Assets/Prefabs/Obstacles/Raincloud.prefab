@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.19, y: 0.57, z: 0}
-  m_LocalScale: {x: 1, y: 0.25, z: 1}
+  m_LocalScale: {x: 2.5, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -200,10 +200,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376a09806dffd72409829dad14dd5f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  downSpeed: 5
-  upSpeed: 3
+  downSpeed: 3
+  upSpeed: 2
   settleSpeed: 2
-  maxDistanceDown: 3
+  maxDistanceDown: 2
   maxDistanceUp: 3
   boostThreshold: 1
   leftBoost: {fileID: 0}
@@ -213,6 +213,6 @@ MonoBehaviour:
   idleCloudSprite: {fileID: 0}
   rainingCloudSprite: {fileID: 7482667652216324306, guid: 0f7c30347cc03412ca20934790dd748d, type: 3}
   fadedVaporSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  rainDuration: 5
-  vaporDuration: 3
+  rainDuration: 2
+  vaporDuration: 2
   resetTimer: 3
