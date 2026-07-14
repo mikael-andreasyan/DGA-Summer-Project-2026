@@ -15,6 +15,6 @@ public class PlayerCombo : MonoBehaviour
     void Update()
     {
         int combo = GameManager.Instance.Combo;
-        comboText.text = $"{combo}";
+        comboText.text = combo > 0 ? $"{combo}" : "";
     }
 }
