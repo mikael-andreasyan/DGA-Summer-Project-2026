@@ -187,6 +187,7 @@ MonoBehaviour:
   airAcceleration: 40
   airFriction: 30
   jumpVelocity: 11
+  boostVelocity: 16
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   groundCheck: {fileID: 7010329476067719845}

@@ -935,6 +935,8 @@ PrefabInstance:
     - target: {fileID: 2385017416331466857, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: airAcceleration
       value: 120
+      propertyPath: boostVelocity
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2385017416331466857, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: groundLayer.m_Bits
