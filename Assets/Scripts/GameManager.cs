@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
         Combo++;
         comboTimer = comboTime;
         Score += pointsPerCloud * Combo;
-        print("Combo: " + Combo + " Score: " + Score);
     }
 
 
@@ -116,7 +115,7 @@ public class GameManager : MonoBehaviour
         }
 
         Vector3 viewPos = cam.WorldToViewportPoint(player.position);
-        if (viewPos.y < -1f)
+        if (viewPos.y < -0.15f)
         {
             PlayerDeath();
         }
@@ -128,11 +127,13 @@ public class GameManager : MonoBehaviour
         isAlive = false;
         CurrentState = GameState.GameOver;
         gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     // Made a function just in case anything else is needed to restart the level in the future
     private void RestartLevel()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
