@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField] public float jumpVelocity = 4f;      // the velocity that the player's y receives
 
+    [SerializeField] public float boostVelocity = 6f;      // boosted jump velocity
+
     [Header("Quality of Life")]
     [SerializeField] public float coyoteTime = 0.1f;        // grace period to jump after leaving a ledge
     [SerializeField] public float jumpBufferTime = 0.1f;    // grace period if jump pressed before landing
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 velocity;
     private Rigidbody2D cloudRB;
+    private BasicCloud cloudScript; // Reference to the cloud script so we can call its public methods
 
     public float coyoteTimer;
     public float jumpBufferTimer;
@@ -86,6 +89,7 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = ground != null;
         cloudRB = ground != null ? ground.attachedRigidbody : null;
+        cloudScript = cloudRB != null ? cloudRB.gameObject.GetComponent<BasicCloud>() : null;
 
         velocity = rb.linearVelocity;
         return isGrounded;
@@ -120,6 +124,11 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
             velocity.y = jumpVelocity;
+            if (cloudScript != null && cloudScript.isBoostAvailable() && cloudScript.isWeakpointAvailable())
+            {
+                velocity.y = boostVelocity;
+                Debug.Log("Successful boost!");
+            }
             isJumping = true;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;
