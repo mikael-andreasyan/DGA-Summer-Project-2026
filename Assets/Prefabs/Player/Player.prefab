@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4436397520889927051
+--- !u!1 &2331828943544241390
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3059071132818059648}
-  - component: {fileID: 7017499178735474424}
-  - component: {fileID: 3055149082417069210}
-  - component: {fileID: 2962802686256809685}
-  - component: {fileID: 2385017416331466857}
+  - component: {fileID: 9007479777730911062}
+  - component: {fileID: 1955765894895395726}
+  - component: {fileID: 6850944672914239934}
+  - component: {fileID: 7872569353549049384}
+  - component: {fileID: 1094958331497342740}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -20,30 +20,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3059071132818059648
+--- !u!4 &9007479777730911062
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4436397520889927051}
+  m_GameObject: {fileID: 2331828943544241390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.16748, y: 0.56, z: 0}
+  m_LocalPosition: {x: 0.01, y: -4.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7010329476067719845}
+  - {fileID: 8193922067093064145}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7017499178735474424
+--- !u!212 &1955765894895395726
 SpriteRenderer:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4436397520889927051}
+  m_GameObject: {fileID: 2331828943544241390}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -96,14 +96,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!50 &3055149082417069210
+--- !u!50 &6850944672914239934
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4436397520889927051}
+  m_GameObject: {fileID: 2331828943544241390}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -111,7 +111,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 6
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -123,13 +123,13 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &2962802686256809685
+--- !u!61 &7872569353549049384
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4436397520889927051}
+  m_GameObject: {fileID: 2331828943544241390}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -169,37 +169,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2385017416331466857
+--- !u!114 &1094958331497342740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4436397520889927051}
+  m_GameObject: {fileID: 2331828943544241390}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c9a0fc15b89be948a15dcfd67c1e431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  maxSpeed: 8
-  acceleration: 60
+  maxSpeed: 12
+  acceleration: 120
   friction: 70
-  airAcceleration: 40
+  airAcceleration: 120
   airFriction: 30
-  jumpVelocity: 11
-  boostVelocity: 16
+  jumpHeight: 5
+  jumpTimeToPeak: 0.4
+  jumpTimeToDescent: 0.3
+  jumpCutMultiplier: 0.5
+  boostVelocity: 40
   coyoteTime: 0.1
   jumpBufferTime: 0.1
-  groundCheck: {fileID: 7010329476067719845}
+  groundCheck: {fileID: 8193922067093064145}
   groundCheckSize: {x: 0.6, y: 0.1}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  gravityScale: 1
-  coyoteTimer: 0
-  jumpBufferTimer: 0
   isGrounded: 0
---- !u!1 &8731642440388604302
+--- !u!1 &8217468456489806786
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7010329476067719845}
+  - component: {fileID: 8193922067093064145}
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -215,18 +215,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7010329476067719845
+--- !u!4 &8193922067093064145
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8731642440388604302}
+  m_GameObject: {fileID: 8217468456489806786}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.15, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3059071132818059648}
+  m_Father: {fileID: 9007479777730911062}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
