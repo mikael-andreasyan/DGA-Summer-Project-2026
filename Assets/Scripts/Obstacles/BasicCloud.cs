@@ -112,7 +112,8 @@ public class BasicCloud : MonoBehaviour
     {
         // If the cloud is moving up, and it's above the boost threshold distance, then
         // the player can get a boost
-        return (rb.linearVelocity.y >= 0 && rb.position.y >= startY + boostThreshold);
+        return (rb.linearVelocity.y > 0); // just check whether cloud is moving up for now
+         // && rb.position.y >= startY + boostThreshold
     }
 
     public bool isWeakpointAvailable() // Whether the player gets a special weakpoint boost
@@ -124,8 +125,8 @@ public class BasicCloud : MonoBehaviour
 
     public bool isActiveWeakpoint(int num) // 0 for left, 1 for middle, 2 for right
     {
-        Debug.Log(num);
-        Debug.Log(chosenWeakpoint);
+        // Debug.Log(num);
+        // Debug.Log(chosenWeakpoint);
         return num == chosenWeakpoint;
     }
 
@@ -135,7 +136,7 @@ public class BasicCloud : MonoBehaviour
         if (child == chosenWeakpoint && !weakpointExpired)
         {
             canWeakpointBoost = true;
-            Debug.Log("Player can weakpoint boost now");
+            // Debug.Log("Player can weakpoint boost now");
         }
     }
 
@@ -145,7 +146,7 @@ public class BasicCloud : MonoBehaviour
         if (child == chosenWeakpoint && !weakpointExpired)
         {
             canWeakpointBoost = false;
-            Debug.Log("Player can no longer weakpoint boost");
+            // Debug.Log("Player can no longer weakpoint boost");
         }
     }
     
@@ -158,6 +159,6 @@ public class BasicCloud : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        Debug.Log("Weakpoint expired");
+        // Debug.Log("Weakpoint expired");
     }
 }
