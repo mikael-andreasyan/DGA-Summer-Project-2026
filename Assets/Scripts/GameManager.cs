@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
         Combo++;
         comboTimer = comboTime;
         Score += pointsPerCloud * Combo;
-        print("Combo: " + Combo + " Score: " + Score);
     }
 
 
