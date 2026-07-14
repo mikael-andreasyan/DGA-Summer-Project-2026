@@ -7,7 +7,6 @@ public class CosmicRay : MonoBehaviour
     public SpriteRenderer warning;
     public SpriteRenderer ray;
 
-    // Trying to make it spawn at the top of the camera:
     public Camera ourCamera;
     public float rayWidth = 1f;
     public float topGap = 0.5f;
@@ -21,8 +20,10 @@ public class CosmicRay : MonoBehaviour
     public float warningBlinkFast = .03f;
 
     private BoxCollider2D killZoneCollider;
-    private float topY, botY, rayHeight, rayCenterY;
-    private float warningTopY; // Same as TempFix, need this for now
+    private float rayHeight;
+
+    private float posWarningY;
+    private float posTopY;
 
     // Currently using the square sprite, but idk what best practice is or sprite size? I added this scaling solution
     // but we can remove it later if it causes any problems or if we can simplify this.
@@ -84,18 +85,28 @@ public class CosmicRay : MonoBehaviour
 
     private void DesignRay()
     {
+        if (ourCamera == null)
+        {
+            return;
+        }
+
+        transform.SetParent(ourCamera.transform, true);
+
         float cameraHalfHeight = ourCamera.orthographicSize;
-        float cameraY = ourCamera.transform.position.y;
 
-        topY = cameraY + cameraHalfHeight + topGap;
-        botY = cameraY - cameraHalfHeight;
-        warningTopY = cameraY + cameraHalfHeight - warningTempFix;
-        rayHeight = topY - botY;
-        rayCenterY = (topY + botY) / 2f;
+        float topOffset = cameraHalfHeight + topGap;
+        float botOffset = -cameraHalfHeight;
+        float warningOffset = cameraHalfHeight - warningTempFix;
 
-        Vector3 pos = transform.position;
-        pos.y = rayCenterY;
-        transform.position = pos;
+        rayHeight = topOffset - botOffset;
+        float centerOffset = (topOffset + botOffset) / 2f;
+
+        Vector3 pos = transform.localPosition;
+        pos.y = centerOffset;
+        transform.localPosition = pos;
+
+        posWarningY = warningOffset - centerOffset;
+        posTopY = topOffset - centerOffset;
 
         killZoneCollider.size = new Vector2(rayWidth, rayHeight);
         killZoneCollider.offset = Vector2.zero;
@@ -107,7 +118,9 @@ public class CosmicRay : MonoBehaviour
         if (warning != null)
         {
             warning.gameObject.SetActive(true);
-            warning.transform.position = new Vector3(transform.position.x, warningTopY, transform.position.z);
+            Vector3 wPos = warning.transform.localPosition;
+            wPos.y = posWarningY;
+            warning.transform.localPosition = wPos;
         }
 
         float timer = 0f;
@@ -135,6 +148,8 @@ public class CosmicRay : MonoBehaviour
             }
             yield return null;
         }
+
+       // set null ? do we want it to vanish?
     }
 
 
@@ -143,8 +158,10 @@ public class CosmicRay : MonoBehaviour
         if (ray != null)
         {
             ray.gameObject.SetActive(true);
-            ray.transform.position = new Vector3(transform.position.x, topY, transform.position.z);
-            ray.transform.localScale = new Vector3(rayWidth, 0f, 1f);
+            Vector3 dPos = ray.transform.localPosition;
+            dPos.y = posTopY;
+            ray.transform.localPosition = dPos;
+            ray.transform.localScale = new Vector3(rayScaleX, 0f, 1f);
         }
 
         float currentDropTime = 0f;
@@ -157,7 +174,9 @@ public class CosmicRay : MonoBehaviour
             {
                 // Scaling solution
                 float currentScaleY = currentHeight / rayNativeHeight;
-                ray.transform.position = new Vector3(transform.position.x, topY - (currentHeight / 2f), transform.position.z);
+                Vector3 dPos = ray.transform.localPosition;
+                dPos.y = posTopY - (currentHeight / 2);
+                ray.transform.localPosition = dPos;
                 ray.transform.localScale = new Vector3(rayScaleX, currentScaleY, 1f);
 
             }
