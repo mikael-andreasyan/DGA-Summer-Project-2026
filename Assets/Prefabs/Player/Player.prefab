@@ -378,16 +378,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9a0fc15b89be948a15dcfd67c1e431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  maxSpeed: 8
-  acceleration: 60
+  maxSpeed: 12
+  acceleration: 120
   friction: 70
-  airAcceleration: 40
+  airAcceleration: 120
   airFriction: 30
-  jumpHeight: 3
+  jumpHeight: 5
   jumpTimeToPeak: 0.4
   jumpTimeToDescent: 0.3
   jumpCutMultiplier: 0.5
-  boostVelocity: 16
+  boostVelocity: 40
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   groundCheck: {fileID: 7010329476067719845}
