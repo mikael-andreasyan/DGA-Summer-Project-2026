@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
     
     // Moves w/ platform if not mid jump
     private void RideCloud(){
-        if (cloudRB != null && !isJumping){
+        if (cloudRB != null && !isJumping && rb.linearVelocityY <= 0){
             velocity.y = cloudRB.linearVelocity.y;
         }
     }
