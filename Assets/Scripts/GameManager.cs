@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public enum GameState { PreStart, Playing, Paused, GameOver }
     public GameState CurrentState { get; private set; } = GameState.PreStart;
 
+    [Header("Main Build Scene Name")]
+    [SerializeField] private string mainSceneName;
+
     [Header("Scoring")]
     [SerializeField] private int pointsPerCloud = 100; // whatever we want
     [SerializeField] private float comboTime = 2f; // whatever we want
@@ -27,6 +30,11 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject gameOverPanel;
+
+    [Header("Start Platform")]
+    [SerializeField] private GameObject startPlatform;
+    [SerializeField] private Vector2 platformOffset;
+
 
     private float comboTimer;
     private bool isAlive = true;
@@ -56,6 +64,17 @@ public class GameManager : MonoBehaviour
         if (cam == null)
         {
             cam = Camera.main;
+        }
+    }
+
+    void Start()
+    {
+        print("check made");
+        print(SceneManager.GetActiveScene().name);
+        if(SceneManager.GetActiveScene().name.Equals(mainSceneName))
+        {
+            print("worked");
+            GameObject.Instantiate(startPlatform, (Vector2) player.position - platformOffset, player.rotation);
         }
     }
 

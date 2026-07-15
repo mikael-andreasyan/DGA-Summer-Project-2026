@@ -84,9 +84,6 @@ public class Wings : MonoBehaviour
         Destroy(gameObject); // Destroy the wings after boosting the player
     }
 
-    void Update()
-    {
-        print(isBoosting);
-    }
+
     
 }
