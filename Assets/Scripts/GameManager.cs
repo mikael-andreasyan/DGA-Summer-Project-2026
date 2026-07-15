@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [Header("Scoring")]
     [SerializeField] private int pointsPerCloud = 100; // whatever we want
     [SerializeField] private float comboTime = 2f; // whatever we want
+    private int highScore; //value that stores the player's highscore
 
     [Header("Bounds")]
     [Tooltip("The width of the boundaries that the player will be confined to.")]
@@ -69,13 +70,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        print("check made");
+       
         print(SceneManager.GetActiveScene().name);
         if(SceneManager.GetActiveScene().name.Equals(mainSceneName))
         {
-            print("worked");
+            
             GameObject.Instantiate(startPlatform, (Vector2) player.position - platformOffset, player.rotation);
         }
+
+        highScore = PlayerPrefs.GetInt("player_HighScore");
+        
     }
 
     // Update is called once per frame
@@ -100,6 +104,9 @@ public class GameManager : MonoBehaviour
         {
             CheckOutOfBounds();
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+            resetHighScore();
     }
 
     //Called by cloud when player bounces updates points
@@ -147,6 +154,13 @@ public class GameManager : MonoBehaviour
         CurrentState = GameState.GameOver;
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
+
+        if (Score > PlayerPrefs.GetInt("player_HighScore")){
+            PlayerPrefs.SetInt("player_HighScore", Score);
+            highScore = Score;
+        }
+
+        print("Updated highScore: " + highScore);
     }
 
     // Made a function just in case anything else is needed to restart the level in the future
@@ -173,6 +187,12 @@ public class GameManager : MonoBehaviour
         {
             comboTimer += Time.deltaTime;
         }
+    }
+
+    public void resetHighScore()
+    {
+        PlayerPrefs.SetInt("player_HighScore", 0);
+        highScore = 0;
     }
 
 }
