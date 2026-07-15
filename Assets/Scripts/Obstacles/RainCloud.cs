@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,12 +23,18 @@ public class RainCloud : BasicCloud
 
     [SerializeField] private float rainDuration = 3f;
     [SerializeField] private float vaporDuration = 4f;
-    [SerializeField] private float resetTimer = 3f;
+
+    [SerializeField] private float flashWindow = 1f;
+    [SerializeField] private float flashInterval = 0.15f;
+    [SerializeField] private float flashAlpha = 0.3f;
 
     private RainCloudStates state = RainCloudStates.Idle;
     private float timer = 0f; // This will count how long a state has been active 
-    private float offTimer = 0f; // This one counts how long the player has been off, in order to reset the rain.
     // **Update: timer has a problem b/c the player bounces off at the top of a jump. Switched to cumulative method.
+    private float flashTimer = 0f;
+    private bool flashVis = true;
+
+    
 
 
     protected override void Start()
@@ -51,28 +58,24 @@ public class RainCloud : BasicCloud
                 {
                     state = RainCloudStates.Raining;
                     timer = 0f;
-                    offTimer = 0f;
                     sr.sprite = rainingCloudSprite; // Idle -> Raining
                 }
                 break;
 
             case RainCloudStates.Raining:
-                if (isCollidingPlayer)
+                timer += Time.deltaTime;
+                float remainingTime = rainDuration - timer;
+                if (remainingTime <= flashWindow)
                 {
-                    offTimer = 0f;
-                    timer += Time.deltaTime;
-                    if (timer >= rainDuration)
-                    {
-                        StartVapor();
-                    }
+                    FlashWarning();
                 }
-                else
+                else if (!flashVis)
                 {
-                    offTimer += Time.deltaTime;
-                    if (offTimer >= resetTimer)
-                    {
-                        Respawn(); // Might want to change this to a new function when we have animations and sprites
-                    }
+                    ResetFlash();
+                }
+                if (timer >= rainDuration)
+                {
+                    StartVapor();
                 }
                 break;
 
@@ -86,11 +89,13 @@ public class RainCloud : BasicCloud
         }
     }
 
+
     private void StartVapor()
     {
         // Raining -> Vapor
         state = RainCloudStates.Vapor;
         timer = 0f;
+        ResetFlash();
         sr.sprite = fadedVaporSprite;
 
         // Turning off player-cloud collision for this state
@@ -102,13 +107,45 @@ public class RainCloud : BasicCloud
         } 
     }
 
+    
+    private void FlashWarning()
+    {
+        flashTimer += Time.deltaTime;
+        if (flashTimer >= flashInterval)
+        {
+            flashTimer = 0f;
+            flashVis = !flashVis;
+            SetAlpha(flashVis ? 1f : flashAlpha);
+        }
+    }
+
+
+    private void SetAlpha(float alpha)
+    {
+        if (sr == null)
+        {
+            return;
+        }
+        Color temp = sr.color;
+        temp.a = alpha;
+        sr.color = temp;
+    }
+
+
+    private void ResetFlash()
+    {
+        flashTimer = 0f;
+        flashVis = true;
+        SetAlpha(1f);
+    }
+
 
     private void Respawn()
     {
         // Vapor -> Idle
         state = RainCloudStates.Idle;
         timer = 0f;
-        offTimer = 0f;
+        ResetFlash();
         sr.sprite = idleCloudSprite; 
 
         if (col != null) // Back to enabled collision

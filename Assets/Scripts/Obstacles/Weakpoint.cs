@@ -13,21 +13,21 @@ public class Weakpoint : MonoBehaviour
             case "LeftWeakpoint":
                 if (!cloudScript.isActiveWeakpoint(0))
                 {
-                    Debug.Log("Destroying left");
+                    
                     Destroy(gameObject);
                 }
                 break;
             case "MidWeakpoint":
                 if (!cloudScript.isActiveWeakpoint(1))
                 {
-                    Debug.Log("Destroying middle");
+                    
                     Destroy(gameObject);
                 }
                 break;
             case "RightWeakpoint":
                 if (!cloudScript.isActiveWeakpoint(2))
                 {
-                    Debug.Log("Destroying right");
+                   
                     Destroy(gameObject);
                 }
                 break;
