@@ -225,6 +225,7 @@ public class CosmicRay : MonoBehaviour
 {
     public SpriteRenderer warning;
     public SpriteRenderer ray;
+    public ParticleSystem topParticles;
 
     public Camera ourCamera;
     public float rayWidth = 1f;
@@ -411,6 +412,13 @@ public class CosmicRay : MonoBehaviour
 
         if (rayAnimator != null)
         {
+            if (topParticles != null)
+            {
+                Vector3 pos = topParticles.transform.localPosition;
+                pos.y = posTopY;
+                topParticles.transform.localPosition = pos;
+                topParticles.Play();
+            }
             rayAnimator.Play("RayLoop", 0, 0f);
         }
         yield return new WaitForSeconds(activeDuration);
@@ -419,6 +427,7 @@ public class CosmicRay : MonoBehaviour
     private IEnumerator RayEndingSequence()
     {
         killZoneCollider.enabled = false;
+        topParticles.Stop();
 
         if (rayAnimator == null) yield break;
 
