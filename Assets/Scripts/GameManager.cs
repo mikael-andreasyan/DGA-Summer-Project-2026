@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject titlePanel;
 
     [Header("Start Platform")]
     [SerializeField] private GameObject startPlatform;
@@ -85,7 +86,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CurrentState == GameState.PreStart){
+            Welcome();
+        }
+        
         if (CurrentState == GameState.PreStart && Input.GetButtonDown("Jump"))
+            Time.timeScale = 1f;
             CurrentState = GameState.Playing;
 
         if (!isAlive)
@@ -109,6 +115,11 @@ public class GameManager : MonoBehaviour
             resetHighScore();
     }
 
+    private void Welcome(){
+        titlePanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    
     //Called by cloud when player bounces updates points
     public void RegisterCloudBounce()
     {
