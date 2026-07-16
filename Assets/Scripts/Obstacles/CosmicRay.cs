@@ -406,6 +406,13 @@ public class CosmicRay : MonoBehaviour
         {
             warning.gameObject.SetActive(false);
         }
+        if (topParticles != null)
+        {
+            Vector3 pos = topParticles.transform.localPosition;
+            pos.y = posTopY;
+            topParticles.transform.localPosition = pos;
+            topParticles.Play();
+        }
         yield return PlayAnimation("RayFall");
     }
 
@@ -416,13 +423,6 @@ public class CosmicRay : MonoBehaviour
 
         if (rayAnimator != null)
         {
-            if (topParticles != null)
-            {
-                Vector3 pos = topParticles.transform.localPosition;
-                pos.y = posTopY;
-                topParticles.transform.localPosition = pos;
-                topParticles.Play();
-            }
             rayAnimator.Play("RayLoop", 0, 0f);
         }
         yield return new WaitForSeconds(activeDuration);
@@ -431,7 +431,6 @@ public class CosmicRay : MonoBehaviour
     private IEnumerator RayEndingSequence()
     {
         killZoneCollider.enabled = false;
-        topParticles.Stop();
 
         if (rayAnimator == null) yield break;
 
@@ -468,6 +467,7 @@ public class CosmicRay : MonoBehaviour
     private void RemoveRay()
     {
         killZoneCollider.enabled = false;
+        topParticles.Stop();
         if (ray != null)
         {
             ray.gameObject.SetActive(false);
