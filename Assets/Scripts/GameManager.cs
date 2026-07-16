@@ -13,9 +13,13 @@ public class GameManager : MonoBehaviour
     public enum GameState { PreStart, Playing, Paused, GameOver }
     public GameState CurrentState { get; private set; } = GameState.PreStart;
 
+    [Header("Main Build Scene Name")]
+    [SerializeField] private string mainSceneName;
+
     [Header("Scoring")]
     [SerializeField] private int pointsPerCloud = 100; // whatever we want
     [SerializeField] private float comboTime = 2f; // whatever we want
+    private int highScore; //value that stores the player's highscore
 
     [Header("Bounds")]
     [Tooltip("The width of the boundaries that the player will be confined to.")]
@@ -27,6 +31,11 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject gameOverPanel;
+
+    [Header("Start Platform")]
+    [SerializeField] private GameObject startPlatform;
+    [SerializeField] private Vector2 platformOffset;
+
 
     private float comboTimer;
     private bool isAlive = true;
@@ -59,6 +68,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+       
+        print(SceneManager.GetActiveScene().name);
+        if(SceneManager.GetActiveScene().name.Equals(mainSceneName))
+        {
+            
+            GameObject.Instantiate(startPlatform, (Vector2) player.position - platformOffset, player.rotation);
+        }
+
+        highScore = PlayerPrefs.GetInt("player_HighScore");
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -81,6 +104,9 @@ public class GameManager : MonoBehaviour
         {
             CheckOutOfBounds();
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+            resetHighScore();
     }
 
     //Called by cloud when player bounces updates points
@@ -89,7 +115,6 @@ public class GameManager : MonoBehaviour
         Combo++;
         comboTimer = comboTime;
         Score += pointsPerCloud * Combo;
-        print("Combo: " + Combo + " Score: " + Score);
     }
 
 
@@ -116,7 +141,7 @@ public class GameManager : MonoBehaviour
         }
 
         Vector3 viewPos = cam.WorldToViewportPoint(player.position);
-        if (viewPos.y < -1f)
+        if (viewPos.y < -0.15f)
         {
             PlayerDeath();
         }
@@ -128,11 +153,20 @@ public class GameManager : MonoBehaviour
         isAlive = false;
         CurrentState = GameState.GameOver;
         gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
+
+        if (Score > PlayerPrefs.GetInt("player_HighScore")){
+            PlayerPrefs.SetInt("player_HighScore", Score);
+            highScore = Score;
+        }
+
+        print("Updated highScore: " + highScore);
     }
 
     // Made a function just in case anything else is needed to restart the level in the future
     private void RestartLevel()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -153,6 +187,12 @@ public class GameManager : MonoBehaviour
         {
             comboTimer += Time.deltaTime;
         }
+    }
+
+    public void resetHighScore()
+    {
+        PlayerPrefs.SetInt("player_HighScore", 0);
+        highScore = 0;
     }
 
 }

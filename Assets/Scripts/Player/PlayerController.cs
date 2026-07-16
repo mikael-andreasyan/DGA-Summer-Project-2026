@@ -166,10 +166,10 @@ public class PlayerController : MonoBehaviour
     }
     private void HandleHorizontalMovement()
     {
-        if (cloudRB != null){
-            velocity.x = 0;
-            return;
-        }
+       // if (cloudRB != null){
+        //    velocity.x = 0;
+        //    return;
+       // }
         
         float inputDir = Input.GetAxisRaw("Horizontal");
 

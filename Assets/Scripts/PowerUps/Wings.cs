@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using NUnit.Framework;
 
 public class Wings : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Wings : MonoBehaviour
     [Tooltip("Speed at which the player can move horizontally while boosting")]
     public float wingsMovementSpeed = 5f;
 
+    private static bool isBoosting = false;
+
     void Awake()
     {
         boostTime = boostDistance / boostSpeed;
@@ -19,7 +22,7 @@ public class Wings : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isBoosting)
         {
             StartCoroutine(BoostPlayer(other.transform, other.GetComponent<Rigidbody2D>(), other.GetComponent<PlayerController>()));
         }
@@ -27,6 +30,7 @@ public class Wings : MonoBehaviour
 
     IEnumerator BoostPlayer(Transform player, Rigidbody2D playerRb, PlayerController playerController)
     {
+        isBoosting = true;
         float elapsedTime = 0f;
         Vector2 startPosition = player.position;
         float targetY = startPosition.y + boostDistance;
@@ -76,6 +80,10 @@ public class Wings : MonoBehaviour
             playerController.enabled = true;
         }
 
+        isBoosting = false;
         Destroy(gameObject); // Destroy the wings after boosting the player
     }
+
+
+    
 }
