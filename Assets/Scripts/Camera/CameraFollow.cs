@@ -40,7 +40,7 @@ public class CameraFollow : MonoBehaviour
         // If we've capped the time 
         if (scrollSpeed<maxSpeed && Time.time - incTime >= timeInterval) {
                 scrollSpeed = scrollSpeed + speedEffect;
-                scrollSpeed = Mathf.Max(scrollSpeed, maxSpeed);
+                scrollSpeed = Mathf.Min(scrollSpeed, maxSpeed);
                 incTime = Time.time;
         }
         Debug.Log(scrollSpeed);
