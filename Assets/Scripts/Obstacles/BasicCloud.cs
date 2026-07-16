@@ -34,6 +34,8 @@ public class BasicCloud : MonoBehaviour
     [SerializeField] protected float weakpointLifetime = 1; // How many seconds player has to get weakpoint boost after landing
     protected bool weakpointExpired; // Whether the weakpoint has expired
 
+    public ParticleSystem particleSystem;
+
 
     protected void Awake()
     {
@@ -97,6 +99,7 @@ public class BasicCloud : MonoBehaviour
             {
                 playerRB = other.gameObject.GetComponent<Rigidbody2D>(); // Get reference to player
             }
+            particleSystem.Play();
         }
     }
     protected virtual void OnCollisionExit2D(Collision2D other)
