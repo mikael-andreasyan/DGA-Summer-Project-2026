@@ -95,11 +95,12 @@ public class BasicCloud : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             isCollidingPlayer = true;
+            particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            particleSystem.Play();
             if (playerRB == null)
             {
                 playerRB = other.gameObject.GetComponent<Rigidbody2D>(); // Get reference to player
             }
-            particleSystem.Play();
         }
     }
     protected virtual void OnCollisionExit2D(Collision2D other)
