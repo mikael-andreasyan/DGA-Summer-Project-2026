@@ -155,7 +155,7 @@ MonoBehaviour:
   smooth: 3
   scrollSpeed: 1
   speedEffect: 0.5
-  maxSpeed: 10
+  maxSpeed: 5
   timeInterval: 5
 --- !u!1 &5280750505826781269
 GameObject:
