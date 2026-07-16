@@ -402,7 +402,11 @@ public class CosmicRay : MonoBehaviour
 
             ray.transform.localScale = new Vector3(rayScaleX, fullScaleY, 1f);
         }
-            yield return PlayAnimation("RayFall");
+        if (warning != null)
+        {
+            warning.gameObject.SetActive(false);
+        }
+        yield return PlayAnimation("RayFall");
     }
 
 
