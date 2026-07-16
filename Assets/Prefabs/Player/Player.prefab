@@ -387,7 +387,7 @@ MonoBehaviour:
   jumpTimeToPeak: 0.4
   jumpTimeToDescent: 0.3
   jumpCutMultiplier: 0.5
-  boostVelocity: 40
+  boostVelocity: 50
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   groundCheck: {fileID: 7010329476067719845}
