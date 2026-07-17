@@ -18,6 +18,7 @@ public class BasicCloud : MonoBehaviour
 
     protected Rigidbody2D rb;
     protected Rigidbody2D playerRB;
+    protected Collider2D playerCol;
     protected float startY; // Cloud's starting y position
     protected Collider2D col; // Added to parent Cloud class so we can alter collision in rain/storm cloud
     [SerializeField] protected Collider2D leftBoost; // Left boost hitbox
@@ -92,6 +93,20 @@ public class BasicCloud : MonoBehaviour
                 hasScored = true;
             }
         }
+
+        if (isOnTop && playerCol != null)
+        {
+            float cloudTop = col.bounds.max.y;
+            float playerBottom = playerCol.bounds.min.y;
+
+            if (playerBottom < cloudTop)
+            {
+                float correction = cloudTop - playerBottom;
+                float maxCorrectionPerStep = 0.1f;
+                float applied = Mathf.Min(correction, maxCorrectionPerStep);
+                playerRB.position += new Vector2(0f, applied);
+            }
+        }
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D other) {
@@ -101,6 +116,7 @@ public class BasicCloud : MonoBehaviour
             if (playerRB == null)
             {
                 playerRB = other.gameObject.GetComponent<Rigidbody2D>(); // Get reference to player
+                playerCol = other.gameObject.GetComponent<Collider2D>();
             }
 
             bool onTopThisFrame = false;
@@ -131,13 +147,16 @@ public class BasicCloud : MonoBehaviour
         }
     }
 
+    // In case player is in contact with the cloud the whole time   
     protected virtual void OnCollisionStay2D(Collision2D other)
     {
         if (!other.gameObject.CompareTag("Player")) return;
 
+
         bool onTopThisFrame = false;
         foreach (ContactPoint2D contact in other.contacts)
         {
+            Debug.Log($"enabled={contact.enabled}, normal.y={contact.normal.y}");
             if (contact.enabled && contact.normal.y < -0.5f)
             {
                 onTopThisFrame = true;
