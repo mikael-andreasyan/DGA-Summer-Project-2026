@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
             velocity.y = jumpVelocity;
-            if (cloudScript != null && cloudScript.isBoostAvailable() && cloudScript.isWeakpointAvailable())
+            if (cloudScript != null && cloudScript.isWeakpointAvailable())
             {
                 velocity.y = boostVelocity;
                 Debug.Log("Successful boost!");
