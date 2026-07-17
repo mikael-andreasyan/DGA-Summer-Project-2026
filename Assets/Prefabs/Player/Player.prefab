@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1939969485308496017, guid: fb847f43e0e8643f7b5aebcc13fd158a, type: 2}
+  - {fileID: 116156805800923033, guid: 4c9d1bdf8bf994aab883ae2cb4182d04, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 3055149082417069210}
   - component: {fileID: 2962802686256809685}
   - component: {fileID: 2385017416331466857}
+  - component: {fileID: 4188444214118477219}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -395,7 +396,25 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  afterImage: {fileID: 4188444214118477219}
   isGrounded: 0
+--- !u!114 &4188444214118477219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4436397520889927051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57136abdada39470d9ba7b5460e81779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AfterImageEffect
+  source: {fileID: 0}
+  ghostColor: {r: 1, g: 1, b: 1, a: 0.5}
+  duration: 0.4
+  spawnInterval: 0.05
+  ghostLifetime: 0.35
 --- !u!1 &8731642440388604302
 GameObject:
   m_ObjectHideFlags: 0
