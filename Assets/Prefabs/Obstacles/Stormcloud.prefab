@@ -15,10 +15,11 @@ GameObject:
   - component: {fileID: 754384491145907096}
   - component: {fileID: 5707165979256362312}
   - component: {fileID: 2995465560746793647}
+  - component: {fileID: 6434842622579799257}
   m_Layer: 0
   m_Name: Stormcloud
   m_TagString: Cloud
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -257,3 +258,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &6434842622579799257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569315563706307338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3a219def15773448e22f312890dea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StormCloud
+  downSpeed: 5
+  upSpeed: 3
+  settleSpeed: 2
+  maxDistanceDown: 3
+  maxDistanceUp: 3
+  boostThreshold: 2
+  leftBoost: {fileID: 0}
+  middleBoost: {fileID: 0}
+  rightBoost: {fileID: 0}
+  weakpointLifetime: 1
+  phaseCooldown: 1
+  lightning: {fileID: 0}
+  downwardBoostStrength: 0.5
