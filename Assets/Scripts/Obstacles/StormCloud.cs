@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using System.Collections;
 
@@ -6,12 +5,14 @@ public class StormCloud : BasicCloud
 {
     /*
     cloud that kills u if u try to phase tru the bottom
-    
+
     */
 
+    [SerializeField] private Collider2D zapZone;
     [SerializeField] private float phaseCooldown = 1f;
     [SerializeField] private GameObject lightning;
     [SerializeField] private float downwardBoostStrength; //the strength of the downward boost to apply to the player, relative to player's jump strength (so 0.5 is half the player's jump strength)
+
     private float phaseCooldownTimer;
 
     protected override void Start()
@@ -19,6 +20,7 @@ public class StormCloud : BasicCloud
         base.Start();
         phaseCooldownTimer = 0f;
     }
+
 
     private void Update()
     {
@@ -32,20 +34,33 @@ public class StormCloud : BasicCloud
     /*
     if the player collides w/ the hitbox area below cloud, thriggers lightning
     */
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void OnCollisionEnter2D(Collision2D other)
     {
-        if (!other.CompareTag("Player")) return;
-        if (phaseCooldownTimer > 0f) return;
+        base.OnCollisionEnter2D(other); // this fixed the landing behavior
 
-        Rigidbody2D otherRb = other.GetComponent<Rigidbody2D>();
-        PlayerController playerController = other.GetComponent<PlayerController>();
-        if (otherRb == null) return;
+        if (!other.gameObject.CompareTag("Player")) return;
+        if (phaseCooldownTimer > 0f) return;
+        if (zapZone == null) return;
+
+        bool hitZone = false;
+        foreach (ContactPoint2D contact in other.contacts)
+        {
+            if (contact.collider == zapZone)
+            {
+                hitZone = true;
+                break;
+            }
+        }
+        if (!hitZone) return;
+
+        PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
+        if (playerController == null || other.rigidbody == null) return;
 
         playerController.ForceJump(-downwardBoostStrength);
-        StrikeLightning(otherRb);
+        StrikeLightning(other.rigidbody);
         phaseCooldownTimer = phaseCooldown;
-        
     }
+
 
     /*testing, makes clould turn color when "striking" player
     */
@@ -66,13 +81,7 @@ public class StormCloud : BasicCloud
         }
 
         //testing
-
         StartCoroutine(FlashColor());
         //GameManager.Instance.PlayerDeath();
     }
-
-
-
-
-
 }
