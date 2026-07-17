@@ -402,12 +402,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3a219def15773448e22f312890dea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StormCloud
-  downSpeed: 5
-  upSpeed: 3
+  downSpeed: 6
+  upSpeed: 4
   settleSpeed: 2
-  maxDistanceDown: 3
-  maxDistanceUp: 3
-  boostThreshold: 2
+  maxDistanceDown: 0.5
+  maxDistanceUp: 2
+  boostThreshold: 1.5
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
@@ -415,7 +415,7 @@ MonoBehaviour:
   zapZone: {fileID: 2898845938293897785}
   phaseCooldown: 1
   lightning: {fileID: 0}
-  downwardBoostStrength: 0
+  downwardBoostStrength: 1
 --- !u!1 &4483480851156165956
 GameObject:
   m_ObjectHideFlags: 0
