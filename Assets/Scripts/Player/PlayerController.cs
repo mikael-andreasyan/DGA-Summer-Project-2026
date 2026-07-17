@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
             velocity.y = jumpVelocity;
-            if (cloudScript != null && cloudScript.isBoostAvailable() && cloudScript.isWeakpointAvailable())
+            if (cloudScript != null && cloudScript.isWeakpointAvailable())
             {
                 velocity.y = boostVelocity;
                 Debug.Log("Successful boost!");
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
     
     // Moves w/ platform if not mid jump
     private void RideCloud(){
-        if (cloudRB != null && !isJumping){
+        if (cloudRB != null && !isJumping && rb.linearVelocityY <= 0){
             velocity.y = cloudRB.linearVelocity.y;
         }
     }

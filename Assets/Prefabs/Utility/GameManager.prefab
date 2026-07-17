@@ -45,11 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   mainSceneName: 
-  pointsPerCloud: 100
+  pointsPerCloud: 10
   comboTime: 2
   boundaryWidth: 26
   player: {fileID: 0}
   cam: {fileID: 0}
   gameOverPanel: {fileID: 0}
+  titlePanel: {fileID: 0}
   startPlatform: {fileID: 0}
   platformOffset: {x: 0, y: 0}
