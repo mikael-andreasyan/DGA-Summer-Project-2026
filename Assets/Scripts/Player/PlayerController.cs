@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.6f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Effects")]
+    [SerializeField] private AfterImageEffect afterImage; 
+
     private Rigidbody2D rb;
     private Vector2 velocity;
     private Rigidbody2D cloudRB;
@@ -144,6 +147,10 @@ public class PlayerController : MonoBehaviour
             {
                 velocity.y = boostVelocity;
                 Debug.Log("Successful boost!");
+                if (afterImage != null)
+                {
+                    afterImage.Play();
+                }
             }
             isJumping = true;
             jumpBufferTimer = 0f;
