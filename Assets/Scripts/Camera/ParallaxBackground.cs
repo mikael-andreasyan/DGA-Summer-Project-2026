@@ -3,7 +3,7 @@ using UnityEngine;
 public class ParallaxBackground : MonoBehaviour
 {
     private float startPos;
-    public float spacing;
+    private float spacing;
 
     // 0-1 (0=no effect, 1=normal, 0.5=half effect)
     public float parallaxEffect;
@@ -11,7 +11,7 @@ public class ParallaxBackground : MonoBehaviour
     void Start()
     {
         startPos = transform.position.y;
-        spacing = 20f;
+        spacing = 52.5f;
     }
 
     void LateUpdate()
