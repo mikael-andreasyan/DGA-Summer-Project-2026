@@ -13,9 +13,6 @@ public class BasicCloud : MonoBehaviour
     [SerializeField] protected float boostThreshold = 2f; // Where the player can get a boost off the cloud
     protected bool isCollidingPlayer;
 
-    protected bool isOnTop; // Whether the player is currently resting on top of the cloud
-
-
     protected Rigidbody2D rb;
     protected Rigidbody2D playerRB;
     protected float startY; // Cloud's starting y position
@@ -26,7 +23,6 @@ public class BasicCloud : MonoBehaviour
     
     protected SpriteRenderer sr; // Added to parent Cloud class so we can change sprites in subclesses
 
-    protected bool justLanded; // Flag to set whether cloud should start bobbing
     protected bool hasScored; // Whether the GameManager has already scored points for landing on this cloud
 
     protected bool isSettling; // Whether the cloud is settling downwards after bobbing 
@@ -38,7 +34,7 @@ public class BasicCloud : MonoBehaviour
     [SerializeField] protected float weakpointLifetime = 1; // How many seconds player has to get weakpoint boost after landing
     protected bool weakpointExpired; // Whether the weakpoint has expired
 
-    protected Vector2 lastPosition;
+    public ParticleSystem particleSystem;
 
 
     protected void Awake()
@@ -77,19 +73,20 @@ public class BasicCloud : MonoBehaviour
             rb.linearVelocityY = upSpeed; // Stop moving up if cloud is too low
         }
 
-        else if (justLanded)
+        else if (rb.position.y <= startY && playerRB != null && isCollidingPlayer 
+        && playerRB.position.y > rb.position.y && playerRB.linearVelocity.y <= 0)
         {
-            justLanded = false;
-            landingTime = Time.time;
+            landingTime = Time.time; // Record when player landed on this cloud
             if (!weakpointExpired)
             {
-                StartCoroutine(startWeakpointExpirationTimer());
+                StartCoroutine(startWeakpointExpirationTimer()); // Start weakpoint expiration timer
             }
-            rb.linearVelocityY = downSpeed * -1;
+        
+            rb.linearVelocityY = downSpeed * -1; // Start moving down if player is on top of it
             if (!hasScored)
             {
-                GameManager.Instance.RegisterCloudBounce();
-                hasScored = true;
+                 GameManager.Instance.RegisterCloudBounce();
+                 hasScored = true;
             }
         }
     }
@@ -98,28 +95,12 @@ public class BasicCloud : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             isCollidingPlayer = true;
+            particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            particleSystem.Play();
             if (playerRB == null)
             {
                 playerRB = other.gameObject.GetComponent<Rigidbody2D>(); // Get reference to player
             }
-
-            bool onTopThisFrame = false;
-
-            foreach (ContactPoint2D contact in other.contacts)
-            {
-                if (contact.normal.y < -0.5f)
-                {
-                    onTopThisFrame = true;
-                    break;
-                }
-            }
-
-            if (onTopThisFrame && !isOnTop)
-            {
-                justLanded = true;
-            }
-
-            isOnTop = onTopThisFrame;
         }
     }
     protected virtual void OnCollisionExit2D(Collision2D other)
@@ -127,31 +108,8 @@ public class BasicCloud : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             isCollidingPlayer = false;
-            isOnTop = false; 
         }
     }
-
-    protected virtual void OnCollisionStay2D(Collision2D other)
-    {
-        if (!other.gameObject.CompareTag("Player")) return;
-
-        bool onTopThisFrame = false;
-        foreach (ContactPoint2D contact in other.contacts)
-        {
-            if (contact.enabled && contact.normal.y < -0.5f)
-            {
-                onTopThisFrame = true;
-                break;
-            }
-        }
-
-        if (onTopThisFrame && !isOnTop)
-        {
-            justLanded = true; // transitioned from passing-through/no-contact to actually resting on top
-        }
-
-        isOnTop = onTopThisFrame;
-    }   
 
     public bool isBoostAvailable() // Whether the player gets a boost from jumping off the cloud
     {

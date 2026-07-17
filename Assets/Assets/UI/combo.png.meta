@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 100240129a4354eae972f2fe4f7159e7
+guid: 060cbf53b9c4a4983b9c92dad1528805
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6193916536120416121
-    second: combo (2)_0
-  - first:
-      213: -8415720607034029201
-    second: combo (2)_1
-  - first:
-      213: -9096008220049142754
-    second: combo (2)_2
-  - first:
-      213: -927432876237130321
-    second: combo (2)_3
-  - first:
-      213: -5609645669289719006
-    second: combo (2)_4
+      213: 3572851284651089129
+    second: combo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -87,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -112,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: combo (2)_0
+      name: combo_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 34
-        height: 7
+        width: 687
+        height: 261
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97710e7d54635f550800000000000000
-      internalID: 6193916536120416121
+      spriteID: 9ec1de84051559130800000000000000
+      internalID: 3572851284651089129
       vertices: []
       indices: 
       edges: []
@@ -137,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 87104b7e1c79f471988017043faadb2f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -147,11 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      combo (2)_0: 6193916536120416121
-      combo (2)_1: -8415720607034029201
-      combo (2)_2: -9096008220049142754
-      combo (2)_3: -927432876237130321
-      combo (2)_4: -5609645669289719006
+      combo_0: 3572851284651089129
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
