@@ -507,16 +507,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc23244d10a33344b3ba31d8635b503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicCloud
-  downSpeed: 4
-  upSpeed: 3
+  downSpeed: 6
+  upSpeed: 4
   settleSpeed: 2
-  maxDistanceDown: 1
+  maxDistanceDown: 0.5
   maxDistanceUp: 2
   boostThreshold: 1.5
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
-  weakpointLifetime: 1
+  weakpointLifetime: 0.1
 --- !u!1 &6794273882473752483
 GameObject:
   m_ObjectHideFlags: 0
