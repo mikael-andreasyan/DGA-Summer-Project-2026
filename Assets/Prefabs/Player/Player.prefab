@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.01, y: -0.19}
+  m_AnchoredPosition: {x: 0.08, y: -1.07}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1417270955056586049
@@ -111,8 +111,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fb847f43e0e8643f7b5aebcc13fd158a, type: 2}
-  m_sharedMaterial: {fileID: 1939969485308496017, guid: fb847f43e0e8643f7b5aebcc13fd158a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4c9d1bdf8bf994aab883ae2cb4182d04, type: 2}
+  m_sharedMaterial: {fileID: 116156805800923033, guid: 4c9d1bdf8bf994aab883ae2cb4182d04, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 14
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
   jumpTimeToPeak: 0.4
   jumpTimeToDescent: 0.3
   jumpCutMultiplier: 0.5
-  boostVelocity: 40
+  boostVelocity: 50
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   groundCheck: {fileID: 7010329476067719845}

@@ -11,6 +11,7 @@ public class StormCloud : BasicCloud
 
     [SerializeField] private float phaseCooldown = 1f;
     [SerializeField] private GameObject lightning;
+    [SerializeField] private float downwardBoostStrength; //the strength of the downward boost to apply to the player, relative to player's jump strength (so 0.5 is half the player's jump strength)
     private float phaseCooldownTimer;
 
     protected override void Start()
@@ -37,9 +38,10 @@ public class StormCloud : BasicCloud
         if (phaseCooldownTimer > 0f) return;
 
         Rigidbody2D otherRb = other.GetComponent<Rigidbody2D>();
+        PlayerController playerController = other.GetComponent<PlayerController>();
         if (otherRb == null) return;
 
-        
+        playerController.ForceJump(-downwardBoostStrength);
         StrikeLightning(otherRb);
         phaseCooldownTimer = phaseCooldown;
         

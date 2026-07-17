@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject titlePanel;
 
     [Header("Start Platform")]
     [SerializeField] private GameObject startPlatform;
@@ -70,23 +71,31 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-       
+
         print(SceneManager.GetActiveScene().name);
-        if(SceneManager.GetActiveScene().name.Equals(mainSceneName))
+        if (SceneManager.GetActiveScene().name.Equals(mainSceneName))
         {
-            
-            GameObject.Instantiate(startPlatform, (Vector2) player.position - platformOffset, player.rotation);
+
+            GameObject.Instantiate(startPlatform, (Vector2)player.position - platformOffset, player.rotation);
         }
 
         highScore = PlayerPrefs.GetInt("player_HighScore");
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CurrentState == GameState.PreStart && Input.GetButtonDown("Jump"))
-            CurrentState = GameState.Playing;
+        if (CurrentState == GameState.PreStart)
+        {
+            Welcome();
+            if (Input.GetButtonDown("Jump"))
+            {
+                Time.timeScale = 1f;
+                CurrentState = GameState.Playing;
+                titlePanel.SetActive(false);
+            }
+        }
 
         if (!isAlive)
         {
@@ -107,6 +116,11 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
             resetHighScore();
+    }
+
+    private void Welcome()
+    {
+        titlePanel.SetActive(true);
     }
 
     //Called by cloud when player bounces updates points
@@ -155,7 +169,8 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
 
-        if (Score > PlayerPrefs.GetInt("player_HighScore")){
+        if (Score > PlayerPrefs.GetInt("player_HighScore"))
+        {
             PlayerPrefs.SetInt("player_HighScore", Score);
             highScore = Score;
         }
