@@ -264,6 +264,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1417270955056586049, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 116156805800923033, guid: 4c9d1bdf8bf994aab883ae2cb4182d04, type: 2}
     - target: {fileID: 2385017416331466857, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: maxSpeed
       value: 12
@@ -335,6 +339,14 @@ PrefabInstance:
     - target: {fileID: 4436397520889927051, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8320523517937292940, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8320523517937292940, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
