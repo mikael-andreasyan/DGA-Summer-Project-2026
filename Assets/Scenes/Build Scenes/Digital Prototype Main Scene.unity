@@ -251,6 +251,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3059071132818059648, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
   m_PrefabInstance: {fileID: 932968670}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &568646095 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1684051729752253090, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+  m_PrefabInstance: {fileID: 1127775002}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &850845756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 43957500294127363, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
@@ -663,6 +668,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 552034372}
+    - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
+      propertyPath: titlePanel
+      value: 
+      objectReference: {fileID: 568646095}
     - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
       propertyPath: gameOverPanel
       value: 
