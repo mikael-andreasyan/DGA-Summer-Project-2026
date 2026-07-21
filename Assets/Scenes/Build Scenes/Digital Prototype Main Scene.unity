@@ -326,10 +326,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1417270955056586049, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 116156805800923033, guid: 4c9d1bdf8bf994aab883ae2cb4182d04, type: 2}
     - target: {fileID: 2385017416331466857, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: maxSpeed
       value: 12
