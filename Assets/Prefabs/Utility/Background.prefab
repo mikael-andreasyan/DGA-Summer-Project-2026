@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c364c0c623b4a66a059e9bd998dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
-  parallaxEffect: 0.1
+  parallaxEffect: 0.05
   repeating: 1
 --- !u!1 &9017588885855169020
 GameObject:
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c364c0c623b4a66a059e9bd998dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
-  parallaxEffect: 0.1
+  parallaxEffect: 0.05
   repeating: 1
 --- !u!1 &9025853448120674785
 GameObject:
@@ -461,5 +461,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c364c0c623b4a66a059e9bd998dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
-  parallaxEffect: 0.1
+  parallaxEffect: 0.05
   repeating: 1
