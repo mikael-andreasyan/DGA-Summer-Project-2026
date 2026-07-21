@@ -42,6 +42,7 @@ public class CameraFollow : MonoBehaviour
                 scrollSpeed = Mathf.Min(scrollSpeed, maxSpeed);
                 incTime = Time.time;
         }
+        
         highestY += scrollSpeed * Time.deltaTime;
         highestY = Mathf.Max(highestY, player.position.y);
 
