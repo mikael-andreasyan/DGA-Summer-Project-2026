@@ -33,10 +33,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject titlePanel;
 
-    [Header("Start Platform")]
-    [SerializeField] private GameObject startPlatform;
-    [SerializeField] private Vector2 platformOffset;
-
 
     private float comboTimer;
     private bool isAlive = true;
@@ -73,11 +69,6 @@ public class GameManager : MonoBehaviour
     {
 
         print(SceneManager.GetActiveScene().name);
-        if (SceneManager.GetActiveScene().name.Equals(mainSceneName))
-        {
-
-            GameObject.Instantiate(startPlatform, (Vector2)player.position - platformOffset, player.rotation);
-        }
 
         highScore = PlayerPrefs.GetInt("player_HighScore");
 
