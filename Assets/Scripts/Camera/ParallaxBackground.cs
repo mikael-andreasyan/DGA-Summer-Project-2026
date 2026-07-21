@@ -7,6 +7,7 @@ public class ParallaxBackground : MonoBehaviour
 
     // 0-1 (0=no effect, 1=normal, 0.5=half effect)
     public float parallaxEffect;
+    public bool repeating = true;
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class ParallaxBackground : MonoBehaviour
             transform.position.z
         );
 
-        while (cameraY - transform.position.y > spacing)
+        while (repeating && cameraY - transform.position.y > spacing)
         {
             startPos += spacing * 3f;
             transform.position = new Vector3(
