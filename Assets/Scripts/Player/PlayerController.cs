@@ -156,6 +156,7 @@ public class PlayerController : MonoBehaviour
                 if (jumpCloud.isWeakpointAvailable())
                 {
                     velocity.y = boostVelocity;
+                    GameManager.Instance.RegisterBoost();
                     Debug.Log("Successful boost!");
                     if (afterImage != null)
                     {

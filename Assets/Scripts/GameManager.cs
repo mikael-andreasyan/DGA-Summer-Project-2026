@@ -123,8 +123,14 @@ public class GameManager : MonoBehaviour
         titlePanel.SetActive(true);
     }
 
-    //Called by cloud when player bounces updates points
+    // Called by cloud when the player lands on a fresh cloud
     public void RegisterCloudBounce()
+    {
+        Score += pointsPerCloud;
+    }
+
+    // Increases combo when landing on weakpoint of cloud
+    public void RegisterBoost()
     {
         Combo++;
         comboTimer = comboTime;
