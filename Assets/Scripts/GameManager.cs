@@ -76,11 +76,6 @@ public class GameManager : MonoBehaviour
     {
 
         print(SceneManager.GetActiveScene().name);
-        if (SceneManager.GetActiveScene().name.Equals(mainSceneName))
-        {
-
-            GameObject.Instantiate(startPlatform, (Vector2)player.position - platformOffset, player.rotation);
-        }
 
         highScore = PlayerPrefs.GetInt("player_HighScore");
 
