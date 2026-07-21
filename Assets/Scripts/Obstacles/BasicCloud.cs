@@ -82,15 +82,27 @@ public class BasicCloud : MonoBehaviour
         {
             justLanded = false;
             landingTime = Time.time;
-            if (!weakpointExpired)
-            {
-                StartCoroutine(startWeakpointExpirationTimer());
-            }
             rb.linearVelocityY = downSpeed * -1;
             if (!hasScored)
             {
                 GameManager.Instance.RegisterCloudBounce();
                 hasScored = true;
+            }
+            else
+            {
+                GameManager.Instance.LoseCombo();
+            }
+
+            if (!weakpointExpired)
+            {
+                if (canWeakpointBoost)
+                {
+                    StartCoroutine(startWeakpointExpirationTimer());
+                }
+                else
+                {
+                    ExpireWeakpoint();
+                }
             }
         }
 
@@ -156,7 +168,6 @@ public class BasicCloud : MonoBehaviour
         bool onTopThisFrame = false;
         foreach (ContactPoint2D contact in other.contacts)
         {
-            Debug.Log($"enabled={contact.enabled}, normal.y={contact.normal.y}");
             if (contact.enabled && contact.normal.y < -0.5f)
             {
                 onTopThisFrame = true;
@@ -217,6 +228,11 @@ public class BasicCloud : MonoBehaviour
     IEnumerator startWeakpointExpirationTimer()
     {
         yield return new WaitForSeconds(weakpointLifetime);
+        ExpireWeakpoint();
+    }
+
+    private void ExpireWeakpoint()
+    {
         weakpointExpired = true;
         canWeakpointBoost = false;
         foreach (Transform child in transform)
