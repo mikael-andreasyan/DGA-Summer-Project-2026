@@ -156,7 +156,6 @@ public class BasicCloud : MonoBehaviour
         bool onTopThisFrame = false;
         foreach (ContactPoint2D contact in other.contacts)
         {
-            Debug.Log($"enabled={contact.enabled}, normal.y={contact.normal.y}");
             if (contact.enabled && contact.normal.y < -0.5f)
             {
                 onTopThisFrame = true;
