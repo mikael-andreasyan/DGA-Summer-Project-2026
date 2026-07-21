@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 velocity;
     private Rigidbody2D cloudRB;
     private BasicCloud cloudScript; // Reference to the cloud script so we can call its public methods
+    private BasicCloud lastGroundedCloud;
 
     private float jumpVelocity;
     private float jumpGravity;
@@ -110,6 +111,11 @@ public class PlayerController : MonoBehaviour
         cloudRB = ground != null ? ground.attachedRigidbody : null;
         cloudScript = cloudRB != null ? cloudRB.gameObject.GetComponent<BasicCloud>() : null;
 
+        if (cloudScript != null)
+        {
+            lastGroundedCloud = cloudScript;
+        }
+
         velocity = rb.linearVelocity;
         return isGrounded;
     }
@@ -143,15 +149,26 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
             velocity.y = jumpVelocity;
-            if (cloudScript != null && cloudScript.isWeakpointAvailable())
+
+            BasicCloud jumpCloud = cloudScript != null ? cloudScript : lastGroundedCloud;
+            if (jumpCloud != null)
             {
-                velocity.y = boostVelocity;
-                Debug.Log("Successful boost!");
-                if (afterImage != null)
+                if (jumpCloud.isWeakpointAvailable())
                 {
-                    afterImage.Play();
+                    velocity.y = boostVelocity;
+                    Debug.Log("Successful boost!");
+                    if (afterImage != null)
+                    {
+                        afterImage.Play();
+                    }
                 }
+                else
+                {
+                    GameManager.Instance.LoseCombo();
+                }
+                lastGroundedCloud = null; 
             }
+
             isJumping = true;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;

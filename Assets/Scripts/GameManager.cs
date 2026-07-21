@@ -132,6 +132,12 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void LoseCombo()
+    {
+        Combo = 0;
+        comboTimer = 0f;
+    }
+
     // Tick down the combo timer
     private void TickComboTimer()
     {

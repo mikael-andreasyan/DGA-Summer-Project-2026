@@ -92,6 +92,10 @@ public class BasicCloud : MonoBehaviour
                 GameManager.Instance.RegisterCloudBounce();
                 hasScored = true;
             }
+            else
+            {
+                GameManager.Instance.LoseCombo();
+            }
         }
 
         if (isOnTop && playerCol != null)
