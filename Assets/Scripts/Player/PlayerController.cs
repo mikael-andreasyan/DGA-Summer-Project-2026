@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapBoxAll(groundCheck.position, groundCheckSize, 0f, groundLayer);
         isGrounded = false;
 
-        foreach (var hit in hits)
+        foreach (var hit in hits) //  Get every collder just in case
         {
             if (hit.isTrigger)
                 continue;
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        if (previousCloud != newCloud)
+        if (previousCloud != newCloud) // Register playing leaving cloud
         {
             if (previousCloud != null)
             {
@@ -151,6 +151,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // Normal case - start bobbing/score
         else if (!hasLandedOnCurrentCloud && newCloud != null && rb.linearVelocityY <= 0 && 
         groundCheck.position.y >= newCloud.GetComponent<Collider2D>().bounds.max.y - 0.05f)
         {
@@ -217,6 +218,14 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     GameManager.Instance.LoseCombo();
+                    if (jumpCloud.isBoostAvailable()) // Can still get a "regular" boost from cloud
+                    {
+                       velocity.y = boostVelocity; 
+                       if (afterImage != null)
+                        {
+                            afterImage.Play();
+                        }
+                    }
                 }
                 lastGroundedCloud = null; 
             }

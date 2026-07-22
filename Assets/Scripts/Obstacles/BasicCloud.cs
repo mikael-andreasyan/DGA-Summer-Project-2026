@@ -180,8 +180,8 @@ public class BasicCloud : MonoBehaviour
     {
         // If the cloud is moving up, and it's above the boost threshold distance, then
         // the player can get a boost
-        return (rb.linearVelocity.y > 0); // just check whether cloud is moving up for now
-         // && rb.position.y >= startY + boostThreshold
+        return (rb.linearVelocity.y > 0);
+        // && rb.position.y >= startY + boostThreshold;
     }
 
     public bool isWeakpointAvailable() // Whether the player gets a special weakpoint boost

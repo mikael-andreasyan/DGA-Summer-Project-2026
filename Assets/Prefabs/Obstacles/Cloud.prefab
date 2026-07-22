@@ -510,11 +510,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc23244d10a33344b3ba31d8635b503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicCloud
-  downSpeed: 4
-  upSpeed: 3
-  settleSpeed: 2
-  maxDistanceDown: 1
-  maxDistanceUp: 2
+  downSpeed: 10
+  upSpeed: 10
+  settleSpeed: 8
+  maxDistanceDown: 0.75
+  maxDistanceUp: 1.5
   boostThreshold: 1.5
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
