@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
     private bool isUnPausing = false;
 
+    private PlayerController playerController;
+    
     public int Score
     {
         get;
@@ -86,7 +88,7 @@ public class GameManager : MonoBehaviour
         }
 
         highScore = PlayerPrefs.GetInt("player_HighScore");
-
+        playerController = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -156,6 +158,12 @@ public class GameManager : MonoBehaviour
     private void TickComboTimer()
     {
         if (Combo == 0)
+        {
+            return;
+        }
+
+        // Only goes down in player is grounded
+        if (!playerController.isGrounded)
         {
             return;
         }
