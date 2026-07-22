@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3605571984625563880, guid: f2117da5f385c214aadac0fcda6f4bf5, type: 3}
+  m_Sprite: {fileID: 4404396764219871667, guid: f2117da5f385c214aadac0fcda6f4bf5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -212,15 +212,15 @@ MonoBehaviour:
   warning: {fileID: 6735050297354094338}
   ray: {fileID: 5056282002281305410}
   topParticles: {fileID: 1772702646964310955}
-  ourCamera: {fileID: 0}
-  rayWidth: 1
-  topGap: 0.5
-  warningTempFix: 0.5
+  rayAnimator: {fileID: 0}
   warningDuration: 2.5
   activeDuration: 2
+  topGap: 0.5
+  warningTempFix: 0.5
+  hitboxwidth: 0.8
   warningBlinkSlow: 0.3
   warningBlinkFast: 0.03
-  rayAnimator: {fileID: 0}
+  ourCamera: {fileID: 0}
 --- !u!1 &5090646831171404235
 GameObject:
   m_ObjectHideFlags: 0

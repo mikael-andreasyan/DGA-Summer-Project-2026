@@ -16,6 +16,7 @@ public class CosmicRay : MonoBehaviour
     [Header("Sizing")]
     [SerializeField] private float topGap = 0.5f;
     [SerializeField] private float warningTempFix = 0.5f;
+    [SerializeField] private float hitboxWidth = 0.8f;
 
     [Header("Warning Controls")]
     [SerializeField] private float warningBlinkSlow = 0.3f;
@@ -119,7 +120,7 @@ public class CosmicRay : MonoBehaviour
         posBotY = botOffset - centerOffset;
 
         spriteScale = rayHeight / rayNativeHeight;
-        float spriteScaledWidth = rayNativeWidth * spriteScale;
+        float spriteScaledWidth = rayNativeWidth * spriteScale * hitboxwidth;
 
         killZoneCollider.size = new Vector2(spriteScaledWidth, rayHeight);
         killZoneCollider.offset = Vector2.zero;
