@@ -4,38 +4,35 @@ using UnityEngine;
 public class CosmicRay : MonoBehaviour
 {
     [Header("Refs")]
-    [SerializeField] public SpriteRenderer warning;
-    [SerializeField] public SpriteRenderer ray;
-    [SerializeField] public ParticleSystem topParticles;
+    [SerializeField] private SpriteRenderer warning;
+    [SerializeField] private SpriteRenderer ray;
+    [SerializeField] private ParticleSystem topParticles;
+    [SerializeField] private Animator rayAnimator;
 
     [Header("Timing")]
-    [SerializeField] public float warningDuration = 2.5f;
-    [SerializeField] public float activeDuration = 2.0f;
+    [SerializeField] private float warningDuration = 2.5f;
+    [SerializeField] private float activeDuration = 2.0f;
+
+    [Header("Sizing")]
+    [SerializeField] private float topGap = 0.5f;
+    [SerializeField] private float warningTempFix = 0.5f;
+
+    [Header("Warning Controls")]
+    [SerializeField] private float warningBlinkSlow = 0.3f;
+    [SerializeField] private float warningBlinkFast = .03f;
 
     public Camera ourCamera;
-
-    public float rayWidth = 1f;
-    public float topGap = 0.5f;
-    public float warningTempFix = 0.5f;
-
-    
-
-    public float warningBlinkSlow = 0.3f;
-    public float warningBlinkFast = .03f;
-
     private BoxCollider2D killZoneCollider;
-    public Animator rayAnimator;
-    
+
     private float rayHeight;
     private float posWarningY;
     private float posTopY;
     private float posBotY;
-    private float topOffsetPivot = 0f;
-    private float fullScaleY;
-
+    private float topOffsetPivot;
+    
     private float rayNativeWidth = 1f;
     private float rayNativeHeight = 1f;
-    private float rayScaleX = 1f;
+    private float spriteScale = 1f;
 
 
     void Awake()
@@ -61,11 +58,8 @@ public class CosmicRay : MonoBehaviour
 
             if (ray.sprite != null)
             {
-                // Part of the scaling solution w/ world units
                 rayNativeWidth = ray.sprite.bounds.size.x;
                 rayNativeHeight = ray.sprite.bounds.size.y;
-                rayScaleX = rayWidth / rayNativeWidth;
-
                 topOffsetPivot = ray.sprite.bounds.max.y;
             }
         }
@@ -124,9 +118,10 @@ public class CosmicRay : MonoBehaviour
         posTopY = topOffset - centerOffset;
         posBotY = botOffset - centerOffset;
 
-        fullScaleY = rayHeight / rayNativeHeight;
+        spriteScale = rayHeight / rayNativeHeight;
+        float spriteScaledWidth = rayNativeWidth * spriteScale;
 
-        killZoneCollider.size = new Vector2(rayWidth, rayHeight);
+        killZoneCollider.size = new Vector2(spriteScaledWidth, rayHeight);
         killZoneCollider.offset = Vector2.zero;
     }
 
@@ -149,8 +144,6 @@ public class CosmicRay : MonoBehaviour
         {
             timer += Time.deltaTime;
             blinkTimer += Time.deltaTime;
-
-            // Set up a lerp so any warning sprite will blink.
 
             float transitionBlink = timer / warningDuration;
             float currentBlink = Mathf.Lerp(warningBlinkSlow, warningBlinkFast, transitionBlink);
@@ -176,10 +169,10 @@ public class CosmicRay : MonoBehaviour
             ray.gameObject.SetActive(true);
 
             Vector3 dPos = ray.transform.localPosition;
-            dPos.y = posTopY - (topOffsetPivot * fullScaleY);
+            dPos.y = posTopY - (topOffsetPivot * spriteScale);
             ray.transform.localPosition = dPos;
 
-            ray.transform.localScale = new Vector3(rayScaleX, fullScaleY, 1f);
+            ray.transform.localScale = new Vector3(spriteScale, spriteScale, 1f);
         }
 
         if (warning != null)
@@ -274,7 +267,7 @@ public class CosmicRay : MonoBehaviour
         float bottomLocalOffset = ray.sprite.bounds.min.y; 
 
         Vector3 p = ray.transform.localPosition;
-        p.y = posBotY - (bottomLocalOffset * fullScaleY);
+        p.y = posBotY - (bottomLocalOffset * spriteScale);
         ray.transform.localPosition = p;
     }
 
