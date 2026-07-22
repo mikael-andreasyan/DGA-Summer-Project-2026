@@ -195,7 +195,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &5766967478539224713
 MonoBehaviour:
@@ -217,7 +217,7 @@ MonoBehaviour:
   activeDuration: 2
   topGap: 0.5
   warningTempFix: 0.5
-  hitboxwidth: 0.8
+  hitboxWidth: 0.8
   warningBlinkSlow: 0.3
   warningBlinkFast: 0.03
   ourCamera: {fileID: 0}

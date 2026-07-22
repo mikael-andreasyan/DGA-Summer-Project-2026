@@ -120,7 +120,7 @@ public class CosmicRay : MonoBehaviour
         posBotY = botOffset - centerOffset;
 
         spriteScale = rayHeight / rayNativeHeight;
-        float spriteScaledWidth = rayNativeWidth * spriteScale * hitboxwidth;
+        float spriteScaledWidth = rayNativeWidth * spriteScale * hitboxWidth;
 
         killZoneCollider.size = new Vector2(spriteScaledWidth, rayHeight);
         killZoneCollider.offset = Vector2.zero;
