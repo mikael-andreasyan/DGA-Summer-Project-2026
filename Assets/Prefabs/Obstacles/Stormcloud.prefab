@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321dd4fe73ea22143a5975c1d85415e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weakpoint
+  type: 0
 --- !u!1 &2569315563706307338
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321dd4fe73ea22143a5975c1d85415e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weakpoint
+  type: 2
 --- !u!1 &8993217771490868630
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,3 +722,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321dd4fe73ea22143a5975c1d85415e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weakpoint
+  type: 1
