@@ -3,17 +3,22 @@ using UnityEngine;
 
 public class CosmicRay : MonoBehaviour
 {
-    public SpriteRenderer warning;
-    public SpriteRenderer ray;
-    public ParticleSystem topParticles;
+    [Header("Refs")]
+    [SerializeField] public SpriteRenderer warning;
+    [SerializeField] public SpriteRenderer ray;
+    [SerializeField] public ParticleSystem topParticles;
+
+    [Header("Timing")]
+    [SerializeField] public float warningDuration = 2.5f;
+    [SerializeField] public float activeDuration = 2.0f;
+
     public Camera ourCamera;
 
     public float rayWidth = 1f;
     public float topGap = 0.5f;
     public float warningTempFix = 0.5f;
 
-    public float warningDuration = 2.5f;
-    public float activeDuration = 2.0f;
+    
 
     public float warningBlinkSlow = 0.3f;
     public float warningBlinkFast = .03f;
