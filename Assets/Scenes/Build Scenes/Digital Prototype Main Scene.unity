@@ -632,6 +632,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1861394270}
     - target: {fileID: 8133763114722512393, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
+      propertyPath: firstChunkPrefab
+      value: 
+      objectReference: {fileID: 5622106204164219265, guid: 03bfab3c7378d9f439e67b46ea000d84, type: 3}
+    - target: {fileID: 8133763114722512393, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
       propertyPath: chunkPrefabs.Array.size
       value: 15
       objectReference: {fileID: 0}
