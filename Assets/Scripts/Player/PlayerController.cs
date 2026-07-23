@@ -66,8 +66,19 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private bool CanControl()
+    {
+        return GameManager.Instance == null ||
+               GameManager.Instance.CurrentState == GameManager.GameState.Playing;
+    }
+
    private void Update()
     {
+        if (!CanControl())
+        {
+            return;
+        }
+
         // Input reads happen in Update so button presses aren't missed
         // between fixed steps.
         if (Input.GetButtonDown("Jump"))
@@ -247,7 +258,7 @@ public class PlayerController : MonoBehaviour
         //    return;
        // }
         
-        float inputDir = Input.GetAxisRaw("Horizontal");
+        float inputDir = CanControl() ? Input.GetAxisRaw("Horizontal") : 0f;
 
         float accel = isGrounded ? acceleration : airAcceleration; //a.i told me this is a shorthand notation for if statements, so if isGrounded is true, accel = acceleration, otherwise accel = airAcceleration
         float fric = isGrounded ? friction : airFriction;

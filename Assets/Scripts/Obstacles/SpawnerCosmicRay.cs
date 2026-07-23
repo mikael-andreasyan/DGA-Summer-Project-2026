@@ -23,6 +23,13 @@ public class SpawnerCosmicRay : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(minTimer, maxTimer));
+
+            if (GameManager.Instance == null ||
+                GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+            {
+                continue;
+            }
+
             SpawnRay();
         }
     }
