@@ -6,9 +6,11 @@ public class CosmicRay : MonoBehaviour
     [Header("Refs")]
     [SerializeField] private SpriteRenderer warning;
     [SerializeField] private SpriteRenderer ray;
+    [SerializeField] private SpriteRenderer aoeWarning;
     [SerializeField] private ParticleSystem topParticles;
     [SerializeField] private Animator rayAnimator;
     [SerializeField] private Animator warningAnimator;
+    [SerializeField] private Animator aoeWarningAnimator;
 
     [Header("Timing")]
     [SerializeField] private float warningDuration = 2.5f;
@@ -41,6 +43,7 @@ public class CosmicRay : MonoBehaviour
     private float warningNativeWidth = 1f;
     private float warningNativeHeight = 1f;
     private float warningSpriteScale = 1f;
+    private float aoeHeight = 1f;
 
     public AudioClip warningSound;
 
@@ -79,6 +82,20 @@ public class CosmicRay : MonoBehaviour
                 rayNativeWidth = ray.sprite.bounds.size.x;
                 rayNativeHeight = ray.sprite.bounds.size.y;
                 topOffsetPivot = ray.sprite.bounds.max.y;
+            }
+        }
+
+        if (aoeWarning != null)
+        {
+            aoeWarning.gameObject.SetActive(false);
+            if (aoeWarningAnimator == null)
+            {
+                aoeWarningAnimator = aoeWarning.GetComponent<Animator>();
+            }
+
+            if (aoeWarning.sprite != null)
+            {
+                aoeHeight = aoeWarning.sprite.bounds.size.y;
             }
         }
     }
@@ -150,6 +167,18 @@ public class CosmicRay : MonoBehaviour
         float warningHalf = (warningNativeHeight * warningSpriteScale) * 0.5f;
         posWarningEndY = posTopY - warningGap - warningHalf;
         posWarningStartY = posTopY + warningScreenOffset + warningHalf;
+
+        //AOE
+
+        if (aoeWarning != null && aoeHeight > 0f)
+        {
+            float aoeScale = rayHeight / aoeHeight;
+            aoeWarning.transform.localScale = new Vector3(aoeScale, aoeScale, 1f);
+
+            Vector3 aoePos = aoeWarning.transform.localPosition;
+            aoePos.y = 0f;
+            aoeWarning.transform.localPosition = aoePos;
+        }
     }
 
 
@@ -159,6 +188,15 @@ public class CosmicRay : MonoBehaviour
         if (audioManager != null && warningSound != null)
         {
             audioManager.PlaySFX(warningSound);
+        }
+
+        if (aoeWarning != null)
+        {
+            aoeWarning.gameObject.SetActive(true);
+            if (aoeWarningAnimator != null)
+            {
+                aoeWarningAnimator.Play("WarnAOE", 0, 0f);
+            }
         }
         
         if (warning == null) {
@@ -186,6 +224,11 @@ public class CosmicRay : MonoBehaviour
 
         yield return WarningTransform(warning.transform, posWarningEndY, posWarningStartY, warningTransformTime);
 
+        if (aoeWarning != null)
+        {
+            aoeWarning.gameObject.SetActive(false);
+        }
+
         warning.gameObject.SetActive(false);
     }
 
@@ -206,6 +249,11 @@ public class CosmicRay : MonoBehaviour
         if (warning != null)
         {
             warning.gameObject.SetActive(false);
+        }
+
+        if (aoeWarning != null)
+        {
+            aoeWarning.gameObject.SetActive(false);
         }
 
         if (topParticles != null)
