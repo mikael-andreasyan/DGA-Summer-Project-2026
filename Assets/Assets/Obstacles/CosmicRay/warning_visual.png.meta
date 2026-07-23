@@ -124,12 +124,12 @@ TextureImporter:
       name: warning_visual_0
       rect:
         serializedVersion: 2
-        x: 14
+        x: 0
         y: 0
-        width: 37
+        width: 32
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -146,12 +146,12 @@ TextureImporter:
       name: warning_visual_1
       rect:
         serializedVersion: 2
-        x: 75
+        x: 32
         y: 0
-        width: 11
+        width: 32
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -168,12 +168,12 @@ TextureImporter:
       name: warning_visual_2
       rect:
         serializedVersion: 2
-        x: 105
+        x: 64
         y: 0
-        width: 14
+        width: 32
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -190,12 +190,12 @@ TextureImporter:
       name: warning_visual_3
       rect:
         serializedVersion: 2
-        x: 135
+        x: 96
         y: 0
-        width: 18
+        width: 32
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,12 +212,12 @@ TextureImporter:
       name: warning_visual_4
       rect:
         serializedVersion: 2
-        x: 165
+        x: 128
         y: 0
-        width: 22
+        width: 32
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,12 +234,12 @@ TextureImporter:
       name: warning_visual_5
       rect:
         serializedVersion: 2
-        x: 195
+        x: 160
         y: 0
-        width: 26
+        width: 32
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -256,12 +256,12 @@ TextureImporter:
       name: warning_visual_6
       rect:
         serializedVersion: 2
-        x: 225
+        x: 192
         y: 0
-        width: 30
+        width: 32
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -278,12 +278,12 @@ TextureImporter:
       name: warning_visual_7
       rect:
         serializedVersion: 2
-        x: 255
+        x: 224
         y: 0
-        width: 33
+        width: 32
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -296,11 +296,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: warning_visual_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa5eb9eb9e3d4574a94df765ca0f8019
+      internalID: -763752428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7151d0c8d9b439542b848b470d3aba30
     internalID: 0
     vertices: []
     indices: 
@@ -308,7 +330,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":9.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":180.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       warning_visual_0: 6763235053534719620
       warning_visual_1: 4848023758797142178
@@ -318,6 +342,7 @@ TextureImporter:
       warning_visual_5: -1368975991753155609
       warning_visual_6: -8949960524053986616
       warning_visual_7: -1962767485788287072
+      warning_visual_8: -763752428
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
