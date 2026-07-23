@@ -243,6 +243,8 @@ public class BasicCloud : MonoBehaviour
 
         playerCurrentlyOnCloud = true;
         justLanded = true;
+        Debug.Log("Playing particles");
+        particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         particleSystem.Play();
     }
 
