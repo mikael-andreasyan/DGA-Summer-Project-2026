@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         HandleJumpStart();
         HandleHorizontalMovement();
         restrictPlayerWithinBounds();
-        RideCloud();
+        // RideCloud();
 
         rb.linearVelocity = velocity;
 
@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour
         {
             if (previousCloud != null)
             {
+                // gameObject.transform.SetParent(null);
                 previousCloud.PlayerLeft();
                 hasLandedOnCurrentCloud = false;
                 
@@ -146,6 +147,7 @@ public class PlayerController : MonoBehaviour
 
             if (!hasLandedOnCurrentCloud)
             {
+                // gameObject.transform.SetParent(cloudScript.gameObject.transform);
                 cloudScript.PlayerLanded();
                 hasLandedOnCurrentCloud = true;
             }
@@ -155,7 +157,8 @@ public class PlayerController : MonoBehaviour
         else if (!hasLandedOnCurrentCloud && newCloud != null && rb.linearVelocityY <= 0 && 
         groundCheck.position.y >= newCloud.GetComponent<Collider2D>().bounds.max.y - 0.05f)
         {
-            newCloud.PlayerLanded();
+            // gameObject.transform.SetParent(cloudScript.gameObject.transform);
+            cloudScript.PlayerLanded();
             hasLandedOnCurrentCloud = true;
         }        
 
@@ -200,6 +203,8 @@ public class PlayerController : MonoBehaviour
         // Start a jump if buffered and coyote time is still available
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
+            // transform.SetParent(null);
+            hasLandedOnCurrentCloud = false;
             velocity.y = jumpVelocity;
 
             BasicCloud jumpCloud = cloudScript != null ? cloudScript : lastGroundedCloud;
@@ -237,8 +242,12 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ApplyGravity()
-       {
-          if (velocity.y > 0f)
+    {
+        if (hasLandedOnCurrentCloud && cloudRB != null)
+        {
+            velocity.y = cloudRB.linearVelocityY;
+        }
+        else if (velocity.y > 0f)
          {
             // Rising: use the "to peak" gravity
             velocity.y -= jumpGravity * Time.fixedDeltaTime;

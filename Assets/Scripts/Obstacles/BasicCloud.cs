@@ -225,7 +225,10 @@ public class BasicCloud : MonoBehaviour
         canWeakpointBoost = false;
         foreach (Transform child in transform)
         {
-            Destroy(child.gameObject);
+            if (child.gameObject.CompareTag("Weakpoint"))
+            {
+                Destroy(child.gameObject);
+            }
         }
         // Debug.Log("Weakpoint expired");
     }
