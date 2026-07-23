@@ -78,11 +78,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 2069975139
-  m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4404396764219871667, guid: f2117da5f385c214aadac0fcda6f4bf5, type: 3}
+  m_Sprite: {fileID: 3605571984625563880, guid: f2117da5f385c214aadac0fcda6f4bf5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -195,7 +195,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &5766967478539224713
 MonoBehaviour:
@@ -212,15 +212,16 @@ MonoBehaviour:
   warning: {fileID: 6735050297354094338}
   ray: {fileID: 5056282002281305410}
   topParticles: {fileID: 1772702646964310955}
-  rayAnimator: {fileID: 0}
-  warningDuration: 2.5
-  activeDuration: 2
+  ourCamera: {fileID: 0}
+  rayWidth: 1
   topGap: 0.5
   warningTempFix: 0.5
-  hitboxWidth: 0.8
+  warningDuration: 2.5
+  activeDuration: 2
   warningBlinkSlow: 0.3
   warningBlinkFast: 0.03
-  ourCamera: {fileID: 0}
+  rayAnimator: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: 649f9ace4330e4e41a36879b42a42722, type: 3}
 --- !u!1 &5090646831171404235
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,8 +509,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 1
+      scalar: 0.7
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5031,8 +5032,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 2069975139
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -5143,8 +5144,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 2069975139
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
