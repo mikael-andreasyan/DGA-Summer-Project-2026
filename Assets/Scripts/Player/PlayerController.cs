@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapBoxAll(groundCheck.position, groundCheckSize, 0f, groundLayer);
         isGrounded = false;
 
-        foreach (var hit in hits) //  Get every collder just in case
+        foreach (var hit in hits) //  Get every collider just in case
         {
             if (hit.isTrigger)
                 continue;
@@ -147,7 +147,6 @@ public class PlayerController : MonoBehaviour
 
             if (!hasLandedOnCurrentCloud)
             {
-                // gameObject.transform.SetParent(cloudScript.gameObject.transform);
                 cloudScript.PlayerLanded();
                 hasLandedOnCurrentCloud = true;
             }
@@ -157,8 +156,8 @@ public class PlayerController : MonoBehaviour
         else if (!hasLandedOnCurrentCloud && newCloud != null && rb.linearVelocityY <= 0 && 
         groundCheck.position.y >= newCloud.GetComponent<Collider2D>().bounds.max.y - 0.05f)
         {
-            // gameObject.transform.SetParent(cloudScript.gameObject.transform);
             cloudScript.PlayerLanded();
+            newCloud.PlayerLanded();
             hasLandedOnCurrentCloud = true;
         }        
 
