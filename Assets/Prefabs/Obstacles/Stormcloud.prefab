@@ -403,16 +403,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3a219def15773448e22f312890dea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StormCloud
-  downSpeed: 6
-  upSpeed: 4
-  settleSpeed: 2
-  maxDistanceDown: 0.5
-  maxDistanceUp: 2
+  downSpeed: 10
+  upSpeed: 10
+  settleSpeed: 8
+  maxDistanceDown: 0.75
+  maxDistanceUp: 1.5
   boostThreshold: 1.5
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
-  weakpointLifetime: 1
+  weakpointLifetime: 0.25
   zapZone: {fileID: 2898845938293897785}
   phaseCooldown: 1
   lightning: {fileID: 0}
