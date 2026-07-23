@@ -3,38 +3,28 @@ using UnityEngine;
 // This script registers when the player touches this weakpoint
 public class Weakpoint : MonoBehaviour
 {
-
-    public enum WeakpointType
-    {
-        Left,
-        Middle,
-        Right
-    }
-
-    [SerializeField] private WeakpointType type;
-    private BasicCloud cloudScript;
-    private bool playerInside;
+    BasicCloud cloudScript;
 
     void Start()
     {
         cloudScript = GetComponentInParent<BasicCloud>();
-        switch (type)
+        switch (this.gameObject.name)
         {
-            case WeakpointType.Left:
+            case "LeftWeakpoint":
                 if (!cloudScript.isActiveWeakpoint(0))
                 {
                     
                     Destroy(gameObject);
                 }
                 break;
-            case WeakpointType.Middle:
+            case "MidWeakpoint":
                 if (!cloudScript.isActiveWeakpoint(1))
                 {
                     
                     Destroy(gameObject);
                 }
                 break;
-            case WeakpointType.Right:
+            case "RightWeakpoint":
                 if (!cloudScript.isActiveWeakpoint(2))
                 {
                    
@@ -46,39 +36,17 @@ public class Weakpoint : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
- 
-        if (collision.gameObject.CompareTag("Player") && !playerInside)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            playerInside = true;
-            switch (type)
+            switch (this.gameObject.name)
             {
-                case WeakpointType.Left:
+                case "LeftWeakpoint":
                     cloudScript.registerChildCollision(0);
                     break;
-                case WeakpointType.Middle:
+                case "MidWeakpoint":
                     cloudScript.registerChildCollision(1);
                     break;
-                case WeakpointType.Right:
-                    cloudScript.registerChildCollision(2);
-                    break;
-            }
-        }
-    }
-    void OnTriggerStay2D(Collider2D collision)
-    {
- 
-        if (collision.gameObject.CompareTag("Player") && !playerInside)
-        {
-            playerInside = true;
-            switch (type)
-            {
-                case WeakpointType.Left:
-                    cloudScript.registerChildCollision(0);
-                    break;
-                case WeakpointType.Middle:
-                    cloudScript.registerChildCollision(1);
-                    break;
-                case WeakpointType.Right:
+                case "RightWeakpoint":
                     cloudScript.registerChildCollision(2);
                     break;
             }
@@ -88,16 +56,15 @@ public class Weakpoint : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerInside = false;
-            switch (type)
+            switch (this.gameObject.name)
             {
-                case WeakpointType.Left:
+                case "LeftWeakpoint":
                     cloudScript.registerChildCollisionExit(0);
                     break;
-                case WeakpointType.Middle:
+                case "MidWeakpoint":
                     cloudScript.registerChildCollisionExit(1);
                     break;
-                case WeakpointType.Right:
+                case "RightWeakpoint":
                     cloudScript.registerChildCollisionExit(2);
                     break;
             }

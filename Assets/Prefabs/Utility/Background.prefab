@@ -62,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 6268328715000913454}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -12.31, z: 0}
+  m_LocalPosition: {x: -0.11, y: -7.46, z: 0}
   m_LocalScale: {x: 6.5502048, y: 6.5502048, z: 6.5502048}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -140,8 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c364c0c623b4a66a059e9bd998dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
-  parallaxEffect: 0.2
-  repeating: 0
+  parallaxEffect: 0.98
 --- !u!1 &6302862700778048021
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +168,7 @@ Transform:
   m_GameObject: {fileID: 6302862700778048021}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -0.04729998, y: 1.3397999, z: 0}
   m_LocalScale: {x: 17.47462, y: 17.47462, z: 17.47462}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -247,8 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c364c0c623b4a66a059e9bd998dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
-  parallaxEffect: 0.05
-  repeating: 1
+  parallaxEffect: 0.1
 --- !u!1 &9017588885855169020
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 9017588885855169020}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 48, z: 0}
+  m_LocalPosition: {x: -0.04729998, y: 48.3858, z: 0}
   m_LocalScale: {x: 17.47462, y: 17.47462, z: 17.47462}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -354,8 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c364c0c623b4a66a059e9bd998dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
-  parallaxEffect: 0.05
-  repeating: 1
+  parallaxEffect: 0.1
 --- !u!1 &9025853448120674785
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +380,7 @@ Transform:
   m_GameObject: {fileID: 9025853448120674785}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 95, z: 0}
+  m_LocalPosition: {x: -0.04729998, y: 95.4318, z: 0}
   m_LocalScale: {x: 17.47462, y: 17.47462, z: 17.47462}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -461,5 +458,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c364c0c623b4a66a059e9bd998dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
-  parallaxEffect: 0.05
-  repeating: 1
+  parallaxEffect: 0.1

@@ -32,12 +32,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AfterImageEffect afterImage; 
 
     private Rigidbody2D rb;
-
-    private Collider2D col;
     private Vector2 velocity;
     private Rigidbody2D cloudRB;
     private BasicCloud cloudScript; // Reference to the cloud script so we can call its public methods
-    private BasicCloud lastGroundedCloud;
 
     private float jumpVelocity;
     private float jumpGravity;
@@ -48,14 +45,11 @@ public class PlayerController : MonoBehaviour
     private bool isJumping;
     public bool isGrounded;
 
-    private bool hasLandedOnCurrentCloud;
-
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f; // gravity is applied manually below
-        col = GetComponent<Collider2D>();
 
         // Derive jump velocity and the two gravity values (rising vs falling)
         // from the desired height and timing, so tuning stays intuitive:
@@ -108,66 +102,15 @@ public class PlayerController : MonoBehaviour
 
     public bool CheckGrounded()
     {
-        BasicCloud previousCloud = cloudScript;
-        BasicCloud newCloud = null;
-        Collider2D[] hits = Physics2D.OverlapBoxAll(groundCheck.position, groundCheckSize, 0f, groundLayer);
-        isGrounded = false;
+        Collider2D ground = groundCheck != null
+            ? Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer)
+            : null;
 
-        foreach (var hit in hits)
-        {
-            if (hit.isTrigger)
-                continue;
-            isGrounded = true;
-            newCloud = hit.attachedRigidbody?.GetComponent<BasicCloud>();
-
-            if (newCloud != null)
-                break;
-        }
-
-        if (previousCloud != newCloud)
-        {
-            if (previousCloud != null)
-            {
-                previousCloud.PlayerLeft();
-                hasLandedOnCurrentCloud = false;
-                
-            }
-        }
-
-        cloudScript = newCloud;
-        cloudRB = newCloud != null ? newCloud.GetComponent<Rigidbody2D>() : null;
-        Collider2D cloudCol = newCloud != null ? newCloud.GetComponent<Collider2D>() : null;
-
-        if (cloudScript != null && rb.linearVelocityY <= 0 &&
-        col.bounds.min.y < cloudCol.bounds.max.y) // Push player out of cloud if they're stuck
-        {
-            float correction = cloudCol.bounds.max.y - col.bounds.min.y;
-            rb.MovePosition(rb.position + Vector2.up * correction);
-
-            if (!hasLandedOnCurrentCloud)
-            {
-                cloudScript.PlayerLanded();
-                hasLandedOnCurrentCloud = true;
-            }
-        }
-
-        else if (!hasLandedOnCurrentCloud && newCloud != null && rb.linearVelocityY <= 0 && 
-        groundCheck.position.y >= newCloud.GetComponent<Collider2D>().bounds.max.y - 0.05f)
-        {
-            newCloud.PlayerLanded();
-            hasLandedOnCurrentCloud = true;
-        }        
-
-        // Collider2D ground = groundCheck != null
-        //     ? Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer)
-        //     : null;
-
-        // isGrounded = ground != null;
-        // cloudRB = ground != null ? ground.attachedRigidbody : null;
-        // cloudScript = cloudRB != null ? cloudRB.gameObject.GetComponent<BasicCloud>() : null;
+        isGrounded = ground != null;
+        cloudRB = ground != null ? ground.attachedRigidbody : null;
+        cloudScript = cloudRB != null ? cloudRB.gameObject.GetComponent<BasicCloud>() : null;
 
         velocity = rb.linearVelocity;
-        // Debug.Log(isGrounded);
         return isGrounded;
     }
     
@@ -200,27 +143,15 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
             velocity.y = jumpVelocity;
-
-            BasicCloud jumpCloud = cloudScript != null ? cloudScript : lastGroundedCloud;
-            if (jumpCloud != null)
+            if (cloudScript != null && cloudScript.isWeakpointAvailable())
             {
-                if (jumpCloud.isWeakpointAvailable())
+                velocity.y = boostVelocity;
+                Debug.Log("Successful boost!");
+                if (afterImage != null)
                 {
-                    velocity.y = boostVelocity;
-                    GameManager.Instance.RegisterBoost();
-                    Debug.Log("Successful boost!");
-                    if (afterImage != null)
-                    {
-                        afterImage.Play();
-                    }
+                    afterImage.Play();
                 }
-                else
-                {
-                    GameManager.Instance.LoseCombo();
-                }
-                lastGroundedCloud = null; 
             }
-
             isJumping = true;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;
