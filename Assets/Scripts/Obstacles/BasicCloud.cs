@@ -12,7 +12,7 @@ public class BasicCloud : MonoBehaviour
     [SerializeField] protected float maxDistanceUp = 3f; // How far the cloud moves up while bobbing
     [SerializeField] protected float boostThreshold = 2f; // Where the player can get a boost off the cloud
     protected bool isCollidingPlayer;
-
+    private bool playerCurrentlyOnCloud;
     protected bool isOnTop; // Whether the player is currently resting on top of the cloud
 
 
@@ -225,4 +225,22 @@ public class BasicCloud : MonoBehaviour
         }
         // Debug.Log("Weakpoint expired");
     }
+
+
+    public void PlayerLanded()
+    {
+        if (playerCurrentlyOnCloud)
+            return;
+
+        isCollidingPlayer = true;
+        playerCurrentlyOnCloud = true;
+        justLanded = true;
+    }
+
+    public void PlayerLeft()
+    {
+        isCollidingPlayer = false;
+        playerCurrentlyOnCloud = false;
+    }
+
 }
