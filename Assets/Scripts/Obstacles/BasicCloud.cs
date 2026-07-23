@@ -12,7 +12,7 @@ public class BasicCloud : MonoBehaviour
     [SerializeField] protected float maxDistanceUp = 3f; // How far the cloud moves up while bobbing
     [SerializeField] protected float boostThreshold = 2f; // Where the player can get a boost off the cloud
     protected bool isCollidingPlayer;
-
+    private bool playerCurrentlyOnCloud;
     protected bool isOnTop; // Whether the player is currently resting on top of the cloud
 
 
@@ -40,8 +40,6 @@ public class BasicCloud : MonoBehaviour
     protected bool weakpointExpired; // Whether the weakpoint has expired
 
     protected Vector2 lastPosition;
-
-    private bool playerCurrentlyOnCloud;
 
 
     protected void Awake()
@@ -96,85 +94,83 @@ public class BasicCloud : MonoBehaviour
             }
         }
 
-        // if (isOnTop && playerCol != null)
-        // {
-        //     float cloudTop = col.bounds.max.y;
-        //     float playerBottom = playerCol.bounds.min.y;
+        if (isOnTop && playerCol != null)
+        {
+            float cloudTop = col.bounds.max.y;
+            float playerBottom = playerCol.bounds.min.y;
 
-        //     if (playerBottom < cloudTop)
-        //     {
-        //         float correction = cloudTop - playerBottom;
-        //         float maxCorrectionPerStep = 0.1f;
-        //         float applied = Mathf.Min(correction, maxCorrectionPerStep);
-        //         playerRB.position += new Vector2(0f, applied);
-        //     }
-        // }
+            if (playerBottom < cloudTop)
+            {
+                float correction = cloudTop - playerBottom;
+                float maxCorrectionPerStep = 0.1f;
+                float applied = Mathf.Min(correction, maxCorrectionPerStep);
+                playerRB.position += new Vector2(0f, applied);
+            }
+        }
     }
 
-    // protected virtual void OnCollisionEnter2D(Collision2D other) {
-    //     if(other.gameObject.CompareTag("Player"))
-    //     {
-    //         isCollidingPlayer = true;
-    //         if (playerRB == null)
-    //         {
-    //             playerRB = other.gameObject.GetComponent<Rigidbody2D>(); // Get reference to player
-    //             playerCol = other.gameObject.GetComponent<Collider2D>();
-    //         }
+    protected virtual void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            isCollidingPlayer = true;
+            if (playerRB == null)
+            {
+                playerRB = other.gameObject.GetComponent<Rigidbody2D>(); // Get reference to player
+                playerCol = other.gameObject.GetComponent<Collider2D>();
+            }
 
-    //         bool onTopThisFrame = false;
+            bool onTopThisFrame = false;
 
-    //         foreach (ContactPoint2D contact in other.contacts)
-    //         {
-    //             if (playerCol.bounds.min.y >= col.bounds.max.y - 0.5f &&
-    //             playerRB.linearVelocity.y <= 0f)
-    //             {
-    //                 onTopThisFrame = true;
-    //                 break;
-    //             }
-    //         }
+            foreach (ContactPoint2D contact in other.contacts)
+            {
+                if (contact.normal.y < -0.5f)
+                {
+                    onTopThisFrame = true;
+                    break;
+                }
+            }
 
-    //         if (onTopThisFrame && !isOnTop)
-    //         {
-    //             justLanded = true;
-    //         }
+            if (onTopThisFrame && !isOnTop)
+            {
+                justLanded = true;
+            }
 
-    //         isOnTop = onTopThisFrame;
-    //     }
-    // }
-    // protected virtual void OnCollisionExit2D(Collision2D other)
-    // {
-    //     if(other.gameObject.CompareTag("Player"))
-    //     {
-    //         isCollidingPlayer = false;
-    //         isOnTop = false; 
-    //     }
-    // }
+            isOnTop = onTopThisFrame;
+        }
+    }
+    protected virtual void OnCollisionExit2D(Collision2D other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            isCollidingPlayer = false;
+            isOnTop = false; 
+        }
+    }
 
-    // // In case player is in contact with the cloud the whole time   
-    // protected virtual void OnCollisionStay2D(Collision2D other)
-    // {
-    //     if (!other.gameObject.CompareTag("Player")) return;
+    // In case player is in contact with the cloud the whole time   
+    protected virtual void OnCollisionStay2D(Collision2D other)
+    {
+        if (!other.gameObject.CompareTag("Player")) return;
 
 
-    //     bool onTopThisFrame = false;
-    //     foreach (ContactPoint2D contact in other.contacts)
-    //     {
-    //         // Debug.Log($"enabled={contact.enabled}, normal.y={contact.normal.y}");
-    //         if (playerCol.bounds.min.y >= col.bounds.max.y - 0.5f && 
-    //         playerRB.linearVelocity.y <= 0f)
-    //         {
-    //             onTopThisFrame = true;
-    //             break;
-    //         }
-    //     }
+        bool onTopThisFrame = false;
+        foreach (ContactPoint2D contact in other.contacts)
+        {
+            Debug.Log($"enabled={contact.enabled}, normal.y={contact.normal.y}");
+            if (contact.enabled && contact.normal.y < -0.5f)
+            {
+                onTopThisFrame = true;
+                break;
+            }
+        }
 
-    //     if (onTopThisFrame && !isOnTop)
-    //     {
-    //         justLanded = true; // transitioned from passing-through/no-contact to actually resting on top
-    //     }
+        if (onTopThisFrame && !isOnTop)
+        {
+            justLanded = true; // transitioned from passing-through/no-contact to actually resting on top
+        }
 
-    //     isOnTop = onTopThisFrame;
-    // }   
+        isOnTop = onTopThisFrame;
+    }   
 
     public bool isBoostAvailable() // Whether the player gets a boost from jumping off the cloud
     {
