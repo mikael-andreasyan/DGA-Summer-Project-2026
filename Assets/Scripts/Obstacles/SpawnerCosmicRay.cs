@@ -12,6 +12,7 @@ public class SpawnerCosmicRay : MonoBehaviour
     [Header("Timing")]
     public float minTimer = 8f;
     public float maxTimer = 12f;
+    public float timeBuffer = 5f; // This is the time AFTER deciding the spawn time at which another spawn can be started
 
     [Header("Distance From Player, Spawning")]
     public float maxPlayerDist = 5f;
@@ -34,6 +35,7 @@ public class SpawnerCosmicRay : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(minTimer, maxTimer));
             SpawnRay();
+            yield return new WaitForSeconds(timeBuffer);
         }
     }
 
