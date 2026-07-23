@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject startPlatform;
     [SerializeField] private Vector2 platformOffset;
 
+    [Header("Audio")]
+    [SerializeField] private GameObject audioManagerPrefab;
+
 
     private float comboTimer;
     private bool isAlive = true;
@@ -75,6 +78,11 @@ public class GameManager : MonoBehaviour
         if (cam == null)
         {
             cam = Camera.main;
+        }
+
+        if (FindObjectOfType<AudioManager>() == null && audioManagerPrefab != null)
+        {
+            Instantiate(audioManagerPrefab);
         }
     }
 
@@ -209,6 +217,7 @@ public class GameManager : MonoBehaviour
     // Made a function just in case anything else is needed to restart the level in the future
     private void RestartLevel()
     {
+        ServiceLocator.Get<AudioManager>()?.StopAll();
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
