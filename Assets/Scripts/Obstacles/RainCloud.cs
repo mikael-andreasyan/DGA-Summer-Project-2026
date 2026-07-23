@@ -17,26 +17,26 @@ public class RainCloud : BasicCloud
      */
 
     private enum RainCloudStates { Idle, Raining, Vapor } // Idle = full cloud. Raining = player is on the cloud. Vapor = waiting to respawn.
+    [Header("Sprite Refs")]
     [SerializeField] private Sprite idleCloudSprite;
     [SerializeField] private Sprite rainingCloudSprite;
     [SerializeField] private Sprite fadedVaporSprite;
 
-    [SerializeField] private float rainDuration = 3f;
-    [SerializeField] private float vaporDuration = 4f;
+    [Header("Duration Timers")]
+    [SerializeField] private float rainDuration = 0.6f;
+    [SerializeField] private float vaporDuration = 2f;
 
-    [SerializeField] private float flashWindow = 1f;
-    [SerializeField] private float flashInterval = 0.15f;
+    [Header("Flashing Window")]
+    [SerializeField] private float flashWindow = 0.5f;
+    [SerializeField] private float flashInterval = 0.1f;
     [SerializeField] private float flashAlpha = 0.3f;
 
     private RainCloudStates state = RainCloudStates.Idle;
     private float timer = 0f; // This will count how long a state has been active 
-    // **Update: timer has a problem b/c the player bounces off at the top of a jump. Switched to cumulative method.
     private float flashTimer = 0f;
     private bool flashVis = true;
 
     
-
-
     protected override void Start()
     {
         base.Start();

@@ -236,12 +236,14 @@ public class BasicCloud : MonoBehaviour
         if (playerCurrentlyOnCloud)
             return;
 
+        isCollidingPlayer = true;
         playerCurrentlyOnCloud = true;
         justLanded = true;
     }
 
     public void PlayerLeft()
     {
+        isCollidingPlayer = false;
         playerCurrentlyOnCloud = false;
     }
 
