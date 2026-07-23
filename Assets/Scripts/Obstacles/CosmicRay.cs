@@ -32,6 +32,8 @@ public class CosmicRay : MonoBehaviour
     private float rayNativeHeight = 1f;
     private float rayScaleX = 1f;
 
+    public AudioClip warningSound;
+
 
     void Awake()
     {
@@ -128,6 +130,12 @@ public class CosmicRay : MonoBehaviour
 
     private IEnumerator WarningSequence()
     {
+        var audioManager = ServiceLocator.Get<AudioManager>();
+        if (audioManager != null && warningSound != null)
+        {
+            audioManager.PlaySFX(warningSound);
+        }
+        
         if (warning != null)
         {
             warning.gameObject.SetActive(true);

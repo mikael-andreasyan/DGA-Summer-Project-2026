@@ -17,9 +17,10 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
+       transform.position = new Vector3(0,0, -10);
+
        player = GameManager.Instance.GetPlayer();
        highestY = player.position.y;
-       transform.position = new Vector3(0,player.position.y, -10);
     }
 
     void LateUpdate()
@@ -43,7 +44,7 @@ public class CameraFollow : MonoBehaviour
                 scrollSpeed = Mathf.Min(scrollSpeed, maxSpeed);
                 incTime = Time.time;
         }
-        
+        Debug.Log(scrollSpeed);
         highestY += scrollSpeed * Time.deltaTime;
         highestY = Mathf.Max(highestY, player.position.y);
 
@@ -52,7 +53,7 @@ public class CameraFollow : MonoBehaviour
             highestY,
             -10f
         );
-        
+
         transform.position = Vector3.Lerp(
             transform.position,
             target,

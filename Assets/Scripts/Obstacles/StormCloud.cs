@@ -34,9 +34,9 @@ public class StormCloud : BasicCloud
     /*
     if the player collides w/ the hitbox area below cloud, thriggers lightning
     */
-    protected void OnCollisionEnter2D(Collision2D other)
+    protected override void OnCollisionEnter2D(Collision2D other)
     {
-        // base.OnCollisionEnter2D(other); // this fixed the landing behavior
+        base.OnCollisionEnter2D(other); // this fixed the landing behavior
 
         if (!other.gameObject.CompareTag("Player")) return;
         if (phaseCooldownTimer > 0f) return;

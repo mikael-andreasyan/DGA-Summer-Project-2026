@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   mainSceneName: 
   pointsPerCloud: 10
-  comboTime: 1.8
+  comboTime: 2
   boundaryWidth: 26
   player: {fileID: 0}
   cam: {fileID: 0}
