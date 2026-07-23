@@ -155,3 +155,7 @@ MonoBehaviour:
   boostDistance: 50
   boostSpeed: 20
   wingsMovementSpeed: 20
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  wallSkin: 0.05
