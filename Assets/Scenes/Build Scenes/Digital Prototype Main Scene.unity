@@ -426,6 +426,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 43957500294127363, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 815254311122104419, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
       propertyPath: m_characterSpacing
       value: 0
@@ -445,6 +449,14 @@ PrefabInstance:
     - target: {fileID: 1866468501760411165, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2832805577456891802, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -203
+      objectReference: {fileID: 0}
+    - target: {fileID: 2832805577456891802, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2898608354400907542, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
       propertyPath: highScoreText
@@ -547,6 +559,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+--- !u!1 &1588419317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7417465919130804314, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+  m_PrefabInstance: {fileID: 1127775002}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1861394270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 238400358363692368, guid: 3f670221ad314473fa48705f6d58ff3b, type: 3}
@@ -772,6 +789,10 @@ PrefabInstance:
       propertyPath: mainSceneName
       value: Digital Prototype Main Scene
       objectReference: {fileID: 0}
+    - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
+      propertyPath: newRecordText
+      value: 
+      objectReference: {fileID: 1588419317}
     - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
       propertyPath: startPlatform
       value: 
