@@ -43,6 +43,8 @@ public class BasicCloud : MonoBehaviour
 
     private bool playerCurrentlyOnCloud;
 
+    public ParticleSystem particleSystem;
+
 
     protected void Awake()
     {
@@ -225,7 +227,10 @@ public class BasicCloud : MonoBehaviour
         canWeakpointBoost = false;
         foreach (Transform child in transform)
         {
-            Destroy(child.gameObject);
+            if (child.gameObject!=particleSystem.gameObject)
+            {
+               Destroy(child.gameObject); 
+            }
         }
         // Debug.Log("Weakpoint expired");
     }
@@ -238,6 +243,7 @@ public class BasicCloud : MonoBehaviour
 
         playerCurrentlyOnCloud = true;
         justLanded = true;
+        particleSystem.Play();
     }
 
     public void PlayerLeft()
