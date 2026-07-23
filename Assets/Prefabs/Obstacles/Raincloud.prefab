@@ -356,16 +356,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376a09806dffd72409829dad14dd5f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  downSpeed: 3
-  upSpeed: 2
-  settleSpeed: 2
-  maxDistanceDown: 2
-  maxDistanceUp: 3
+  downSpeed: 10
+  upSpeed: 10
+  settleSpeed: 8
+  maxDistanceDown: 0.75
+  maxDistanceUp: 1.5
   boostThreshold: 1
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
-  weakpointLifetime: 1
+  weakpointLifetime: 0.25
   idleCloudSprite: {fileID: 0}
   rainingCloudSprite: {fileID: 7482667652216324306, guid: 0f7c30347cc03412ca20934790dd748d, type: 3}
   fadedVaporSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
