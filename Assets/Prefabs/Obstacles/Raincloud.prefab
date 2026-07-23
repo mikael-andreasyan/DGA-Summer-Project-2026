@@ -365,14 +365,14 @@ MonoBehaviour:
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
-  weakpointLifetime: 1
+  weakpointLifetime: 0.3
   idleCloudSprite: {fileID: 0}
   rainingCloudSprite: {fileID: 7482667652216324306, guid: 0f7c30347cc03412ca20934790dd748d, type: 3}
   fadedVaporSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  rainDuration: 2
+  rainDuration: 0.45
   vaporDuration: 2
-  flashWindow: 1
-  flashInterval: 0.15
+  flashWindow: 0.3
+  flashInterval: 0.1
   flashAlpha: 0.3
 --- !u!1 &3470870582214029526
 GameObject:
