@@ -213,13 +213,14 @@ MonoBehaviour:
   ray: {fileID: 5056282002281305410}
   topParticles: {fileID: 1772702646964310955}
   rayAnimator: {fileID: 0}
+  warningAnimator: {fileID: 0}
   warningDuration: 2.5
   activeDuration: 2
   topGap: 0.5
-  warningTempFix: 0.5
   hitboxWidth: 0.8
-  warningBlinkSlow: 0.3
-  warningBlinkFast: 0.03
+  warningTransformTime: 0.3
+  warningGap: 0.3
+  warningScreenOffset: 1
   ourCamera: {fileID: 0}
   warningSound: {fileID: 8300000, guid: 649f9ace4330e4e41a36879b42a42722, type: 3}
 --- !u!1 &5090646831171404235
@@ -5077,6 +5078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 997865368463295928}
   - component: {fileID: 6735050297354094338}
+  - component: {fileID: 3204786320928590046}
   m_Layer: 0
   m_Name: WarningIndicator
   m_TagString: Untagged
@@ -5148,7 +5150,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: -1719910008, guid: 85e5ffabb7725134cbb1671177b492fb, type: 3}
   m_Color: {r: 0.9339623, g: 0.63586324, b: 0.2775454, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5159,3 +5161,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!95 &3204786320928590046
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6332558734452109913}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 20695e5bb8616eb42919b10b52fe8568, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

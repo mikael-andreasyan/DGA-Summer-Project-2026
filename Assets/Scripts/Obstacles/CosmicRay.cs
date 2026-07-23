@@ -8,6 +8,7 @@ public class CosmicRay : MonoBehaviour
     [SerializeField] private SpriteRenderer ray;
     [SerializeField] private ParticleSystem topParticles;
     [SerializeField] private Animator rayAnimator;
+    [SerializeField] private Animator warningAnimator;
 
     [Header("Timing")]
     [SerializeField] private float warningDuration = 2.5f;
@@ -15,18 +16,19 @@ public class CosmicRay : MonoBehaviour
 
     [Header("Sizing")]
     [SerializeField] private float topGap = 0.5f;
-    [SerializeField] private float warningTempFix = 0.5f;
     [SerializeField] private float hitboxWidth = 0.8f;
 
     [Header("Warning Controls")]
-    [SerializeField] private float warningBlinkSlow = 0.3f;
-    [SerializeField] private float warningBlinkFast = .03f;
+    [SerializeField] private float warningTransformTime= 0.3f;
+    [SerializeField] private float warningGap = .03f;
+    [SerializeField] private float warningScreenOffset = 1f;
 
     public Camera ourCamera;
     private BoxCollider2D killZoneCollider;
 
     private float rayHeight;
-    private float posWarningY;
+    private float posWarningStartY;
+    private float posWarningEndY;
     private float posTopY;
     private float posBotY;
     private float topOffsetPivot;
@@ -34,6 +36,11 @@ public class CosmicRay : MonoBehaviour
     private float rayNativeWidth = 1f;
     private float rayNativeHeight = 1f;
     private float spriteScale = 1f;
+    private float rayVisualWidth = 1f;
+
+    private float warningNativeWidth = 1f;
+    private float warningNativeHeight = 1f;
+    private float warningSpriteScale = 1f;
 
     public AudioClip warningSound;
 
@@ -48,6 +55,14 @@ public class CosmicRay : MonoBehaviour
         if (warning != null)
         {
             warning.gameObject.SetActive(false);
+            if (warningAnimator == null)
+                warningAnimator = warning.GetComponent<Animator>();
+
+            if (warning.sprite != null)
+            {
+                warningNativeWidth = warning.sprite.bounds.size.x;
+                warningNativeHeight = warning.sprite.bounds.size.y;
+            }
         }
 
         if (ray != null)
@@ -108,7 +123,6 @@ public class CosmicRay : MonoBehaviour
 
         float topOffset = cameraHalfHeight + topGap;
         float botOffset = -cameraHalfHeight;
-        float warningOffset = cameraHalfHeight - warningTempFix;
 
         rayHeight = topOffset - botOffset;
         float centerOffset = (topOffset + botOffset) / 2f;
@@ -117,15 +131,25 @@ public class CosmicRay : MonoBehaviour
         pos.y = centerOffset;
         transform.localPosition = pos;
 
-        posWarningY = warningOffset - centerOffset;
         posTopY = topOffset - centerOffset;
         posBotY = botOffset - centerOffset;
 
         spriteScale = rayHeight / rayNativeHeight;
-        float spriteScaledWidth = rayNativeWidth * spriteScale * hitboxWidth;
+        rayVisualWidth = rayNativeWidth * spriteScale;
+        float spriteScaledWidth = rayVisualWidth * hitboxWidth;
 
         killZoneCollider.size = new Vector2(spriteScaledWidth, rayHeight);
         killZoneCollider.offset = Vector2.zero;
+
+        //Warning Desing
+
+        if (warningNativeWidth > 0f)
+        {
+            warningSpriteScale = rayVisualWidth / warningNativeWidth;
+        }
+        float warningHalf = (warningNativeHeight * warningSpriteScale) * 0.5f;
+        posWarningEndY = posTopY - warningGap - warningHalf;
+        posWarningStartY = posTopY + warningScreenOffset + warningHalf;
     }
 
 
@@ -137,37 +161,32 @@ public class CosmicRay : MonoBehaviour
             audioManager.PlaySFX(warningSound);
         }
         
-        if (warning != null)
-        {
-            warning.gameObject.SetActive(true);
-            Vector3 wPos = warning.transform.localPosition;
-            wPos.y = posWarningY;
-            warning.transform.localPosition = wPos;
+        if (warning == null) {
+            yield return new WaitForSeconds(warningDuration); yield break;
         }
 
-        float timer = 0f;
-        float blinkTimer = 0f;
-        bool visible = true;
+        warning.gameObject.SetActive(true);
+        warning.transform.localScale = new Vector3(warningSpriteScale, warningSpriteScale, 1);
 
-        while (timer < warningDuration)
+        Vector3 startPos = warning.transform.localPosition;
+        startPos.y = posWarningStartY;
+        warning.transform.localPosition = startPos;
+
+        if (warningAnimator != null)
         {
-            timer += Time.deltaTime;
-            blinkTimer += Time.deltaTime;
-
-            float transitionBlink = timer / warningDuration;
-            float currentBlink = Mathf.Lerp(warningBlinkSlow, warningBlinkFast, transitionBlink);
-
-            if (blinkTimer >= currentBlink)
-            {
-                blinkTimer = 0f;
-                visible = !visible;
-                if (warning != null)
-                {
-                    warning.enabled = visible;
-                }
-            }
-            yield return null;
+            warningAnimator.Play("WarnLoop", 0, 0f);
         }
+
+        yield return WarningTransform(warning.transform, posWarningStartY, posWarningEndY, warningTransformTime);
+
+        float looming = warningDuration - (warningTransformTime * 2f);
+        if (looming > 0f) {
+            yield return new WaitForSeconds(looming);
+        }
+
+        yield return WarningTransform(warning.transform, posWarningEndY, posWarningStartY, warningTransformTime);
+
+        warning.gameObject.SetActive(false);
     }
 
 
@@ -280,6 +299,26 @@ public class CosmicRay : MonoBehaviour
         ray.transform.localPosition = p;
     }
 
+
+    private IEnumerator WarningTransform(Transform target, float fromY, float toY, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float timer = Mathf.Clamp01(elapsed / duration);
+
+            Vector3 pos = target.localPosition;
+            pos.y = Mathf.Lerp(fromY, toY, timer);
+            target.localPosition = pos;
+
+            yield return null;
+        }
+
+        Vector3 finalPos = target.localPosition;
+        finalPos.y = toY;
+        target.localPosition = finalPos;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
