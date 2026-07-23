@@ -38,6 +38,7 @@ public class BarrelLauncher : MonoBehaviour
 
             playerController.enabled = false;
             playerRB.linearVelocity = new UnityEngine.Vector2(0,0);
+            
 
             player = other.gameObject.transform;
             player.position = transform.position;
@@ -176,6 +177,8 @@ public class BarrelLauncher : MonoBehaviour
     {
         
         FlowTime();
+
+        player.position = transform.position;
 
         directionalVector = UnityEngine.Vector2.Lerp(a, b, t);
         boostVector = directionalVector.normalized * launchDistance;

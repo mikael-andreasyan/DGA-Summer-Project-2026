@@ -446,6 +446,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2898608354400907542, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+      propertyPath: highScoreText
+      value: 
+      objectReference: {fileID: 2105926360}
     - target: {fileID: 5311572609166041016, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -548,6 +552,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 238400358363692368, guid: 3f670221ad314473fa48705f6d58ff3b, type: 3}
   m_PrefabInstance: {fileID: 271177559}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2105926360 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7561136352521560689, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+  m_PrefabInstance: {fileID: 1127775002}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &3894613582403853641
 PrefabInstance:
   m_ObjectHideFlags: 0
