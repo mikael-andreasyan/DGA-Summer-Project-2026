@@ -24,6 +24,8 @@ public class CosmicRay : MonoBehaviour
     [SerializeField] private float warningTransformTime= 0.3f;
     [SerializeField] private float warningGap = .03f;
     [SerializeField] private float warningScreenOffset = 1f;
+    [SerializeField] private float aoeBlinkSlow = 0.3f;
+    [SerializeField] private float aoeBlinkFast = 0.01f;
 
     public Camera ourCamera;
     private BoxCollider2D killZoneCollider;
@@ -44,6 +46,8 @@ public class CosmicRay : MonoBehaviour
     private float warningNativeHeight = 1f;
     private float warningSpriteScale = 1f;
     private float aoeHeight = 1f;
+
+    private Coroutine aoeCoroutine;
 
     public AudioClip warningSound;
 
@@ -190,17 +194,11 @@ public class CosmicRay : MonoBehaviour
             audioManager.PlaySFX(warningSound);
         }
 
-        if (aoeWarning != null)
-        {
-            aoeWarning.gameObject.SetActive(true);
-            if (aoeWarningAnimator != null)
-            {
-                aoeWarningAnimator.Play("WarnAOE", 0, 0f);
-            }
-        }
+        aoeCoroutine = StartCoroutine(AOEWarningManager(warningDuration));
         
         if (warning == null) {
-            yield return new WaitForSeconds(warningDuration); yield break;
+            yield return new WaitForSeconds(warningDuration); 
+            yield break;
         }
 
         warning.gameObject.SetActive(true);
@@ -223,11 +221,6 @@ public class CosmicRay : MonoBehaviour
         }
 
         yield return WarningTransform(warning.transform, posWarningEndY, posWarningStartY, warningTransformTime);
-
-        if (aoeWarning != null)
-        {
-            aoeWarning.gameObject.SetActive(false);
-        }
 
         warning.gameObject.SetActive(false);
     }
@@ -366,6 +359,53 @@ public class CosmicRay : MonoBehaviour
         Vector3 finalPos = target.localPosition;
         finalPos.y = toY;
         target.localPosition = finalPos;
+    }
+
+    private IEnumerator AOEWarningManager(float totalDuration)
+    {
+        if (aoeWarning == null)
+        {
+            yield break;
+        }
+
+        aoeWarning.gameObject.SetActive(true);
+        aoeWarning.enabled = true;
+
+        float animLength = 0f;
+
+        if (aoeWarningAnimator != null)
+        {
+            aoeWarningAnimator.Play("WarnAOE", 0, 0f);
+            yield return null;
+            animLength = aoeWarningAnimator.GetCurrentAnimatorStateInfo(0).length;
+            yield return new WaitForSeconds(animLength);
+        }
+        yield return new WaitForSeconds(0.2f);
+        float blinkDuration = Mathf.Max(0f, totalDuration - animLength);
+        float elapsed = 0f;
+        float blinkTimer = 0f;
+        bool visible = true;
+
+        while (elapsed < blinkDuration)
+        {
+            elapsed += Time.deltaTime;
+            blinkTimer += Time.deltaTime;
+
+            float timer = Mathf.Clamp01(elapsed / blinkDuration);
+            float blinkInterval = Mathf.Lerp(aoeBlinkSlow, aoeBlinkFast, timer);
+
+            if (blinkTimer >= blinkInterval)
+            {
+                blinkTimer = 0f;
+                visible = !visible;
+                aoeWarning.enabled = visible;
+            }
+
+            yield return null;
+        }
+
+        aoeWarning.enabled = true;
+        aoeWarning.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
