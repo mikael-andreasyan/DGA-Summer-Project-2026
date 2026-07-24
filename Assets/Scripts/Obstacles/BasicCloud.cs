@@ -241,6 +241,7 @@ public class BasicCloud : MonoBehaviour
         if (playerCurrentlyOnCloud)
             return;
 
+        isCollidingPlayer = true;
         playerCurrentlyOnCloud = true;
         justLanded = true;
         Debug.Log("Playing particles");
@@ -250,6 +251,7 @@ public class BasicCloud : MonoBehaviour
 
     public void PlayerLeft()
     {
+        isCollidingPlayer = false;
         playerCurrentlyOnCloud = false;
     }
 
