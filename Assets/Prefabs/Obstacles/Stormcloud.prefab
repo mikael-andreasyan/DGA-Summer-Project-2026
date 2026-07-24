@@ -376,7 +376,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -415,10 +415,11 @@ MonoBehaviour:
   rightBoost: {fileID: 0}
   weakpointLifetime: 0.25
   particleSystem: {fileID: 2875894367180954566}
-  zapZone: {fileID: 2898845938293897785}
   phaseCooldown: 1
-  lightning: {fileID: 0}
   downwardBoostStrength: 1
+  zapZone: {fileID: 2898845938293897785}
+  lightning: {fileID: 0}
+  zapDuration: 1.5
 --- !u!1 &4483480851156165956
 GameObject:
   m_ObjectHideFlags: 0
