@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1987423146701057593}
   m_Layer: 6
   m_Name: LeftWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -378,7 +378,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -416,10 +416,11 @@ MonoBehaviour:
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
   weakpointLifetime: 0.25
-  zapZone: {fileID: 2898845938293897785}
   phaseCooldown: 1
-  lightning: {fileID: 0}
   downwardBoostStrength: 1
+  zapZone: {fileID: 0}
+  lightning: {fileID: 0}
+  zapDuration: 1.5
 --- !u!1 &3695642023986209743
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +619,7 @@ GameObject:
   - component: {fileID: 1499314207675145835}
   m_Layer: 6
   m_Name: RightWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5850,7 +5851,7 @@ GameObject:
   - component: {fileID: 2839508156437502831}
   m_Layer: 6
   m_Name: MidWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
