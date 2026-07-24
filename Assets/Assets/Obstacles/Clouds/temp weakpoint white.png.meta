@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c0c4528a93f0bb648982c97ea73cc5e6
+guid: 55cc48d418372db49ba5b210994b5592
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7153766330407772830
-    second: cloud _weakpoint_ (use divide or subtract blending mode)_0
+      213: -3201105951375636185
+    second: temp weakpoint white_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cloud _weakpoint_ (use divide or subtract blending mode)_0
+      name: temp weakpoint white_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 48
-        height: 48
+        x: 3
+        y: 2
+        width: 27
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e92ea124398474360800000000000000
-      internalID: 7153766330407772830
+      spriteID: 729cddfe8136393d0800000000000000
+      internalID: -3201105951375636185
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cloud _weakpoint_ (use divide or subtract blending mode)_0: 7153766330407772830
+      temp weakpoint white_0: -3201105951375636185
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
