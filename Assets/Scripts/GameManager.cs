@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [Header("Scoring")]
     [SerializeField] private int pointsPerCloud = 100; // whatever we want
     [SerializeField] private float comboTime = 2f; // whatever we want
-    private int highScore; //value that stores the player's highscore
+    
 
     [Header("Bounds")]
     [Tooltip("The width of the boundaries that the player will be confined to.")]
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject countdownText;
     [SerializeField] private GameObject escapeText;
+    [SerializeField] private GameObject newRecordText;
 
     [Header("Audio")]
     [SerializeField] private GameObject audioManagerPrefab;
@@ -53,6 +54,11 @@ public class GameManager : MonoBehaviour
         private set;
     }
     public int Combo
+    {
+        get;
+        private set;
+    }
+    public int highScore
     {
         get;
         private set;
@@ -187,12 +193,14 @@ public class GameManager : MonoBehaviour
         isAlive = false;
         CurrentState = GameState.GameOver;
         gameOverPanel.SetActive(true);
+        newRecordText.SetActive(false);
         Time.timeScale = 0f;
 
         if (Score > PlayerPrefs.GetInt("player_HighScore"))
         {
             PlayerPrefs.SetInt("player_HighScore", Score);
             highScore = Score;
+            newRecordText.SetActive(true);
         }
 
         print("Updated highScore: " + highScore);

@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         HandleJumpStart();
         HandleHorizontalMovement();
         restrictPlayerWithinBounds();
-        RideCloud();
+        // RideCloud();
 
         rb.linearVelocity = velocity;
 
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapBoxAll(groundCheck.position, groundCheckSize, 0f, groundLayer);
         isGrounded = false;
 
-        foreach (var hit in hits)
+        foreach (var hit in hits) //  Get every collider just in case
         {
             if (hit.isTrigger)
                 continue;
@@ -124,10 +124,11 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        if (previousCloud != newCloud)
+        if (previousCloud != newCloud) // Register playing leaving cloud
         {
             if (previousCloud != null)
             {
+                // gameObject.transform.SetParent(null);
                 previousCloud.PlayerLeft();
                 hasLandedOnCurrentCloud = false;
                 
@@ -151,9 +152,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // Normal case - start bobbing/score
         else if (!hasLandedOnCurrentCloud && newCloud != null && rb.linearVelocityY <= 0 && 
         groundCheck.position.y >= newCloud.GetComponent<Collider2D>().bounds.max.y - 0.05f)
         {
+            cloudScript.PlayerLanded();
             newCloud.PlayerLanded();
             hasLandedOnCurrentCloud = true;
         }        
@@ -199,6 +202,8 @@ public class PlayerController : MonoBehaviour
         // Start a jump if buffered and coyote time is still available
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
+            // transform.SetParent(null);
+            hasLandedOnCurrentCloud = false;
             velocity.y = jumpVelocity;
 
             BasicCloud jumpCloud = cloudScript != null ? cloudScript : lastGroundedCloud;
@@ -217,6 +222,14 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     GameManager.Instance.LoseCombo();
+                    if (jumpCloud.isBoostAvailable()) // Can still get a "regular" boost from cloud
+                    {
+                       velocity.y = boostVelocity; 
+                       if (afterImage != null)
+                        {
+                            afterImage.Play();
+                        }
+                    }
                 }
                 lastGroundedCloud = null; 
             }
@@ -228,8 +241,12 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ApplyGravity()
-       {
-          if (velocity.y > 0f)
+    {
+        if (hasLandedOnCurrentCloud && cloudRB != null)
+        {
+            velocity.y = cloudRB.linearVelocityY;
+        }
+        else if (velocity.y > 0f)
          {
             // Rising: use the "to peak" gravity
             velocity.y -= jumpGravity * Time.fixedDeltaTime;
