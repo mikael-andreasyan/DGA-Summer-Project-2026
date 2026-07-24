@@ -109,8 +109,8 @@ MonoBehaviour:
   angularSpeed: 1
   angleHalfBound: 10
   verticalDisplacement: 5
-  launchSpeed: 35
-  launchDistance: 30
+  launchSpeed: 30
+  launchDistance: 20
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
