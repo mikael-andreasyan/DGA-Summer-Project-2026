@@ -7,11 +7,16 @@ public class StormCloud : BasicCloud
     cloud that kills u if u try to phase tru the bottom
 
     */
-
-    [SerializeField] private Collider2D zapZone;
+    [Header("Cloud Behaviors")]
     [SerializeField] private float phaseCooldown = 1f;
-    [SerializeField] private GameObject lightning;
     [SerializeField] private float downwardBoostStrength; //the strength of the downward boost to apply to the player, relative to player's jump strength (so 0.5 is half the player's jump strength)
+
+    [Header("Lightning/Spark Obstacles")]
+    [SerializeField] private Collider2D zapZone;
+    [SerializeField] private GameObject lightning;
+
+    [Header("Player Effects")]
+    [SerializeField] private float zapDuration = 1.5f;
 
     private float phaseCooldownTimer;
 
@@ -30,35 +35,40 @@ public class StormCloud : BasicCloud
         }
     }
 
-
-    /*
-    if the player collides w/ the hitbox area below cloud, thriggers lightning
-    */
-    protected void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // base.OnCollisionEnter2D(other); // this fixed the landing behavior
+        ZapZoneCollide(other);
+    }
 
-        if (!other.gameObject.CompareTag("Player")) return;
-        if (phaseCooldownTimer > 0f) return;
-        if (zapZone == null) return;
-
-        bool hitZone = false;
-        foreach (ContactPoint2D contact in other.contacts)
+    private void ZapZoneCollide(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
         {
-            if (contact.collider == zapZone)
-            {
-                hitZone = true;
-                break;
-            }
+            return;
         }
-        if (!hitZone) return;
 
-        PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
-        if (playerController == null || other.rigidbody == null) return;
+        if (phaseCooldownTimer > 0f) {
+            return;
+        }
+
+        PlayerController playerController = other.GetComponent<PlayerController>();
+        Rigidbody2D playerRB = other.attachedRigidbody;
+        if (playerController == null  || playerRB == null)
+        {
+            return;
+        }
 
         playerController.ForceJump(-downwardBoostStrength);
-        StrikeLightning(other.rigidbody);
+        // Add Stun
+        StrikeLightning(playerRB);
+
         phaseCooldownTimer = phaseCooldown;
+    }
+
+
+    protected void OnCollisionEnter2D(Collision2D other)
+    {
+        // Base? 
     }
 
 
