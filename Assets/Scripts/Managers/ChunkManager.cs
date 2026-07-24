@@ -4,7 +4,6 @@ using UnityEngine;
 public class ChunkManager : MonoBehaviour
 {
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private GameObject firstChunkPrefab;
     [SerializeField] private GameObject[] chunkPrefabs;
 
     [SerializeField] private int chunksAhead = 5;
@@ -35,15 +34,8 @@ public class ChunkManager : MonoBehaviour
 
     private void SpawnFirstChunk()
     {
-        GameObject prefab =
-            firstChunkPrefab != null
-                ? firstChunkPrefab
-                : chunkPrefabs[Random.Range(0, chunkPrefabs.Length)];
-
         GameObject chunk = Instantiate(
-            prefab,
-            Vector3.zero,
-            Quaternion.identity
+            chunkPrefabs[Random.Range(0, chunkPrefabs.Length)]
         );
 
         loadedChunks.Add(chunk);
