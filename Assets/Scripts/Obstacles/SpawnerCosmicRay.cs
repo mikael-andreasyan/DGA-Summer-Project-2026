@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Threading;
-using Unity.Jobs;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnerCosmicRay : MonoBehaviour
@@ -9,20 +7,11 @@ public class SpawnerCosmicRay : MonoBehaviour
     public GameObject cosmicRayPrefab;
     public Transform player;
 
-    [Header("Timing")]
-    public float minTimer = 8f;
-    public float maxTimer = 12f;
-    public float timeBuffer = 5f; // This is the time AFTER deciding the spawn time at which another spawn can be started
+    public float minTimer = 5f;
+    public float maxTimer = 10f;
 
-    [Header("Distance From Player, Spawning")]
     public float maxPlayerDist = 5f;
     public float minPlayerDist = 1f;
-
-    [Header("Game Area Bounds")]
-    public Transform leftWall;
-    public Transform rightWall;
-    public float margin = 0.15f;
-
 
     void Start()
     {
@@ -35,7 +24,6 @@ public class SpawnerCosmicRay : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(minTimer, maxTimer));
             SpawnRay();
-            yield return new WaitForSeconds(timeBuffer);
         }
     }
 
@@ -50,24 +38,9 @@ public class SpawnerCosmicRay : MonoBehaviour
             dist *= -1f;
         }
 
+
         float spawnPoint = player.position.x + dist;
-        spawnPoint = Bound(spawnPoint);
 
         Instantiate(cosmicRayPrefab, new Vector3(spawnPoint, 0f, 0f), Quaternion.identity);
-    }
-
-
-    private float Bound(float firstPoint)
-    {
-        if (leftWall == null || rightWall == null)
-        {
-            return firstPoint;
-        }
-
-        float minX = leftWall.position.x + margin;
-        float maxX = rightWall.position.x - margin;
-
-        return Mathf.Clamp(firstPoint, minX, maxX);
-
     }
 }
