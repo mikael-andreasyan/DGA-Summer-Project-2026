@@ -59,7 +59,7 @@ public class StormCloud : BasicCloud
         }
 
         playerController.ForceJump(-downwardBoostStrength);
-        // Add Stun
+        playerController.Stun(zapDuration);
         StrikeLightning(playerRB);
 
         phaseCooldownTimer = phaseCooldown;
