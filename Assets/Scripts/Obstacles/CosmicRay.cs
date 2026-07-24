@@ -3,34 +3,51 @@ using UnityEngine;
 
 public class CosmicRay : MonoBehaviour
 {
-    public SpriteRenderer warning;
-    public SpriteRenderer ray;
-    public ParticleSystem topParticles;
+    [Header("Refs")]
+    [SerializeField] private SpriteRenderer warning;
+    [SerializeField] private SpriteRenderer ray;
+    [SerializeField] private SpriteRenderer aoeWarning;
+    [SerializeField] private ParticleSystem topParticles;
+    [SerializeField] private Animator rayAnimator;
+    [SerializeField] private Animator warningAnimator;
+    [SerializeField] private Animator aoeWarningAnimator;
+
+    [Header("Timing")]
+    [SerializeField] private float warningDuration = 2.5f;
+    [SerializeField] private float activeDuration = 2.0f;
+
+    [Header("Sizing")]
+    [SerializeField] private float topGap = 0.5f;
+    [SerializeField] private float hitboxWidth = 0.8f;
+
+    [Header("Warning Controls")]
+    [SerializeField] private float warningTransformTime= 0.3f;
+    [SerializeField] private float warningGap = .03f;
+    [SerializeField] private float warningScreenOffset = 1f;
+    [SerializeField] private float aoeBlinkSlow = 0.3f;
+    [SerializeField] private float aoeBlinkFast = 0.01f;
+
     public Camera ourCamera;
-
-    public float rayWidth = 1f;
-    public float topGap = 0.5f;
-    public float warningTempFix = 0.5f;
-
-    public float warningDuration = 2.5f;
-    public float activeDuration = 2.0f;
-
-    public float warningBlinkSlow = 0.3f;
-    public float warningBlinkFast = .03f;
-
     private BoxCollider2D killZoneCollider;
-    public Animator rayAnimator;
-    
+
     private float rayHeight;
-    private float posWarningY;
+    private float posWarningStartY;
+    private float posWarningEndY;
     private float posTopY;
     private float posBotY;
-    private float topOffsetPivot = 0f;
-    private float fullScaleY;
-
+    private float topOffsetPivot;
+    
     private float rayNativeWidth = 1f;
     private float rayNativeHeight = 1f;
-    private float rayScaleX = 1f;
+    private float spriteScale = 1f;
+    private float rayVisualWidth = 1f;
+
+    private float warningNativeWidth = 1f;
+    private float warningNativeHeight = 1f;
+    private float warningSpriteScale = 1f;
+    private float aoeHeight = 1f;
+
+    private Coroutine aoeCoroutine;
 
     public AudioClip warningSound;
 
@@ -45,6 +62,14 @@ public class CosmicRay : MonoBehaviour
         if (warning != null)
         {
             warning.gameObject.SetActive(false);
+            if (warningAnimator == null)
+                warningAnimator = warning.GetComponent<Animator>();
+
+            if (warning.sprite != null)
+            {
+                warningNativeWidth = warning.sprite.bounds.size.x;
+                warningNativeHeight = warning.sprite.bounds.size.y;
+            }
         }
 
         if (ray != null)
@@ -58,12 +83,23 @@ public class CosmicRay : MonoBehaviour
 
             if (ray.sprite != null)
             {
-                // Part of the scaling solution w/ world units
                 rayNativeWidth = ray.sprite.bounds.size.x;
                 rayNativeHeight = ray.sprite.bounds.size.y;
-                rayScaleX = rayWidth / rayNativeWidth;
-
                 topOffsetPivot = ray.sprite.bounds.max.y;
+            }
+        }
+
+        if (aoeWarning != null)
+        {
+            aoeWarning.gameObject.SetActive(false);
+            if (aoeWarningAnimator == null)
+            {
+                aoeWarningAnimator = aoeWarning.GetComponent<Animator>();
+            }
+
+            if (aoeWarning.sprite != null)
+            {
+                aoeHeight = aoeWarning.sprite.bounds.size.y;
             }
         }
     }
@@ -108,7 +144,6 @@ public class CosmicRay : MonoBehaviour
 
         float topOffset = cameraHalfHeight + topGap;
         float botOffset = -cameraHalfHeight;
-        float warningOffset = cameraHalfHeight - warningTempFix;
 
         rayHeight = topOffset - botOffset;
         float centerOffset = (topOffset + botOffset) / 2f;
@@ -117,14 +152,37 @@ public class CosmicRay : MonoBehaviour
         pos.y = centerOffset;
         transform.localPosition = pos;
 
-        posWarningY = warningOffset - centerOffset;
         posTopY = topOffset - centerOffset;
         posBotY = botOffset - centerOffset;
 
-        fullScaleY = rayHeight / rayNativeHeight;
+        spriteScale = rayHeight / rayNativeHeight;
+        rayVisualWidth = rayNativeWidth * spriteScale;
+        float spriteScaledWidth = rayVisualWidth * hitboxWidth;
 
-        killZoneCollider.size = new Vector2(rayWidth, rayHeight);
+        killZoneCollider.size = new Vector2(spriteScaledWidth, rayHeight);
         killZoneCollider.offset = Vector2.zero;
+
+        //Warning Desing
+
+        if (warningNativeWidth > 0f)
+        {
+            warningSpriteScale = rayVisualWidth / warningNativeWidth;
+        }
+        float warningHalf = (warningNativeHeight * warningSpriteScale) * 0.5f;
+        posWarningEndY = posTopY - warningGap - warningHalf;
+        posWarningStartY = posTopY + warningScreenOffset + warningHalf;
+
+        //AOE
+
+        if (aoeWarning != null && aoeHeight > 0f)
+        {
+            float aoeScale = rayHeight / aoeHeight;
+            aoeWarning.transform.localScale = new Vector3(aoeScale, aoeScale, 1f);
+
+            Vector3 aoePos = aoeWarning.transform.localPosition;
+            aoePos.y = 0f;
+            aoeWarning.transform.localPosition = aoePos;
+        }
     }
 
 
@@ -135,40 +193,36 @@ public class CosmicRay : MonoBehaviour
         {
             audioManager.PlaySFX(warningSound);
         }
+
+        aoeCoroutine = StartCoroutine(AOEWarningManager(warningDuration));
         
-        if (warning != null)
-        {
-            warning.gameObject.SetActive(true);
-            Vector3 wPos = warning.transform.localPosition;
-            wPos.y = posWarningY;
-            warning.transform.localPosition = wPos;
+        if (warning == null) {
+            yield return new WaitForSeconds(warningDuration); 
+            yield break;
         }
 
-        float timer = 0f;
-        float blinkTimer = 0f;
-        bool visible = true;
+        warning.gameObject.SetActive(true);
+        warning.transform.localScale = new Vector3(warningSpriteScale, warningSpriteScale, 1);
 
-        while (timer < warningDuration)
+        Vector3 startPos = warning.transform.localPosition;
+        startPos.y = posWarningStartY;
+        warning.transform.localPosition = startPos;
+
+        if (warningAnimator != null)
         {
-            timer += Time.deltaTime;
-            blinkTimer += Time.deltaTime;
-
-            // Set up a lerp so any warning sprite will blink.
-
-            float transitionBlink = timer / warningDuration;
-            float currentBlink = Mathf.Lerp(warningBlinkSlow, warningBlinkFast, transitionBlink);
-
-            if (blinkTimer >= currentBlink)
-            {
-                blinkTimer = 0f;
-                visible = !visible;
-                if (warning != null)
-                {
-                    warning.enabled = visible;
-                }
-            }
-            yield return null;
+            warningAnimator.Play("WarnLoop", 0, 0f);
         }
+
+        yield return WarningTransform(warning.transform, posWarningStartY, posWarningEndY, warningTransformTime);
+
+        float looming = warningDuration - (warningTransformTime * 2f);
+        if (looming > 0f) {
+            yield return new WaitForSeconds(looming);
+        }
+
+        yield return WarningTransform(warning.transform, posWarningEndY, posWarningStartY, warningTransformTime);
+
+        warning.gameObject.SetActive(false);
     }
 
 
@@ -179,15 +233,20 @@ public class CosmicRay : MonoBehaviour
             ray.gameObject.SetActive(true);
 
             Vector3 dPos = ray.transform.localPosition;
-            dPos.y = posTopY - (topOffsetPivot * fullScaleY);
+            dPos.y = posTopY - (topOffsetPivot * spriteScale);
             ray.transform.localPosition = dPos;
 
-            ray.transform.localScale = new Vector3(rayScaleX, fullScaleY, 1f);
+            ray.transform.localScale = new Vector3(spriteScale, spriteScale, 1f);
         }
 
         if (warning != null)
         {
             warning.gameObject.SetActive(false);
+        }
+
+        if (aoeWarning != null)
+        {
+            aoeWarning.gameObject.SetActive(false);
         }
 
         if (topParticles != null)
@@ -277,10 +336,77 @@ public class CosmicRay : MonoBehaviour
         float bottomLocalOffset = ray.sprite.bounds.min.y; 
 
         Vector3 p = ray.transform.localPosition;
-        p.y = posBotY - (bottomLocalOffset * fullScaleY);
+        p.y = posBotY - (bottomLocalOffset * spriteScale);
         ray.transform.localPosition = p;
     }
 
+
+    private IEnumerator WarningTransform(Transform target, float fromY, float toY, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float timer = Mathf.Clamp01(elapsed / duration);
+
+            Vector3 pos = target.localPosition;
+            pos.y = Mathf.Lerp(fromY, toY, timer);
+            target.localPosition = pos;
+
+            yield return null;
+        }
+
+        Vector3 finalPos = target.localPosition;
+        finalPos.y = toY;
+        target.localPosition = finalPos;
+    }
+
+    private IEnumerator AOEWarningManager(float totalDuration)
+    {
+        if (aoeWarning == null)
+        {
+            yield break;
+        }
+
+        aoeWarning.gameObject.SetActive(true);
+        aoeWarning.enabled = true;
+
+        float animLength = 0f;
+
+        if (aoeWarningAnimator != null)
+        {
+            aoeWarningAnimator.Play("WarnAOE", 0, 0f);
+            yield return null;
+            animLength = aoeWarningAnimator.GetCurrentAnimatorStateInfo(0).length;
+            yield return new WaitForSeconds(animLength);
+        }
+        yield return new WaitForSeconds(0.2f);
+        float blinkDuration = Mathf.Max(0f, totalDuration - animLength);
+        float elapsed = 0f;
+        float blinkTimer = 0f;
+        bool visible = true;
+
+        while (elapsed < blinkDuration)
+        {
+            elapsed += Time.deltaTime;
+            blinkTimer += Time.deltaTime;
+
+            float timer = Mathf.Clamp01(elapsed / blinkDuration);
+            float blinkInterval = Mathf.Lerp(aoeBlinkSlow, aoeBlinkFast, timer);
+
+            if (blinkTimer >= blinkInterval)
+            {
+                blinkTimer = 0f;
+                visible = !visible;
+                aoeWarning.enabled = visible;
+            }
+
+            yield return null;
+        }
+
+        aoeWarning.enabled = true;
+        aoeWarning.gameObject.SetActive(false);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
