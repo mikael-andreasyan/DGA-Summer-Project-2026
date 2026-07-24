@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour
     private bool isJumping;
     public bool isGrounded;
 
+    //StormCloud Fields
+    public bool isStunned;
+    private float stunTimer;
+
     private bool hasLandedOnCurrentCloud;
 
 
@@ -103,6 +107,7 @@ public class PlayerController : MonoBehaviour
     {   
         CheckGrounded();
         UpdateTimers();
+        UpdateStun();
         ApplyGravity();
         HandleJumpStart();
         HandleHorizontalMovement();
@@ -210,6 +215,11 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJumpStart()
     {
+        if (isStunned)
+        {
+            return;
+        }
+
         // Start a jump if buffered and coyote time is still available
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
@@ -274,6 +284,12 @@ public class PlayerController : MonoBehaviour
         //    velocity.x = 0;
         //    return;
        // }
+
+        if (isStunned)
+        {
+            velocity.x = 0f;
+            return;
+        }
         
         float inputDir = CanControl() ? Input.GetAxisRaw("Horizontal") : 0f;
 
@@ -289,6 +305,22 @@ public class PlayerController : MonoBehaviour
         {
            
             velocity.x = 0f;
+        }
+    }
+
+
+    private void UpdateStun()
+    {
+        if (!isStunned)
+        {
+            return;
+        }
+
+        stunTimer -= Time.fixedDeltaTime;
+        if (stunTimer <= 0f)
+        {
+            isStunned = false;
+            stunTimer = 0f;
         }
     }
     
@@ -319,6 +351,13 @@ public void ForceJump(float velocityMultiplier = 1f)
     velocity = v; // keep the cached field in sync so FixedUpdate doesn't fight it
     isJumping = true;
 }
+
+
+public void Stun(float duration)
+    {
+        stunTimer = duration;
+        isStunned = true;
+    }
 
 private void restrictPlayerWithinBounds()
 {
