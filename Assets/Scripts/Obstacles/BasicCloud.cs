@@ -227,7 +227,7 @@ public class BasicCloud : MonoBehaviour
         canWeakpointBoost = false;
         foreach (Transform child in transform)
         {
-            if (child.gameObject!=particleSystem.gameObject)
+            if (child.gameObject.CompareTag("Weakpoint"))
             {
                Destroy(child.gameObject); 
             }

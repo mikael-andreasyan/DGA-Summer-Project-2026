@@ -39,10 +39,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject escapeText;
     [SerializeField] private GameObject newRecordText;
 
-    [Header("Start Platform")]
-    [SerializeField] private GameObject startPlatform;
-    [SerializeField] private Vector2 platformOffset;
-
     [Header("Audio")]
     [SerializeField] private GameObject audioManagerPrefab;
 
@@ -52,6 +48,8 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
     private bool isUnPausing = false;
 
+    private PlayerController playerController;
+    
     public int Score
     {
         get;
@@ -93,14 +91,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        if (SceneManager.GetActiveScene().name.Equals(mainSceneName))
-        {
-
-            GameObject.Instantiate(startPlatform, (Vector2)player.position - platformOffset, player.rotation);
-        }
+        print(SceneManager.GetActiveScene().name);
 
         highScore = PlayerPrefs.GetInt("player_HighScore");
-
+        playerController = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -170,6 +164,12 @@ public class GameManager : MonoBehaviour
     private void TickComboTimer()
     {
         if (Combo == 0)
+        {
+            return;
+        }
+
+        // Only goes down in player is grounded
+        if (!playerController.isGrounded)
         {
             return;
         }

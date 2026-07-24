@@ -406,11 +406,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3059071132818059648, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3059071132818059648, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.59
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 3059071132818059648, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: m_LocalPosition.z
@@ -481,9 +481,13 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 815254311122104419, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
-      propertyPath: m_characterSpacing
+    - target: {fileID: 1234999175854757958, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684051729752253090, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1691253969696713442, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
       propertyPath: m_LocalPosition.x
