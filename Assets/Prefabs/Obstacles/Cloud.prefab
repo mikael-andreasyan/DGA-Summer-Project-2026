@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7958135473341356034}
   m_Layer: 6
   m_Name: MidWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 5846004830149136908}
   m_Layer: 6
   m_Name: LeftWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 2883227661185305698}
   m_Layer: 6
   m_Name: RightWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

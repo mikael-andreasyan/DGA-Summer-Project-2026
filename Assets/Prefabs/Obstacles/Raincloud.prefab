@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7975668276230092714}
   m_Layer: 6
   m_Name: MidWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,7 +366,6 @@ MonoBehaviour:
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
-  particleSystem: {fileID: 1118549370561046642}
   weakpointLifetime: 0.25
   idleCloudSprite: {fileID: 0}
   rainingCloudSprite: {fileID: 7482667652216324306, guid: 0f7c30347cc03412ca20934790dd748d, type: 3}
@@ -390,7 +389,7 @@ GameObject:
   - component: {fileID: 7093405481250170203}
   m_Layer: 6
   m_Name: RightWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -543,7 +542,7 @@ GameObject:
   - component: {fileID: 5885201923300445767}
   m_Layer: 6
   m_Name: LeftWeakpoint
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
