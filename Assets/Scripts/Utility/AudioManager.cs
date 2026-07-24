@@ -71,4 +71,16 @@ public class AudioManager : MonoBehaviour
         sfxSource.pitch = randomizePitch ? Random.Range(0.95f, 1.05f) : 1f;
         sfxSource.PlayOneShot(clip, volume);
     }
+
+    public void StopAll()
+    {
+        if (musicRoutine != null)
+        {
+            StopCoroutine(musicRoutine);
+            musicRoutine = null;
+        }
+
+        musicSource.Stop();
+        sfxSource.Stop();
+    }
 }
