@@ -31,7 +31,7 @@ public class BarrelLauncher : MonoBehaviour
 
    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && !Wings.isBoosting)
+        if (other.gameObject.CompareTag("Player") && !Wings.isBoosting && !isBoosting)
         {
             playerController = other.GetComponent<PlayerController>();
             playerRB = other.GetComponent<Rigidbody2D>();
