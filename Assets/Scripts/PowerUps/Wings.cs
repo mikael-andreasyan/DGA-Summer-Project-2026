@@ -18,7 +18,7 @@ public class Wings : MonoBehaviour
     [Tooltip("Small gap kept between the player and a wall so they don't overlap it")]
     public float wallSkin = 0.05f;
 
-    private static bool isBoosting = false;
+    public static bool isBoosting = false;
 
     void Awake()
     {
