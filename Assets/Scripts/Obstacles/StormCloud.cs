@@ -51,6 +51,13 @@ public class StormCloud : BasicCloud
             return;
         }
 
+        // BUG FIX: This SHOULD place a safeguard on when the bottom of the player is on the top of the cloud
+        // If it is on top of the cloud, return; no collide.
+        if (col != null && other.bounds.min.y >= col.bounds.max.y - 0.05f) // 0.05 can be adjusted. Just a margin
+        {
+            return;
+        }
+
         PlayerController playerController = other.GetComponent<PlayerController>();
         Rigidbody2D playerRB = other.attachedRigidbody;
         if (playerController == null  || playerRB == null)
