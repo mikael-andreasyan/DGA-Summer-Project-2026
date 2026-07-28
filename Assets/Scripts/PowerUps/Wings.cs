@@ -47,6 +47,7 @@ public class Wings : MonoBehaviour
         if (playerController != null)
         {
             playerController.enabled = false;
+            playerController.isFlying = true;
         }
 
         // Take manual control of the player's position for the duration of the boost,
@@ -87,6 +88,7 @@ public class Wings : MonoBehaviour
         if (playerController != null)
         {
             playerController.enabled = true;
+            playerController.isFlying = false;
         }
 
         isBoosting = false;
