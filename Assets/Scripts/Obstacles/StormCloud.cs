@@ -14,6 +14,7 @@ public class StormCloud : BasicCloud
     [Header("Lightning/Spark Obstacles")]
     [SerializeField] private Collider2D zapZone;
     [SerializeField] private GameObject lightning;
+    [SerializeField] private Animator lightningAnimator;
 
     [Header("Player Effects")]
     [SerializeField] private float zapDuration = 1.5f;
@@ -50,6 +51,8 @@ public class StormCloud : BasicCloud
         if (phaseCooldownTimer > 0f) {
             return;
         }
+
+        lightningAnimator.Play("Lightning");
 
         // BUG FIX: This SHOULD place a safeguard on when the bottom of the player is on the top of the cloud
         // If it is on top of the cloud, return; no collide.
