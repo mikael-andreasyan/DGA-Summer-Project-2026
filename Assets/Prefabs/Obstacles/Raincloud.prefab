@@ -461,12 +461,13 @@ MonoBehaviour:
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
-  sr: {fileID: 0}
+  sr: {fileID: 6441466880004083922}
   weakpointLifetime: 0.25
   particleSystem: {fileID: 1118549370561046642}
   idleCloudSprite: {fileID: 0}
   rainingCloudSprite: {fileID: -3116405809890101108, guid: 802e8758741bd3443b502ef04e2889a5, type: 3}
   fadedVaporSprite: {fileID: -8848770184652210544, guid: 802e8758741bd3443b502ef04e2889a5, type: 3}
+  animationHandler: {fileID: 6224830386235869363}
   rainDuration: 0.45
   vaporDuration: 2
   flashWindow: 0.3

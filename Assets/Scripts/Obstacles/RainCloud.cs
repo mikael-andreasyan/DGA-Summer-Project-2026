@@ -21,6 +21,7 @@ public class RainCloud : BasicCloud
     [SerializeField] private Sprite idleCloudSprite;
     [SerializeField] private Sprite rainingCloudSprite;
     [SerializeField] private Sprite fadedVaporSprite;
+    [SerializeField] private Animator animationHandler;
 
     [Header("Duration Timers")]
     [SerializeField] private float rainDuration = 0.6f;
@@ -32,14 +33,19 @@ public class RainCloud : BasicCloud
     [SerializeField] private float flashAlpha = 0.3f;
 
     private RainCloudStates state = RainCloudStates.Idle;
+    private ParticleSystem rain;
     private float timer = 0f; // This will count how long a state has been active 
     private float flashTimer = 0f;
-    private bool flashVis = true;
+    private bool flashVis = true; 
 
     
     protected override void Start()
     {
         base.Start();
+
+        if (rain == null)
+        {
+            rain = GetComponent<ParticleSystem>();        }
 
         if (idleCloudSprite == null && sr != null)
         {
