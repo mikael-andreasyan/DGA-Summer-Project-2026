@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferTimer;
     private bool isJumping;
     public bool isGrounded;
+    public bool isFlying; // Update this when Wings are activated
 
     //StormCloud Fields
     public bool isStunned;
@@ -319,7 +320,7 @@ public class PlayerController : MonoBehaviour
         }
 
         stunTimer -= Time.fixedDeltaTime;
-        if (stunTimer <= 0f)
+        if (stunTimer <= 0f || isFlying == true)
         {
             isStunned = false;
             stunTimer = 0f;
@@ -357,6 +358,7 @@ public void ForceJump(float velocityMultiplier = 1f)
 
 public void Stun(float duration)
     {
+        if (isFlying) return;
         stunTimer = duration;
         isStunned = true;
     }
