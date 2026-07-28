@@ -263,7 +263,6 @@ MonoBehaviour:
   rightBoost: {fileID: 0}
   sr: {fileID: 8185429187382231832}
   weakpointLifetime: 0.25
-  apexEffectTimer: 0.15
   particleSystem: {fileID: 2875894367180954566}
   phaseCooldown: 1
   downwardBoostStrength: 1
@@ -542,8 +541,8 @@ Transform:
   m_GameObject: {fileID: 3934593280018989145}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 3, z: 1}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalScale: {x: 0.15, y: 1.65, z: 0.45}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8763441611006304312}
@@ -593,11 +592,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1782840287
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8133423841190264047, guid: 919e4230f3776b14093edf812651be7b, type: 3}
+  m_Sprite: {fileID: -4082072015629698000, guid: ef3895db18b3d184e8ad6ad5e7c175f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
