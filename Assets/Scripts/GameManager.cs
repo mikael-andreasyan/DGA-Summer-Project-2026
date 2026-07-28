@@ -200,6 +200,13 @@ public class GameManager : MonoBehaviour
     {
         isAlive = false;
         CurrentState = GameState.GameOver;
+
+        // Dying before the game starts leaves the title screen up, so clear it out
+        if (titlePanel != null)
+        {
+            titlePanel.SetActive(false);
+        }
+
         gameOverPanel.SetActive(true);
         newRecordText.SetActive(false);
         Time.timeScale = 0f;
