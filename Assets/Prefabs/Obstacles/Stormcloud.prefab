@@ -261,7 +261,9 @@ MonoBehaviour:
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
+  sr: {fileID: 8185429187382231832}
   weakpointLifetime: 0.25
+  apexEffectTimer: 0.15
   particleSystem: {fileID: 2875894367180954566}
   phaseCooldown: 1
   downwardBoostStrength: 1

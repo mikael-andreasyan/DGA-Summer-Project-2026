@@ -706,7 +706,9 @@ MonoBehaviour:
   leftBoost: {fileID: 0}
   middleBoost: {fileID: 0}
   rightBoost: {fileID: 0}
+  sr: {fileID: 4146686797292014737}
   weakpointLifetime: 0.25
+  apexEffectTimer: 0.15
   particleSystem: {fileID: 7328969773444694528}
 --- !u!1 &6771857931255289348
 GameObject:
