@@ -14,6 +14,7 @@ public class StormCloud : BasicCloud
     [Header("Lightning/Spark Obstacles")]
     [SerializeField] private Collider2D zapZone;
     [SerializeField] private GameObject lightning;
+    [SerializeField] private SpriteRenderer lightningSprite;
     [SerializeField] private Animator lightningAnimator;
 
     [Header("Player Effects")]
@@ -25,6 +26,11 @@ public class StormCloud : BasicCloud
     {
         base.Start();
         phaseCooldownTimer = 0f;
+
+        if (lightningSprite != null)
+        {
+            lightningSprite.enabled = false;
+        }
     }
 
 
@@ -51,8 +57,6 @@ public class StormCloud : BasicCloud
         if (phaseCooldownTimer > 0f) {
             return;
         }
-
-        lightningAnimator.Play("Lightning");
 
         // BUG FIX: This SHOULD place a safeguard on when the bottom of the player is on the top of the cloud
         // If it is on top of the cloud, return; no collide.
@@ -100,8 +104,29 @@ public class StormCloud : BasicCloud
             Instantiate(lightning, playerRb.position, Quaternion.identity);
         }
 
+        if (lightningSprite != null)
+        {
+            StartCoroutine(handleLightningVisibility());
+        }
+
+        if (lightningAnimator != null)
+        {
+            lightningAnimator.Play("Lightning", 0, 0f);
+        }
+
         //testing
         StartCoroutine(FlashColor());
         //GameManager.Instance.PlayerDeath();
+    }
+
+    private IEnumerator handleLightningVisibility()
+    {
+        lightningSprite.enabled = true;
+
+        yield return null;
+        AnimatorStateInfo info = lightningAnimator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(info.length);
+
+        lightningSprite.enabled = false;
     }
 }
