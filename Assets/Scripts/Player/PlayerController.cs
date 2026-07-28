@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private bool hasLandedOnCurrentCloud;
 
+    private int platformsLanded;
 
     private void Awake()
     {
@@ -134,6 +135,7 @@ public class PlayerController : MonoBehaviour
             if (hit.isTrigger)
                 continue;
             isGrounded = true;
+            platformsLanded++;
             newCloud = hit.attachedRigidbody?.GetComponent<BasicCloud>();
 
             if (newCloud != null)
@@ -359,27 +361,31 @@ public void Stun(float duration)
         isStunned = true;
     }
 
-private void restrictPlayerWithinBounds()
-{
-    float halfBoundaryWidth = GameManager.Instance.boundaryWidth / 2f;
-    Vector3 position = transform.position;
-
-    if (position.x < -halfBoundaryWidth)
+    private void restrictPlayerWithinBounds()
     {
-        position.x = -halfBoundaryWidth;
-        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        float halfBoundaryWidth = GameManager.Instance.boundaryWidth / 2f;
+        Vector3 position = transform.position;
+
+        if (position.x < -halfBoundaryWidth)
+        {
+            position.x = -halfBoundaryWidth;
+            velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+            transform.position = position;
+        }
+        else if (position.x > halfBoundaryWidth)
+        {
+            position.x = halfBoundaryWidth;
+            velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        }
+
         transform.position = position;
+
     }
-    else if (position.x > halfBoundaryWidth)
+
+    public int GetPlatforms()
     {
-        position.x = halfBoundaryWidth;
-        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        return platformsLanded;
     }
-
-    transform.position = position;
-
-}
-
     
 }
 

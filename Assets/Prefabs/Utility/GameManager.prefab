@@ -52,5 +52,10 @@ MonoBehaviour:
   cam: {fileID: 0}
   gameOverPanel: {fileID: 0}
   titlePanel: {fileID: 0}
-  startPlatform: {fileID: 0}
-  platformOffset: {x: 0, y: 0}
+  pausePanel: {fileID: 0}
+  countdownText: {fileID: 0}
+  escapeText: {fileID: 0}
+  newRecordText: {fileID: 0}
+  audioManagerPrefab: {fileID: 0}
+  platformInterval: 20
+  triggerTransition: 0

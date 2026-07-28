@@ -3,7 +3,7 @@ using UnityEngine;
 public class ParallaxBackground : MonoBehaviour
 {
     private float startPos;
-    private float spacing;
+    public float spacing;
     // 0-1 (0=no effect, 1=normal, 0.5=half effect)
     public float parallaxEffect;
     public bool repeating = true;

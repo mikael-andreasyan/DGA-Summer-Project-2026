@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.SceneManagement;
@@ -49,6 +50,9 @@ public class GameManager : MonoBehaviour
     private bool isUnPausing = false;
 
     private PlayerController playerController;
+
+    public int platformInterval;
+    [HideInInspector] public bool triggerTransition;
     
     public int Score
     {
@@ -92,7 +96,7 @@ public class GameManager : MonoBehaviour
     {
 
         print(SceneManager.GetActiveScene().name);
-
+        triggerTransition = false;
         highScore = PlayerPrefs.GetInt("player_HighScore");
         playerController = player.GetComponent<PlayerController>();
     }
@@ -126,6 +130,10 @@ public class GameManager : MonoBehaviour
         if (CurrentState == GameState.Playing)
         {
             CheckOutOfBounds();
+            if (playerController.GetPlatforms()>=platformInterval)
+            {
+                triggerTransition = true;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.L))
