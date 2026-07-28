@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class RainCloud : BasicCloud
     [SerializeField] private Sprite idleCloudSprite;
     [SerializeField] private Sprite rainingCloudSprite;
     [SerializeField] private Sprite fadedVaporSprite;
+    [SerializeField] private ParticleSystem rain;
     [SerializeField] private Animator animationHandler;
 
     [Header("Duration Timers")]
@@ -33,7 +35,7 @@ public class RainCloud : BasicCloud
     [SerializeField] private float flashAlpha = 0.3f;
 
     private RainCloudStates state = RainCloudStates.Idle;
-    private ParticleSystem rain;
+   
     private float timer = 0f; // This will count how long a state has been active 
     private float flashTimer = 0f;
     private bool flashVis = true; 
@@ -45,7 +47,19 @@ public class RainCloud : BasicCloud
 
         if (rain == null)
         {
-            rain = GetComponent<ParticleSystem>();        }
+            rain = GetComponent<ParticleSystem>();
+        }
+
+        if (rain != null)
+        {
+            rain.Play();
+        }
+
+        if (animationHandler != null)
+        {
+            animationHandler.enabled = true;
+            animationHandler.Play("RainLoop", 0, 0f); // Might need to update layer
+        }
 
         if (idleCloudSprite == null && sr != null)
         {
@@ -102,7 +116,20 @@ public class RainCloud : BasicCloud
         state = RainCloudStates.Vapor;
         timer = 0f;
         ResetFlash();
-        sr.sprite = fadedVaporSprite;
+
+        // Animation handler
+        if (animationHandler != null)
+        {
+            StartCoroutine(PlayAnimation("FullDissipate", freezeSprite: fadedVaporSprite));
+        }
+        else
+        {
+            sr.sprite = fadedVaporSprite;
+        }
+        if (rain != null)
+        {
+            rain.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
 
         // Turning off player-cloud collision for this state
         isCollidingPlayer = false; 
@@ -113,7 +140,35 @@ public class RainCloud : BasicCloud
         } 
     }
 
-    
+
+    private void Respawn()
+    {
+        // Vapor -> Idle
+        state = RainCloudStates.Idle;
+        timer = 0f;
+        ResetFlash();
+
+        // Animation handler
+        if (animationHandler != null)
+        {
+            StartCoroutine(PlayAnimation("FullRespawn", nextStateName: "RainLoop"));
+        }
+        else
+        {
+            sr.sprite = idleCloudSprite;
+        }
+        if (rain != null)
+        {
+            rain.Play();
+        }
+
+        if (col != null) // Back to enabled collision
+        {
+            col.enabled = true;
+        }
+    }
+
+
     private void FlashWarning()
     {
         flashTimer += Time.deltaTime;
@@ -144,20 +199,27 @@ public class RainCloud : BasicCloud
         flashVis = true;
         SetAlpha(1f);
     }
-
-
-    private void Respawn()
-    {
-        // Vapor -> Idle
-        state = RainCloudStates.Idle;
-        timer = 0f;
-        ResetFlash();
-        sr.sprite = idleCloudSprite; 
-
-        if (col != null) // Back to enabled collision
+    IEnumerator PlayAnimation(string clipName, string nextStateName = null, Sprite freezeSprite = null)
         {
-            col.enabled = true;
+            animationHandler.enabled = true;
+            animationHandler.Play(clipName, 0, 0f);
+
+            yield return null;
+            AnimatorStateInfo info = animationHandler.GetCurrentAnimatorStateInfo(0);
+            yield return new WaitForSeconds(info.length);
+
+            if (nextStateName != null)
+            {
+                animationHandler.Play(nextStateName, 0, 0f);
+            }
+            else
+            {
+                animationHandler.enabled = false;
+                if (freezeSprite != null)
+                {
+                    sr.sprite = freezeSprite;
+                }
+            }
         }
-    }
 }
 
