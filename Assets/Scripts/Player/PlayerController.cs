@@ -127,17 +127,27 @@ public class PlayerController : MonoBehaviour
         restrictPlayerWithinBounds();
         // RideCloud();
 
-        rb.linearVelocity = velocity;
+        if (cloudRB != null && !isJumping && hasLandedOnCurrentCloud)
+        {
+            velocity.y = cloudRB.linearVelocityY;
+        }
 
+        rb.linearVelocity = velocity;
         if (isGrounded && velocity.y <= 0f)
         {
             isJumping = false;
         }
     }
 
+    private int framesOffCloud = 10;
+
     public bool CheckGrounded()
     {
-        BasicCloud previousCloud = cloudScript;
+        if (cloudScript != null)
+        {
+            lastGroundedCloud = cloudScript;
+        }
+
         BasicCloud newCloud = null;
         Collider2D[] hits = Physics2D.OverlapBoxAll(groundCheck.position, groundCheckSize, 0f, groundLayer);
         isGrounded = false;
@@ -153,42 +163,54 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        if (previousCloud != newCloud) // Register playing leaving cloud
+        if (lastGroundedCloud != newCloud) // Register playing leaving cloud
         {
-            if (previousCloud != null)
+            if (newCloud == null)
+            {
+                framesOffCloud++;
+                // Debug.Log("Frames off cloud: " + framesOffCloud);
+            }
+            if (lastGroundedCloud != null && framesOffCloud >= 10)
             {
                 // gameObject.transform.SetParent(null);
-                previousCloud.PlayerLeft();
+                lastGroundedCloud.PlayerLeft();
                 hasLandedOnCurrentCloud = false;
                 
             }
         }
 
-        cloudScript = newCloud;
-        cloudRB = newCloud != null ? newCloud.GetComponent<Rigidbody2D>() : null;
-        Collider2D cloudCol = newCloud != null ? newCloud.GetComponent<Collider2D>() : null;
-
-        if (cloudScript != null && rb.linearVelocityY <= 0 &&
-        col.bounds.min.y < cloudCol.bounds.max.y) // Push player out of cloud if they're stuck
+        if (newCloud != null || framesOffCloud >= 10)
         {
-            float correction = cloudCol.bounds.max.y - col.bounds.min.y;
-            rb.MovePosition(rb.position + Vector2.up * correction);
+           cloudScript = newCloud;
+        
 
-            if (!hasLandedOnCurrentCloud)
+            cloudRB = newCloud != null ? newCloud.GetComponent<Rigidbody2D>() : null;
+            Collider2D cloudCol = newCloud != null ? newCloud.GetComponent<Collider2D>() : null;
+
+            if (cloudScript != null && rb.linearVelocityY <= 0 &&
+            col.bounds.min.y < cloudCol.bounds.max.y) // Push player out of cloud if they're stuck
+            {
+                float correction = cloudCol.bounds.max.y - col.bounds.min.y;
+                rb.MovePosition(rb.position + Vector2.up * correction);
+
+                if (!hasLandedOnCurrentCloud)
+                {
+                    cloudScript.PlayerLanded();
+                    hasLandedOnCurrentCloud = true;
+                    framesOffCloud = 0;
+                }
+            }
+
+            // Normal case - start bobbing/score
+            else if (!hasLandedOnCurrentCloud && newCloud != null && rb.linearVelocityY <= 0 && 
+            groundCheck.position.y >= newCloud.GetComponent<Collider2D>().bounds.max.y - 0.05f)
             {
                 cloudScript.PlayerLanded();
+                // newCloud.PlayerLanded();
                 hasLandedOnCurrentCloud = true;
-            }
-        }
-
-        // Normal case - start bobbing/score
-        else if (!hasLandedOnCurrentCloud && newCloud != null && rb.linearVelocityY <= 0 && 
-        groundCheck.position.y >= newCloud.GetComponent<Collider2D>().bounds.max.y - 0.05f)
-        {
-            cloudScript.PlayerLanded();
-            newCloud.PlayerLanded();
-            hasLandedOnCurrentCloud = true;
-        }        
+                framesOffCloud = 0;
+            }    
+        }    
 
         // Collider2D ground = groundCheck != null
         //     ? Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer)
@@ -367,9 +389,9 @@ public class PlayerController : MonoBehaviour
     
     // Moves w/ platform if not mid jump
     private void RideCloud(){
-        if (cloudRB != null && !isJumping && rb.linearVelocityY <= 0){
-            velocity.y = cloudRB.linearVelocity.y;
-        }
+        // if (cloudRB != null && !isJumping && rb.linearVelocityY <= 0){
+        //     velocity.y = cloudRB.linearVelocity.y;
+        // }    
     }
 
     private void OnDrawGizmosSelected()

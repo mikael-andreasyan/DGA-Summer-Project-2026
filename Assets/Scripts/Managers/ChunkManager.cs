@@ -72,6 +72,11 @@ public class ChunkManager : MonoBehaviour
         chunk.transform.position +=
             previousTop.position - newBottom.position;
 
+        // Forcing a sync every spawn which I think (emphasis lol) should fix the problem of movement on spawn
+        // the problem was the rb would not catch up with the transform, and it would register as movement
+        // and then trigger the apex indicator.
+        Physics2D.SyncTransforms();
+
         loadedChunks.Add(chunk);
         highestChunk = chunk;
     }
