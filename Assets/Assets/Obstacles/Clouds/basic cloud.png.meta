@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: ff360c588fadb4b148dde773aa1eb323
+guid: 395982ccc78127e4dad1e9ac5488e8d6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4304138379332451429
-    second: Star Idle_0
+      213: 5036893117063624665
+    second: basic cloud_0
+  - first:
+      213: 2659800730061138750
+    second: basic cloud_1
+  - first:
+      213: 3633551091293365234
+    second: basic cloud_2
+  - first:
+      213: -5465007743042530237
+    second: basic cloud_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +57,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Star Idle_0
+      name: basic cloud_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
-        width: 32
-        height: 22
+        y: 0
+        width: 800
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56c7c3c3d0f5bbb30800000000000000
-      internalID: 4304138379332451429
+      spriteID: 9d7ff267a93a6e540800000000000000
+      internalID: 5036893117063624665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic cloud_1
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 800
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3b6e98fba289e420800000000000000
+      internalID: 2659800730061138750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic cloud_2
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 800
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f326c55777fc6230800000000000000
+      internalID: 3633551091293365234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic cloud_3
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0
+        width: 800
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 344d03d99646824b0800000000000000
+      internalID: -5465007743042530237
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: cbbe0dc81b84e2644af152d03b5b25e2
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +208,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":800.0,"y":320.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Star Idle_0: 4304138379332451429
+      basic cloud_0: 5036893117063624665
+      basic cloud_1: 2659800730061138750
+      basic cloud_2: 3633551091293365234
+      basic cloud_3: -5465007743042530237
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

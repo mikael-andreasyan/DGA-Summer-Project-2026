@@ -14,6 +14,8 @@ public class StormCloud : BasicCloud
     [Header("Lightning/Spark Obstacles")]
     [SerializeField] private Collider2D zapZone;
     [SerializeField] private GameObject lightning;
+    [SerializeField] private SpriteRenderer lightningSprite;
+    [SerializeField] private Animator lightningAnimator;
 
     [Header("Player Effects")]
     [SerializeField] private float zapDuration = 1.5f;
@@ -24,6 +26,11 @@ public class StormCloud : BasicCloud
     {
         base.Start();
         phaseCooldownTimer = 0f;
+
+        if (lightningSprite != null)
+        {
+            lightningSprite.enabled = false;
+        }
     }
 
 
@@ -97,8 +104,29 @@ public class StormCloud : BasicCloud
             Instantiate(lightning, playerRb.position, Quaternion.identity);
         }
 
+        if (lightningSprite != null)
+        {
+            StartCoroutine(handleLightningVisibility());
+        }
+
+        if (lightningAnimator != null)
+        {
+            lightningAnimator.Play("Lightning", 0, 0f);
+        }
+
         //testing
         StartCoroutine(FlashColor());
         //GameManager.Instance.PlayerDeath();
+    }
+
+    private IEnumerator handleLightningVisibility()
+    {
+        lightningSprite.enabled = true;
+
+        yield return null;
+        AnimatorStateInfo info = lightningAnimator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(info.length);
+
+        lightningSprite.enabled = false;
     }
 }

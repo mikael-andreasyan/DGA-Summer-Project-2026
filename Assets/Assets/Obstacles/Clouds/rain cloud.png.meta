@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: ff360c588fadb4b148dde773aa1eb323
+guid: ac5b823ca107d174e8b757e121b48ec7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4304138379332451429
-    second: Star Idle_0
+      213: -3380738004619589126
+    second: rain cloud_0
+  - first:
+      213: 7233548856931613163
+    second: rain cloud_1
+  - first:
+      213: -6476876333423059682
+    second: rain cloud_2
+  - first:
+      213: -1603831361521470518
+    second: rain cloud_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +57,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Star Idle_0
+      name: rain cloud_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
-        width: 32
-        height: 22
+        y: 0
+        width: 800
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56c7c3c3d0f5bbb30800000000000000
-      internalID: 4304138379332451429
+      spriteID: af98cfb52b43511d0800000000000000
+      internalID: -3380738004619589126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rain cloud_1
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 800
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be977d24c5ab26460800000000000000
+      internalID: 7233548856931613163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rain cloud_2
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 800
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1d1f2c6a438d16a0800000000000000
+      internalID: -6476876333423059682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rain cloud_3
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0
+        width: 800
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac3b1e8cfdb0eb9e0800000000000000
+      internalID: -1603831361521470518
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 63c797a5a931d9c4e9b1df71d30eae67
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +208,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":800.0,"y":320.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Star Idle_0: 4304138379332451429
+      rain cloud_0: -3380738004619589126
+      rain cloud_1: 7233548856931613163
+      rain cloud_2: -6476876333423059682
+      rain cloud_3: -1603831361521470518
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
