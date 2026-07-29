@@ -26,7 +26,7 @@ public class BarrelLauncher : MonoBehaviour
     private PlayerController playerController;
     private Rigidbody2D playerRB;
 
-    private bool isBoosting;
+    private static bool isBoosting;
     private bool isWaiting;
 
    void OnTriggerEnter2D(Collider2D other)
