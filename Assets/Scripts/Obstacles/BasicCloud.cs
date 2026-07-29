@@ -25,7 +25,8 @@ public class BasicCloud : MonoBehaviour
     [SerializeField] protected Collider2D middleBoost; // Middle boost hitbox
     [SerializeField] protected Collider2D rightBoost; // Right boost hitbox
     
-    protected SpriteRenderer sr; // Added to parent Cloud class so we can change sprites in subclesses
+    [SerializeField] protected SpriteRenderer sr; // Added to parent Cloud class so we can change sprites in subclesses
+    private Color originalColor;
 
     protected bool justLanded; // Flag to set whether cloud should start bobbing
     protected bool hasScored; // Whether the GameManager has already scored points for landing on this cloud
@@ -55,7 +56,11 @@ public class BasicCloud : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        sr = GetComponent<SpriteRenderer>();
+        if (sr == null)
+        {
+            sr = GetComponent<SpriteRenderer>();
+        }
+        originalColor = sr.color;
         startY = transform.position.y;
         hasScored = false;
         isSettling = false;
@@ -97,6 +102,7 @@ public class BasicCloud : MonoBehaviour
                 hasScored = true;
             }
         }
+        apexVisualManager();
 
         // if (isOnTop && playerCol != null)
         // {
@@ -233,6 +239,22 @@ public class BasicCloud : MonoBehaviour
             }
         }
         // Debug.Log("Weakpoint expired");
+    }
+
+
+    protected virtual void apexVisualManager()
+    {
+        float peakPos = startY + maxDistanceUp;
+        float threshold = peakPos - 1f; // Arbitrary threshold for now
+
+        if (rb.position.y >= threshold)
+        {
+            sr.color = Color.red;
+        }
+        else
+        {
+            sr.color = originalColor;
+        }
     }
 
 
