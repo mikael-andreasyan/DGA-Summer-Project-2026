@@ -279,8 +279,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2009961805
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 0f7c30347cc03412ca20934790dd748d, type: 3}
@@ -392,12 +392,14 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   groundCheck: {fileID: 7010329476067719845}
-  groundCheckSize: {x: 0.6, y: 0.1}
+  groundCheckSize: {x: 1.05, y: 0.1}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   afterImage: {fileID: 4188444214118477219}
   isGrounded: 0
+  isFlying: 0
+  isStunned: 0
 --- !u!114 &4188444214118477219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,7 +442,7 @@ Transform:
   m_GameObject: {fileID: 8731642440388604302}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.15, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
