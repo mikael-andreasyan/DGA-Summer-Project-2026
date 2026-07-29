@@ -458,9 +458,9 @@ MonoBehaviour:
   maxDistanceDown: 0.75
   maxDistanceUp: 1.5
   boostThreshold: 1
-  leftBoost: {fileID: 0}
-  middleBoost: {fileID: 0}
-  rightBoost: {fileID: 0}
+  leftBoost: {fileID: 4548035281285150247}
+  middleBoost: {fileID: 856309534884967129}
+  rightBoost: {fileID: 2262725839331524474}
   sr: {fileID: 6441466880004083922}
   weakpointLifetime: 0.25
   particleSystem: {fileID: 1118549370561046642}
