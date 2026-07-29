@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 3
   tags:
   - Cloud
+  - Weakpoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - Ground
@@ -41,6 +42,18 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Clouds
+    uniqueID: 2512127009
+    locked: 0
+  - name: Player
+    uniqueID: 2285005491
+    locked: 0
+  - name: Powerups
+    uniqueID: 124689079
+    locked: 0
+  - name: Hazards
+    uniqueID: 2069975139
     locked: 0
   m_RenderingLayers:
   - Default

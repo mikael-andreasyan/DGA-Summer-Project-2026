@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement")]
+       [Header("Movement")]
     [SerializeField] private float maxSpeed = 8f;          // top horizontal speed (units/s)
     [SerializeField] private float acceleration = 60f;      // units/s^2 while holding a direction
     [SerializeField] private float friction = 70f;           // units/s^2 when no input (ground)
@@ -12,37 +12,78 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airFriction = 30f;
 
     [Header("Jump")]
-    [SerializeField] public float jumpVelocity = 4f;      // the velocity that the player's y receives
+    [SerializeField] private float jumpHeight = 3f;          // max height in units
+    [SerializeField] private float jumpTimeToPeak = 0.4f;    // seconds to reach apex if held
+    [SerializeField] private float jumpTimeToDescent = 0.3f; // seconds to fall back down
+    [SerializeField] private float jumpCutMultiplier = 0.5f; // velocity multiplier when jump released early
+
+    [SerializeField] public float boostVelocity = 6f;      // boosted jump velocity
 
     [Header("Quality of Life")]
-    [SerializeField] public float coyoteTime = 0.1f;        // grace period to jump after leaving a ledge
-    [SerializeField] public float jumpBufferTime = 0.1f;    // grace period if jump pressed before landing
+    [SerializeField] private float coyoteTime = 0.1f;        // grace period to jump after leaving a ledge
+    [SerializeField] private float jumpBufferTime = 0.1f;    // grace period if jump pressed before landing
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.6f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("Gravity")]
-    [SerializeField] private float gravityScale = 1f;
+    [Header("Effects")]
+    [SerializeField] private AfterImageEffect afterImage; 
 
     private Rigidbody2D rb;
-    private Vector2 velocity;
 
-    public float coyoteTimer;
-    public float jumpBufferTimer;
+    private Collider2D col;
+    private Vector2 velocity;
+    private Rigidbody2D cloudRB;
+    private BasicCloud cloudScript; // Reference to the cloud script so we can call its public methods
+    private BasicCloud lastGroundedCloud;
+
+    private float jumpVelocity;
+    private float jumpGravity;
+    private float fallGravity;
+
+    private float coyoteTimer;
+    private float jumpBufferTimer;
     private bool isJumping;
     public bool isGrounded;
+    public bool isFlying; // Update this when Wings are activated
+
+    //StormCloud Fields
+    public bool isStunned;
+    private float stunTimer;
+
+    private bool hasLandedOnCurrentCloud;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = gravityScale;
+        rb.gravityScale = 0f; // gravity is applied manually below
+        col = GetComponent<Collider2D>();
 
+        // Derive jump velocity and the two gravity values (rising vs falling)
+        // from the desired height and timing, so tuning stays intuitive:
+        // just set "how high" and "how long", not raw physics constants.
+        jumpVelocity = (2f * jumpHeight) / jumpTimeToPeak;
+        jumpGravity = (2f * jumpHeight) / (jumpTimeToPeak * jumpTimeToPeak);
+        fallGravity = (2f * jumpHeight) / (jumpTimeToDescent * jumpTimeToDescent);
+
+    }
+
+    private bool CanControl()
+    {
+        return GameManager.Instance == null ||
+               GameManager.Instance.CurrentState == GameManager.GameState.Playing;
     }
 
    private void Update()
     {
+        if (!CanControl())
+        {
+            return;
+        }
+
         // Input reads happen in Update so button presses aren't missed
         // between fixed steps.
         if (Input.GetButtonDown("Jump"))
@@ -53,9 +94,12 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferTimer = Mathf.Max(jumpBufferTimer - Time.deltaTime, 0f);
         }
- 
+
         if (isJumping && Input.GetButtonUp("Jump") && velocity.y > 0f)
         {
+            // Variable height: releasing early while still rising cuts
+            // upward velocity short, so gravity takes over sooner.
+            velocity.y *= jumpCutMultiplier;
             isJumping = false;
         }
     }
@@ -64,23 +108,108 @@ public class PlayerController : MonoBehaviour
     {   
         CheckGrounded();
         UpdateTimers();
+        UpdateStun();
+        ApplyGravity();
         HandleJumpStart();
         HandleHorizontalMovement();
+        restrictPlayerWithinBounds();
+        // RideCloud();
+
+        if (cloudRB != null && !isJumping && hasLandedOnCurrentCloud)
+        {
+            velocity.y = cloudRB.linearVelocityY;
+        }
 
         rb.linearVelocity = velocity;
-
         if (isGrounded && velocity.y <= 0f)
         {
             isJumping = false;
         }
     }
 
-    private bool CheckGrounded()
+    private int framesOffCloud = 10;
+
+    public bool CheckGrounded()
     {
-        isGrounded = groundCheck != null &&
-            Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
+        if (cloudScript != null)
+        {
+            lastGroundedCloud = cloudScript;
+        }
+
+        BasicCloud newCloud = null;
+        Collider2D[] hits = Physics2D.OverlapBoxAll(groundCheck.position, groundCheckSize, 0f, groundLayer);
+        isGrounded = false;
+
+        foreach (var hit in hits) //  Get every collider just in case
+        {
+            if (hit.isTrigger)
+                continue;
+            isGrounded = true;
+            newCloud = hit.attachedRigidbody?.GetComponent<BasicCloud>();
+
+            if (newCloud != null)
+                break;
+        }
+
+        if (lastGroundedCloud != newCloud) // Register playing leaving cloud
+        {
+            if (newCloud == null)
+            {
+                framesOffCloud++;
+                // Debug.Log("Frames off cloud: " + framesOffCloud);
+            }
+            if (lastGroundedCloud != null && framesOffCloud >= 10)
+            {
+                // gameObject.transform.SetParent(null);
+                lastGroundedCloud.PlayerLeft();
+                hasLandedOnCurrentCloud = false;
+                
+            }
+        }
+
+        if (newCloud != null || framesOffCloud >= 10)
+        {
+           cloudScript = newCloud;
+        
+
+            cloudRB = newCloud != null ? newCloud.GetComponent<Rigidbody2D>() : null;
+            Collider2D cloudCol = newCloud != null ? newCloud.GetComponent<Collider2D>() : null;
+
+            if (cloudScript != null && rb.linearVelocityY <= 0 &&
+            col.bounds.min.y < cloudCol.bounds.max.y) // Push player out of cloud if they're stuck
+            {
+                float correction = cloudCol.bounds.max.y - col.bounds.min.y;
+                rb.MovePosition(rb.position + Vector2.up * correction);
+
+                if (!hasLandedOnCurrentCloud)
+                {
+                    cloudScript.PlayerLanded();
+                    hasLandedOnCurrentCloud = true;
+                    framesOffCloud = 0;
+                }
+            }
+
+            // Normal case - start bobbing/score
+            else if (!hasLandedOnCurrentCloud && newCloud != null && rb.linearVelocityY <= 0 && 
+            groundCheck.position.y >= newCloud.GetComponent<Collider2D>().bounds.max.y - 0.05f)
+            {
+                cloudScript.PlayerLanded();
+                // newCloud.PlayerLanded();
+                hasLandedOnCurrentCloud = true;
+                framesOffCloud = 0;
+            }    
+        }    
+
+        // Collider2D ground = groundCheck != null
+        //     ? Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer)
+        //     : null;
+
+        // isGrounded = ground != null;
+        // cloudRB = ground != null ? ground.attachedRigidbody : null;
+        // cloudScript = cloudRB != null ? cloudRB.gameObject.GetComponent<BasicCloud>() : null;
 
         velocity = rb.linearVelocity;
+        // Debug.Log(isGrounded);
         return isGrounded;
     }
     
@@ -107,23 +236,85 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
-
     private void HandleJumpStart()
     {
+        if (isStunned)
+        {
+            return;
+        }
+
         // Start a jump if buffered and coyote time is still available
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
+            // transform.SetParent(null);
+            hasLandedOnCurrentCloud = false;
             velocity.y = jumpVelocity;
+
+            BasicCloud jumpCloud = cloudScript != null ? cloudScript : lastGroundedCloud;
+            if (jumpCloud != null)
+            {
+                if (jumpCloud.isWeakpointAvailable())
+                {
+                    velocity.y = boostVelocity;
+                    GameManager.Instance.RegisterBoost();
+                    Debug.Log("Successful boost!");
+                    if (afterImage != null)
+                    {
+                        afterImage.Play();
+                    }
+                }
+                else
+                {
+                    GameManager.Instance.LoseCombo();
+                    if (jumpCloud.isBoostAvailable()) // Can still get a "regular" boost from cloud
+                    {
+                       velocity.y = boostVelocity; 
+                       if (afterImage != null)
+                        {
+                            afterImage.Play();
+                        }
+                    }
+                }
+                lastGroundedCloud = null; 
+            }
+
             isJumping = true;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;
         }
     }
 
+    private void ApplyGravity()
+    {
+        if (hasLandedOnCurrentCloud && cloudRB != null)
+        {
+            velocity.y = cloudRB.linearVelocityY;
+        }
+        else if (velocity.y > 0f)
+         {
+            // Rising: use the "to peak" gravity
+            velocity.y -= jumpGravity * Time.fixedDeltaTime;
+         }
+         else
+        {
+            // Falling: use the steeper "descent" gravity for a snappier feel
+            velocity.y -= fallGravity * Time.fixedDeltaTime;
+        }
+    }
     private void HandleHorizontalMovement()
     {
-        float inputDir = Input.GetAxisRaw("Horizontal");
+       // if (cloudRB != null){
+        //    velocity.x = 0;
+        //    return;
+       // }
+
+        if (isStunned)
+        {
+            velocity.x = 0f;
+            return;
+        }
+        
+        float inputDir = CanControl() ? Input.GetAxisRaw("Horizontal") : 0f;
 
         float accel = isGrounded ? acceleration : airAcceleration; //a.i told me this is a shorthand notation for if statements, so if isGrounded is true, accel = acceleration, otherwise accel = airAcceleration
         float fric = isGrounded ? friction : airFriction;
@@ -135,9 +326,32 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // No input: decelerate back to 0 using friction
-            velocity.x = Mathf.MoveTowards(velocity.x, 0f, fric * Time.fixedDeltaTime);
+           
+            velocity.x = 0f;
         }
+    }
+
+
+    private void UpdateStun()
+    {
+        if (!isStunned)
+        {
+            return;
+        }
+
+        stunTimer -= Time.fixedDeltaTime;
+        if (stunTimer <= 0f || isFlying == true)
+        {
+            isStunned = false;
+            stunTimer = 0f;
+        }
+    }
+    
+    // Moves w/ platform if not mid jump
+    private void RideCloud(){
+        // if (cloudRB != null && !isJumping && rb.linearVelocityY <= 0){
+        //     velocity.y = cloudRB.linearVelocity.y;
+        // }    
     }
 
     private void OnDrawGizmosSelected()
@@ -145,6 +359,9 @@ public class PlayerController : MonoBehaviour
         if (groundCheck == null) return;
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(new Vector3(0f, 0f, 0f), new Vector3(GameManager.Instance.boundaryWidth, 1f, 1f));
     }
 
 // Public API for external sources to trigger a jump directly,
@@ -158,4 +375,35 @@ public void ForceJump(float velocityMultiplier = 1f)
     isJumping = true;
 }
 
+
+public void Stun(float duration)
+    {
+        if (isFlying) return;
+        stunTimer = duration;
+        isStunned = true;
+    }
+
+private void restrictPlayerWithinBounds()
+{
+    float halfBoundaryWidth = GameManager.Instance.boundaryWidth / 2f;
+    Vector3 position = transform.position;
+
+    if (position.x < -halfBoundaryWidth)
+    {
+        position.x = -halfBoundaryWidth;
+        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        transform.position = position;
+    }
+    else if (position.x > halfBoundaryWidth)
+    {
+        position.x = halfBoundaryWidth;
+        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+    }
+
+    transform.position = position;
+
 }
+
+    
+}
+

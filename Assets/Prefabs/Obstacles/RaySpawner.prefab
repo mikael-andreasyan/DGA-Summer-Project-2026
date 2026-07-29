@@ -46,7 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   cosmicRayPrefab: {fileID: 4038817631084059660, guid: 39d807ed777c6e148babe30b54fcb94a, type: 3}
   player: {fileID: 0}
-  minTimer: 5
-  maxTimer: 8
+  minTimer: 8
+  maxTimer: 12
   maxPlayerDist: 3
   minPlayerDist: 1
+  leftWall: {fileID: 0}
+  rightWall: {fileID: 0}
+  margin: 0.15
