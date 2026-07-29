@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 
 public class Background : MonoBehaviour
@@ -9,12 +9,14 @@ public class Background : MonoBehaviour
     private SpriteRenderer UppestSprite;
     private SpriteRenderer UpperSprite;
     private SpriteRenderer MainSprite;
+    public GameObject[] backgrounds;
     private ParallaxBackground Uppest;
     private ParallaxBackground Upper;
     private ParallaxBackground Main;
     public SpriteRenderer transition;
     public SpriteRenderer spaceBackground;
-    private float transitionSpacing = 103.5f;
+    private GameObject transitionedSp;
+    private int transitioned;
 
     void Start()
     {
@@ -24,19 +26,34 @@ public class Background : MonoBehaviour
         Uppest = UppestBackground.gameObject.GetComponent<ParallaxBackground>();
         Upper = UpperBackground.gameObject.GetComponent<ParallaxBackground>();
         Main = MainBackground.gameObject.GetComponent<ParallaxBackground>();
+        transitioned = 0;
     }
 
     void Update()
     {
-        if (GameManager.Instance.triggerTransition)
+        if (transitioned==1)
         {
-            Debug.Log("transition");
-            UppestSprite.sprite = spaceBackground.sprite;
-            Uppest.spacing = transitionSpacing;
-            UpperSprite.sprite = spaceBackground.sprite;
-            Upper.spacing = transitionSpacing;
-            MainSprite.sprite = spaceBackground.sprite;
-            Main.spacing = transitionSpacing;
+            GameObject highest = backgrounds
+            .OrderByDescending(bg => bg.transform.position.y)
+            .First();
+            if (highest!=transitionedSp)
+            {
+                SpriteRenderer transitionedSprite = highest.GetComponent<SpriteRenderer>();
+            transitionedSprite.sprite = spaceBackground.sprite;
+            transitioned = 2;
+            }
+            
+        }
+        if (transitioned==0 && GameManager.Instance.triggerTransition)
+        {
+            // Transition sprite first
+            transitionedSp = backgrounds
+            .OrderByDescending(bg => bg.transform.position.y)
+            .First();
+
+            SpriteRenderer transitionedSprite = transitionedSp.GetComponent<SpriteRenderer>();
+            transitionedSprite.sprite = transition.sprite;
+            transitioned = 1;
         }
     }
 }

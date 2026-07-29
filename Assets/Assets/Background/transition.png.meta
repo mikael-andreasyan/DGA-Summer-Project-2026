@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 95ce1e026039e4cac80808a9f94ba194
+guid: 4ff444e6ac4ed4dd6ae4a62890c31cb5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2996119775627384186
-    second: transition_0
+      213: 2876211816460923139
+    second: transition 150x600_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: transition_0
+      name: transition 150x600_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 150
-        height: 616
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a751bc2df0b549920800000000000000
-      internalID: 2996119775627384186
+      spriteID: 3013fe2886b5ae720800000000000000
+      internalID: 2876211816460923139
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      transition_0: 2996119775627384186
+      transition 150x600_0: 2876211816460923139
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

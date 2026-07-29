@@ -11,7 +11,6 @@ public class ParallaxBackground : MonoBehaviour
     void Start()
     {
         startPos = transform.position.y;
-        spacing = 47f;
     }
 
     void LateUpdate()
