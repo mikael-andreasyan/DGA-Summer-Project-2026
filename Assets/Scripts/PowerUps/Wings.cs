@@ -18,7 +18,7 @@ public class Wings : MonoBehaviour
     [Tooltip("Small gap kept between the player and a wall so they don't overlap it")]
     public float wallSkin = 0.05f;
 
-    private static bool isBoosting = false;
+    public static bool isBoosting = false;
 
     void Awake()
     {
@@ -47,6 +47,7 @@ public class Wings : MonoBehaviour
         if (playerController != null)
         {
             playerController.enabled = false;
+            playerController.isFlying = true;
         }
 
         // Take manual control of the player's position for the duration of the boost,
@@ -87,6 +88,7 @@ public class Wings : MonoBehaviour
         if (playerController != null)
         {
             playerController.enabled = true;
+            playerController.isFlying = false;
         }
 
         isBoosting = false;
