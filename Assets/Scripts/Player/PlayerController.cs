@@ -34,8 +34,9 @@ public class PlayerController : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private Sprite stunnedLeft;
     [SerializeField] private Sprite stunnedRight;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Animator animator;
+    
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     private bool facingRight = true;
 
