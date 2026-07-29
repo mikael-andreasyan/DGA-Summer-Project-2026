@@ -29,7 +29,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Effects")]
-    [SerializeField] private AfterImageEffect afterImage; 
+    [SerializeField] private AfterImageEffect afterImage;
+
+    [Header("Visuals")]
+    [SerializeField] private Sprite stunnedLeft;
+    [SerializeField] private Sprite stunnedRight;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
+
+    private bool facingRight = true;
 
     private Rigidbody2D rb;
 
@@ -61,6 +69,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f; // gravity is applied manually below
         col = GetComponent<Collider2D>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         // Derive jump velocity and the two gravity values (rising vs falling)
         // from the desired height and timing, so tuning stays intuitive:
@@ -294,6 +305,15 @@ public class PlayerController : MonoBehaviour
         
         float inputDir = CanControl() ? Input.GetAxisRaw("Horizontal") : 0f;
 
+        if (inputDir > 0.01f)
+        {
+            facingRight = true;
+        }
+        else if (inputDir < -0.01f)
+        {
+            facingRight = false;
+        }
+
         float accel = isGrounded ? acceleration : airAcceleration; //a.i told me this is a shorthand notation for if statements, so if isGrounded is true, accel = acceleration, otherwise accel = airAcceleration
         float fric = isGrounded ? friction : airFriction;
 
@@ -322,6 +342,25 @@ public class PlayerController : MonoBehaviour
         {
             isStunned = false;
             stunTimer = 0f;
+            ShowStunnedSprite(false);
+        }
+    }
+
+    private void ShowStunnedSprite(bool stunned)
+    {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
+        if (animator != null)
+        {
+            animator.enabled = !stunned;
+        }
+
+        if (stunned)
+        {
+            spriteRenderer.sprite = facingRight ? stunnedRight : stunnedLeft;
         }
     }
     
@@ -359,6 +398,7 @@ public void Stun(float duration)
         if (isFlying) return;
         stunTimer = duration;
         isStunned = true;
+        ShowStunnedSprite(true);
     }
 
 private void restrictPlayerWithinBounds()
