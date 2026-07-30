@@ -40,6 +40,10 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight = true;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip boostedJumpSound;
+
     private Rigidbody2D rb;
 
     private Collider2D col;
@@ -261,6 +265,7 @@ public class PlayerController : MonoBehaviour
             // transform.SetParent(null);
             hasLandedOnCurrentCloud = false;
             velocity.y = jumpVelocity;
+            bool didBoost = false;
 
             BasicCloud jumpCloud = cloudScript != null ? cloudScript : lastGroundedCloud;
             if (jumpCloud != null)
@@ -290,6 +295,7 @@ public class PlayerController : MonoBehaviour
                 lastGroundedCloud = null; 
             }
 
+            PlayJumpSound(didBoost);
             isJumping = true;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;
@@ -444,6 +450,18 @@ private void restrictPlayerWithinBounds()
     transform.position = position;
 
 }
+
+    private void PlayJumpSound(bool boosted)
+    {
+        var audioManager = ServiceLocator.Get<AudioManager>();
+        if (audioManager == null) return;
+
+        AudioClip clip = boosted ? boostedJumpSound : jumpSound;
+        if (clip != null)
+        {
+            audioManager.PlaySFX(clip);
+        }
+    }
 
     
 }
