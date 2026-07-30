@@ -33,7 +33,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] private Sprite stunned;
-    
+    [SerializeField] private Sprite fall;
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
@@ -158,6 +159,23 @@ public class PlayerController : MonoBehaviour
 
         bool moving = Mathf.Abs(velocity.x) > 0.01f || !isGrounded;
         animator.SetBool("isMoving", moving);
+
+        // Stun owns the sprite while it lasts, so stay out of its way.
+        if (isStunned)
+        {
+            return;
+        }
+
+        // Past the apex and still in the air: freeze on the fall pose rather
+        // than let the clip loop back round to the launch frames mid-jump.
+        // The clip covers the rise; this covers everything after it.
+        bool holdFall = !isGrounded && velocity.y <= 0f;
+        animator.enabled = !holdFall;
+
+        if (holdFall && fall != null)
+        {
+            spriteRenderer.sprite = fall;
+        }
     }
 
     private int framesOffCloud = 10;
