@@ -178,15 +178,20 @@ public class BarrelLauncher : MonoBehaviour
         FlowTime();
 
         directionalVector = UnityEngine.Vector2.Lerp(a, b, t);
-        boostVector = directionalVector.normalized * launchDistance;
+        // boostVector = directionalVector.normalized * launchDistance;
+        boostVector = directionalVector.normalized * launchSpeed;
         transform.up = directionalVector.normalized;
         transform.position = new UnityEngine.Vector3(transform.position.x, transform.position.y, 10);
-
+        
 
         if (Input.GetButtonDown("Jump"))
         {
             isWaiting = false;
-            StartCoroutine(Boost());
+            // StartCoroutine(Boost());
+            playerRB.AddForce(boostVector, ForceMode2D.Impulse);
+            playerController.enabled = true;
+            playerController.Launch();
+            Destroy(gameObject);
         }
     }
 

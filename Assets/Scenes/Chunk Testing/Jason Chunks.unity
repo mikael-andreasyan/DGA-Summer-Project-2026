@@ -360,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 1417270955056586049, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 116156805800923033, guid: 4c9d1bdf8bf994aab883ae2cb4182d04, type: 2}
+      objectReference: {fileID: 3382475935638445813, guid: 3e727a3cc0da24b6aaff556d2122086d, type: 2}
     - target: {fileID: 2385017416331466857, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: maxSpeed
       value: 12
@@ -717,7 +717,7 @@ PrefabInstance:
     - target: {fileID: 8133763114722512393, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
       propertyPath: firstChunkPrefab
       value: 
-      objectReference: {fileID: 2532506237784716197, guid: 749f0c93f015e594895ace4efe3f2e3a, type: 3}
+      objectReference: {fileID: 2532506237784716197, guid: d83d1c021f697f14c85d04f198c4fe8f, type: 3}
     - target: {fileID: 8133763114722512393, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
       propertyPath: chunkPrefabs.Array.size
       value: 1
@@ -725,7 +725,7 @@ PrefabInstance:
     - target: {fileID: 8133763114722512393, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
       propertyPath: 'chunkPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 2532506237784716197, guid: 1824361831936eb478e8773fcfb5b0dc, type: 3}
+      objectReference: {fileID: 2532506237784716197, guid: 881b082c9c378484fa21fe3b403de582, type: 3}
     - target: {fileID: 8133763114722512393, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
       propertyPath: 'chunkPrefabs.Array.data[1]'
       value: 
