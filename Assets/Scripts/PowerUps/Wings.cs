@@ -29,6 +29,7 @@ public class Wings : MonoBehaviour
     {
         if (other.CompareTag("Player") && !isBoosting)
         {
+            ServiceLocator.Get<AudioManager>()?.PlayPowerupPickup();
             StartCoroutine(BoostPlayer(other.transform, other.GetComponent<Rigidbody2D>(), other.GetComponent<PlayerController>(), other));
         }
     }

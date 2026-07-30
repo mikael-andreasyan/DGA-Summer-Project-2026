@@ -336,7 +336,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1.1619108, y: -0.31640387}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -346,7 +346,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.6341696, y: 2.377287}
   m_EdgeRadius: 0
 --- !u!114 &882392916605294500
 MonoBehaviour:
@@ -490,7 +490,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.007188946}
+  m_Offset: {x: -0.014992833, y: 0.0068644285}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -500,7 +500,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.619177, y: 2.6864054}
   m_EdgeRadius: 0
 --- !u!114 &389546446064376733
 MonoBehaviour:
@@ -650,7 +650,7 @@ BoxCollider2D:
   m_UsedByEffector: 1
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.040392816, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -660,7 +660,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.918934, y: 2}
   m_EdgeRadius: 0
 --- !u!251 &8128619192738486134
 PlatformEffector2D:
@@ -726,9 +726,9 @@ MonoBehaviour:
   maxDistanceDown: 0.75
   maxDistanceUp: 1.5
   boostThreshold: 1.5
-  leftBoost: {fileID: 0}
-  middleBoost: {fileID: 0}
-  rightBoost: {fileID: 0}
+  leftBoost: {fileID: 2052883374994321151}
+  middleBoost: {fileID: 2849962887682490492}
+  rightBoost: {fileID: 7630692820387102206}
   sr: {fileID: 4146686797292014737}
   weakpointLifetime: 0.25
   particleSystem: {fileID: 7328969773444694528}
@@ -758,7 +758,7 @@ Transform:
   m_GameObject: {fileID: 6771857931255289348}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0000000035479, z: 0}
+  m_LocalPosition: {x: -1.04, y: -0.13, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.2386}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -953,7 +953,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.9452474, y: -0.042160332}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -963,7 +963,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.8904943, y: 2.7426195}
   m_EdgeRadius: 0
 --- !u!114 &1930861263093110963
 MonoBehaviour:
@@ -1004,7 +1004,7 @@ Transform:
   m_GameObject: {fileID: 7919421187903589955}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.06, y: -0.02, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1097,8 +1097,8 @@ Transform:
   m_GameObject: {fileID: 9181244586390659562}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.93, z: 0}
-  m_LocalScale: {x: 0.4, y: 1, z: 4}
+  m_LocalPosition: {x: 0, y: -1.61, z: -0}
+  m_LocalScale: {x: 0.69, y: 1, z: 2.61375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1666734714887305452}
@@ -1111,7 +1111,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9181244586390659562}
   serializedVersion: 8
-  lengthInSec: 0.2
+  lengthInSec: 0.1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -1186,7 +1186,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1239,7 +1239,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1357,7 +1357,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2050,7 +2050,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 12
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -2269,8 +2269,8 @@ ParticleSystem:
     enabled: 0
     x:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 1
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2322,8 +2322,8 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 1
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2375,21 +2375,21 @@ ParticleSystem:
         m_RotationOrder: 4
     curve:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       scalar: 0.7853982
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
+          time: 0.0074211494
+          value: 0.13846135
+          inSlope: 3.553837
+          outSlope: 3.553837
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0.18386526
         - serializedVersion: 3
           time: 1
           value: 1
@@ -2496,8 +2496,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -2615,7 +2615,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: -144429192348899807, guid: 68b3b76dba9344d839ae55e31d1b589c, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:

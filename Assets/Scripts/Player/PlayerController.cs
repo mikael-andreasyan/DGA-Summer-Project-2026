@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private AfterImageEffect afterImage; 
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip boostedJumpSound;
 
     private Rigidbody2D rb;
 
@@ -251,6 +255,7 @@ public class PlayerController : MonoBehaviour
             // transform.SetParent(null);
             hasLandedOnCurrentCloud = false;
             velocity.y = jumpVelocity;
+            bool didBoost = false;
 
             BasicCloud jumpCloud = cloudScript != null ? cloudScript : lastGroundedCloud;
             if (jumpCloud != null)
@@ -280,6 +285,7 @@ public class PlayerController : MonoBehaviour
                 lastGroundedCloud = null; 
             }
 
+            PlayJumpSound(didBoost);
             isJumping = true;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;
@@ -410,6 +416,20 @@ public void Stun(float duration)
     {
         return platformsLanded;
     }
+
+
+    private void PlayJumpSound(bool boosted)
+    {
+        var audioManager = ServiceLocator.Get<AudioManager>();
+        if (audioManager == null) return;
+
+        AudioClip clip = boosted ? boostedJumpSound : jumpSound;
+        if (clip != null)
+        {
+            audioManager.PlaySFX(clip);
+        }
+    }
+
     
 }
 
