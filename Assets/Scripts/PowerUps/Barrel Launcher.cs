@@ -41,7 +41,7 @@ public class BarrelLauncher : MonoBehaviour
 
             player = other.gameObject.transform;
             player.position = transform.position;
-
+            
             isWaiting = true;
         }
     }
