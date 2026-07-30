@@ -12,8 +12,9 @@ public class JumpBoostPickup : MonoBehaviour
             
             if (player != null)
             {
-            player.ForceJump(boostMultiplier);
-            Destroy(gameObject);
+                player.ForceJump(boostMultiplier);
+                ServiceLocator.Get<AudioManager>()?.PlayPowerupPickup();
+                Destroy(gameObject);
             }
         }
         

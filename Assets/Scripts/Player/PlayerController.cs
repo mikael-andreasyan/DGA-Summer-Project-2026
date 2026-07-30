@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -31,6 +31,10 @@ public class PlayerController : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private AfterImageEffect afterImage; 
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip boostedJumpSound;
+
     private Rigidbody2D rb;
 
     private Collider2D col;
@@ -54,7 +58,6 @@ public class PlayerController : MonoBehaviour
     private float stunTimer;
 
     private bool hasLandedOnCurrentCloud;
-
 
     private void Awake()
     {
@@ -249,6 +252,7 @@ public class PlayerController : MonoBehaviour
             // transform.SetParent(null);
             hasLandedOnCurrentCloud = false;
             velocity.y = jumpVelocity;
+            bool didBoost = false;
 
             BasicCloud jumpCloud = cloudScript != null ? cloudScript : lastGroundedCloud;
             if (jumpCloud != null)
@@ -278,6 +282,7 @@ public class PlayerController : MonoBehaviour
                 lastGroundedCloud = null; 
             }
 
+            PlayJumpSound(didBoost);
             isJumping = true;
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;
@@ -383,26 +388,38 @@ public void Stun(float duration)
         isStunned = true;
     }
 
-private void restrictPlayerWithinBounds()
-{
-    float halfBoundaryWidth = GameManager.Instance.boundaryWidth / 2f;
-    Vector3 position = transform.position;
-
-    if (position.x < -halfBoundaryWidth)
+    private void restrictPlayerWithinBounds()
     {
-        position.x = -halfBoundaryWidth;
-        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        float halfBoundaryWidth = GameManager.Instance.boundaryWidth / 2f;
+        Vector3 position = transform.position;
+
+        if (position.x < -halfBoundaryWidth)
+        {
+            position.x = -halfBoundaryWidth;
+            velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+            transform.position = position;
+        }
+        else if (position.x > halfBoundaryWidth)
+        {
+            position.x = halfBoundaryWidth;
+            velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        }
+
         transform.position = position;
+
     }
-    else if (position.x > halfBoundaryWidth)
+
+    private void PlayJumpSound(bool boosted)
     {
-        position.x = halfBoundaryWidth;
-        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        var audioManager = ServiceLocator.Get<AudioManager>();
+        if (audioManager == null) return;
+
+        AudioClip clip = boosted ? boostedJumpSound : jumpSound;
+        if (clip != null)
+        {
+            audioManager.PlaySFX(clip);
+        }
     }
-
-    transform.position = position;
-
-}
 
     
 }
