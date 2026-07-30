@@ -57,5 +57,6 @@ MonoBehaviour:
   escapeText: {fileID: 0}
   newRecordText: {fileID: 0}
   audioManagerPrefab: {fileID: 0}
-  platformInterval: 20
+  platformInterval: 50
+  platformsLanded: 0
   triggerTransition: 0

@@ -59,8 +59,6 @@ public class PlayerController : MonoBehaviour
 
     private bool hasLandedOnCurrentCloud;
 
-    private int platformsLanded;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -150,7 +148,6 @@ public class PlayerController : MonoBehaviour
             if (hit.isTrigger)
                 continue;
             isGrounded = true;
-            platformsLanded++;
             newCloud = hit.attachedRigidbody?.GetComponent<BasicCloud>();
 
             if (newCloud != null)
@@ -411,12 +408,6 @@ public void Stun(float duration)
         transform.position = position;
 
     }
-
-    public int GetPlatforms()
-    {
-        return platformsLanded;
-    }
-
 
     private void PlayJumpSound(bool boosted)
     {

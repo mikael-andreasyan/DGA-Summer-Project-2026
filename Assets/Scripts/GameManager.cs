@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     private PlayerController playerController;
 
     public int platformInterval;
+    [HideInInspector] public int platformsLanded;
     [HideInInspector] public bool triggerTransition;
     
     public int Score
@@ -94,8 +95,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
-        print(SceneManager.GetActiveScene().name);
+        platformsLanded = 0;
         triggerTransition = false;
         highScore = PlayerPrefs.GetInt("player_HighScore");
         playerController = player.GetComponent<PlayerController>();
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         if (CurrentState == GameState.Playing)
         {
             CheckOutOfBounds();
-            if (playerController.GetPlatforms()>=platformInterval)
+            if (!triggerTransition && platformsLanded>=platformInterval)
             {
                 triggerTransition = true;
             }

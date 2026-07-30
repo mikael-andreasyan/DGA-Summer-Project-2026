@@ -158,14 +158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7ae2a12cb964b618e22742da7535be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  UppestBackground: {fileID: 9025853448120674785}
-  UpperBackground: {fileID: 9017588885855169020}
-  MainBackground: {fileID: 6302862700778048021}
   backgrounds:
   - {fileID: 6302862700778048021}
   - {fileID: 9017588885855169020}
   - {fileID: 9025853448120674785}
-  transition: {fileID: 222241257938523460}
+  transitionBackground: {fileID: 222241257938523460}
   spaceBackground: {fileID: 7901742777482044344}
 --- !u!1 &5055299857677371178
 GameObject:
@@ -302,7 +299,7 @@ Transform:
   m_GameObject: {fileID: 6268328715000913454}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: -8.9, z: 0}
+  m_LocalPosition: {x: 0.03, y: -12.52, z: 0}
   m_LocalScale: {x: 16.772226, y: 16.772226, z: 16.772226}
   m_ConstrainProportionsScale: 0
   m_Children: []
