@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour
     private float stunTimer;
 
     private bool hasLandedOnCurrentCloud;
-
 
     private void Awake()
     {
@@ -465,26 +464,26 @@ public void Stun(float duration)
         ShowStunnedSprite(true);
     }
 
-private void restrictPlayerWithinBounds()
-{
-    float halfBoundaryWidth = GameManager.Instance.boundaryWidth / 2f;
-    Vector3 position = transform.position;
-
-    if (position.x < -halfBoundaryWidth)
+    private void restrictPlayerWithinBounds()
     {
-        position.x = -halfBoundaryWidth;
-        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        float halfBoundaryWidth = GameManager.Instance.boundaryWidth / 2f;
+        Vector3 position = transform.position;
+
+        if (position.x < -halfBoundaryWidth)
+        {
+            position.x = -halfBoundaryWidth;
+            velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+            transform.position = position;
+        }
+        else if (position.x > halfBoundaryWidth)
+        {
+            position.x = halfBoundaryWidth;
+            velocity.x = 0f; // Stop horizontal movement when hitting the boundary
+        }
+
         transform.position = position;
-    }
-    else if (position.x > halfBoundaryWidth)
-    {
-        position.x = halfBoundaryWidth;
-        velocity.x = 0f; // Stop horizontal movement when hitting the boundary
-    }
 
-    transform.position = position;
-
-}
+    }
 
     private void PlayJumpSound(bool boosted)
     {
