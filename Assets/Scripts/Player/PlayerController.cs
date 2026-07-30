@@ -32,8 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AfterImageEffect afterImage;
 
     [Header("Visuals")]
-    [SerializeField] private Sprite stunnedLeft;
-    [SerializeField] private Sprite stunnedRight;
+    [SerializeField] private Sprite stunned;
     
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -141,6 +140,24 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = false;
         }
+
+        UpdateVisuals();
+    }
+
+    private void UpdateVisuals()
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = !facingRight;
+        }
+
+        if (animator == null)
+        {
+            return;
+        }
+
+        bool moving = Mathf.Abs(velocity.x) > 0.01f || !isGrounded;
+        animator.SetBool("isMoving", moving);
     }
 
     private int framesOffCloud = 10;
@@ -375,7 +392,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ShowStunnedSprite(bool stunned)
+    private void ShowStunnedSprite(bool active)
     {
         if (spriteRenderer == null)
         {
@@ -384,12 +401,12 @@ public class PlayerController : MonoBehaviour
 
         if (animator != null)
         {
-            animator.enabled = !stunned;
+            animator.enabled = !active;
         }
 
-        if (stunned)
+        if (active)
         {
-            spriteRenderer.sprite = facingRight ? stunnedRight : stunnedLeft;
+            spriteRenderer.sprite = stunned;
         }
     }
     

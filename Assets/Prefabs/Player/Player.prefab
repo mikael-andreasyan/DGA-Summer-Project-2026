@@ -398,8 +398,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   afterImage: {fileID: 4188444214118477219}
-  stunnedLeft: {fileID: -7784756495023451355, guid: f89340ca3bc4b45f4a6d1d30f3f3f792, type: 3}
-  stunnedRight: {fileID: -6077976744475655974, guid: a72d575b7635e4d839c5062ef28946a3, type: 3}
+  stunned: {fileID: -6077976744475655974, guid: a72d575b7635e4d839c5062ef28946a3, type: 3}
   jumpSound: {fileID: 8300000, guid: 0a91619ec28224e01912da61e66201dd, type: 3}
   boostedJumpSound: {fileID: 8300000, guid: 0a91619ec28224e01912da61e66201dd, type: 3}
   isGrounded: 0
