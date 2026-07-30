@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip powerupPickupSound;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+    [SerializeField] private int sfxPoolSize = 5;
+
+    private AudioSource[] sfxSources;
+    private int nextSfxIndex;
 
     private static AudioManager instance;
     private Coroutine musicRoutine;
@@ -22,6 +28,14 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         musicSource.loop = true;
+
+        sfxSources = new AudioSource[sfxPoolSize];
+        for (int i = 0; i < sfxPoolSize; i++)
+        {
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.outputAudioMixerGroup = sfxMixerGroup;
+            sfxSources[i] = source;
+        }
     }
 
     private void OnDestroy()
@@ -58,18 +72,37 @@ public class AudioManager : MonoBehaviour
         {
             time += Time.deltaTime;
             musicSource.volume = Mathf.Lerp(startValue, endValue, time / duration);
-            yield return null; 
+            yield return null;
         }
 
         musicSource.volume = endValue;
+    }
+
+    private AudioSource GetAvailableSfxSource()
+    {
+        foreach (var source in sfxSources)
+        {
+            if (!source.isPlaying) return source;
+        }
+
+        // all busy — steal in rotation rather than always cutting off the same one
+        AudioSource oldest = sfxSources[nextSfxIndex];
+        nextSfxIndex = (nextSfxIndex + 1) % sfxSources.Length;
+        return oldest;
     }
 
     public void PlaySFX(AudioClip clip, float volume = 1f, bool randomizePitch = true)
     {
         if (clip == null) return;
 
-        sfxSource.pitch = randomizePitch ? Random.Range(0.95f, 1.05f) : 1f;
-        sfxSource.PlayOneShot(clip, volume);
+        AudioSource source = GetAvailableSfxSource();
+        source.pitch = randomizePitch ? Random.Range(0.95f, 1.05f) : 1f;
+        source.PlayOneShot(clip, volume);
+    }
+
+    public void PlayPowerupPickup()
+    {
+        PlaySFX(powerupPickupSound, 1f, false);
     }
 
     public void StopAll()
@@ -81,6 +114,9 @@ public class AudioManager : MonoBehaviour
         }
 
         musicSource.Stop();
-        sfxSource.Stop();
+        foreach (var source in sfxSources)
+        {
+            source.Stop();
+        }
     }
 }

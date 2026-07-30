@@ -397,6 +397,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   afterImage: {fileID: 4188444214118477219}
+  jumpSound: {fileID: 8300000, guid: 0a91619ec28224e01912da61e66201dd, type: 3}
+  boostedJumpSound: {fileID: 8300000, guid: 0a91619ec28224e01912da61e66201dd, type: 3}
   isGrounded: 0
   isFlying: 0
   isStunned: 0
