@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2069975139
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4134652685722382498, guid: f2117da5f385c214aadac0fcda6f4bf5, type: 3}
@@ -224,8 +224,10 @@ MonoBehaviour:
   warningTransformTime: 0.3
   warningGap: 0.3
   warningScreenOffset: 1
+  aoeBlinkSlow: 0.3
+  aoeBlinkFast: 0.01
   ourCamera: {fileID: 0}
-  warningSound: {fileID: 8300000, guid: 649f9ace4330e4e41a36879b42a42722, type: 3}
+  warningSound: {fileID: 8300000, guid: 99d31ce25d525413a9b169cc0e749f0c, type: 3}
 --- !u!1 &5090646831171404235
 GameObject:
   m_ObjectHideFlags: 0
@@ -5037,7 +5039,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2069975139
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_RenderMode: 0
@@ -5150,7 +5152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2069975139
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1719910008, guid: 85e5ffabb7725134cbb1671177b492fb, type: 3}

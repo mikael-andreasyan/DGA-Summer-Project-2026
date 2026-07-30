@@ -38,6 +38,7 @@ public class DoubleBoots : MonoBehaviour
 
             SetVisible(false); // hide the pickup while it's "held"
             print("boost ready!");
+            ServiceLocator.Get<AudioManager>()?.PlayPowerupPickup();
         }
     }
 
