@@ -266,9 +266,9 @@ public class BasicCloud : MonoBehaviour
         isCollidingPlayer = true;
         playerCurrentlyOnCloud = true;
         justLanded = true;
-        Debug.Log("Playing particles");
         particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         particleSystem.Play();
+        GameManager.Instance.platformsLanded++;
     }
 
     public void PlayerLeft()

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 22dffb0eafb5e4505b29a3ffb6e3a6f3
+guid: 4ff444e6ac4ed4dd6ae4a62890c31cb5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7231668325126928139
-    second: sky_background 1_0
+      213: 2876211816460923139
+    second: transition 150x600_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sky_background 1_0
+      name: transition 150x600_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 150
-        height: 270
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f88d5b29f3f3ab90800000000000000
-      internalID: -7231668325126928139
+      spriteID: 3013fe2886b5ae720800000000000000
+      internalID: 2876211816460923139
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sky_background 1_0: -7231668325126928139
+      transition 150x600_0: 2876211816460923139
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
