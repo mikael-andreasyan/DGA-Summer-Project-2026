@@ -360,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 1417270955056586049, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 116156805800923033, guid: 4c9d1bdf8bf994aab883ae2cb4182d04, type: 2}
+      objectReference: {fileID: 3382475935638445813, guid: 3e727a3cc0da24b6aaff556d2122086d, type: 2}
     - target: {fileID: 2385017416331466857, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: maxSpeed
       value: 12
@@ -847,6 +847,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 552034372}
+    - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
+      propertyPath: skySong
+      value: 
+      objectReference: {fileID: 8300000, guid: ad9feabc1bf664acaa0a0023c0543ef9, type: 3}
+    - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
+      propertyPath: spaceSong
+      value: 
+      objectReference: {fileID: 8300000, guid: 0d2fa25b5c3204086bc81397f6dd1883, type: 3}
     - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
       propertyPath: escapeText
       value: 
