@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float acceleration = 60f;      // units/s^2 while holding a direction
     [SerializeField] private float friction = 70f;           // units/s^2 when no input (ground)
     [SerializeField] private float airAcceleration = 40f;    // slightly less control in air
+    [SerializeField] private float launchAcceleration = 20f;    // less control while barrel launching
     [SerializeField] private float airFriction = 30f;
 
     [Header("Jump")]
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
     private bool isJumping;
     public bool isGrounded;
     public bool isFlying; // Update this when Wings are activated
+    private bool isLaunching; // Updated when player launches from barrel
 
     //StormCloud Fields
     public bool isStunned;
@@ -270,6 +272,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             coyoteTimer = coyoteTime;
+            isLaunching = false; // Stop using launch accel
         }
         else //in the case that the player runs off the ground, we want to decrement the coyote timer until it reaches 0
         {  
@@ -368,6 +371,7 @@ public class PlayerController : MonoBehaviour
         
         float inputDir = CanControl() ? Input.GetAxisRaw("Horizontal") : 0f;
 
+
         if (inputDir > 0.01f)
         {
             facingRight = true;
@@ -377,7 +381,17 @@ public class PlayerController : MonoBehaviour
             facingRight = false;
         }
 
-        float accel = isGrounded ? acceleration : airAcceleration; //a.i told me this is a shorthand notation for if statements, so if isGrounded is true, accel = acceleration, otherwise accel = airAcceleration
+        float accel;
+        if (isLaunching)
+        {
+            accel = launchAcceleration;
+        }
+        else
+        {
+            accel = isGrounded ? acceleration : airAcceleration; //a.i told me this is a shorthand notation for if statements, so if isGrounded is true, accel = acceleration, otherwise accel = airAcceleration
+ 
+        }
+
         float fric = isGrounded ? friction : airFriction;
 
         if (Mathf.Abs(inputDir) > 0.01f)
@@ -387,8 +401,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-           
-            velocity.x = 0f;
+            // velocity.x = 0f;
+            velocity.x = Mathf.MoveTowards(velocity.x, 0, accel * Time.fixedDeltaTime);
         }
     }
 
@@ -494,6 +508,15 @@ public void Stun(float duration)
         if (clip != null)
         {
             audioManager.PlaySFX(clip);
+        }
+    }
+
+    public void Launch()
+    {
+        isLaunching = true;
+        if (afterImage != null)
+        {
+            afterImage.Play();
         }
     }
 

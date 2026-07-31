@@ -113,24 +113,24 @@ public class BarrelLauncher : MonoBehaviour
 
     void FlowTime()
     {
-
-        if (t >= 1 || t <= 0)
+        if (timeIncreasing)
         {
-           
-            reverseTime();
+            increaseTime();
+            if (t >= 1f)
+            {
+                t = 1f;
+                timeIncreasing = false;
+            }
         }
-
-        switch (timeIncreasing)
+        else
         {
-            case true:
-                increaseTime();
-                break;
-            
-            case false:
-                decreaseTime();
-                break;
+            decreaseTime();
+            if (t <= 0f)
+            {
+                t = 0f;
+                timeIncreasing = true;
+            }
         }
-
     }
 
     void increaseTime()
@@ -217,17 +217,22 @@ public class BarrelLauncher : MonoBehaviour
         FlowTime();
 
         directionalVector = UnityEngine.Vector2.Lerp(a, b, t);
-        boostVector = directionalVector.normalized * launchDistance;
+        // boostVector = directionalVector.normalized * launchDistance;
+        boostVector = directionalVector.normalized * launchSpeed;
         transform.up = directionalVector.normalized;
         transform.position = new UnityEngine.Vector3(transform.position.x, transform.position.y, 10);
 
         player.rotation = transform.rotation;
 
-
         if (Input.GetButtonDown("Jump"))
         {
             isWaiting = false;
-            StartCoroutine(Boost());
+            // StartCoroutine(Boost());
+            exitBarrel();
+            playerRB.AddForce(boostVector, ForceMode2D.Impulse);
+            playerController.enabled = true;
+            playerController.Launch();
+            Destroy(gameObject);
         }
     }
 
