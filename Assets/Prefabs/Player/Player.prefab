@@ -402,7 +402,7 @@ MonoBehaviour:
   stunned: {fileID: -6077976744475655974, guid: a72d575b7635e4d839c5062ef28946a3, type: 3}
   fall: {fileID: 629310625751224280, guid: 42ef09f9f5b814f8097e1232e31de8f4, type: 3}
   jumpSound: {fileID: 8300000, guid: 0a91619ec28224e01912da61e66201dd, type: 3}
-  boostedJumpSound: {fileID: 8300000, guid: 0a91619ec28224e01912da61e66201dd, type: 3}
+  boostedJumpSound: {fileID: 8300000, guid: 505616096291b43ef8bd3df6e3177b7e, type: 3}
   isGrounded: 0
   isFlying: 0
   isStunned: 0
