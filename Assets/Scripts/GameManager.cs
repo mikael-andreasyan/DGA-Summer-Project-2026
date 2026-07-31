@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private GameObject audioManagerPrefab;
 
-
     private float comboTimer;
     private bool isAlive = true;
     private bool isPaused = false;
@@ -52,9 +51,11 @@ public class GameManager : MonoBehaviour
     private PlayerController playerController;
 
     public int platformInterval;
+    public int spacePlatformInterval;
     [HideInInspector] public int platformsLanded;
     [HideInInspector] public bool triggerTransition;
-    
+    [HideInInspector] public bool triggerSpace;
+
     public int Score
     {
         get;
@@ -97,6 +98,7 @@ public class GameManager : MonoBehaviour
     {
         platformsLanded = 0;
         triggerTransition = false;
+        triggerSpace = false;
         highScore = PlayerPrefs.GetInt("player_HighScore");
         playerController = player.GetComponent<PlayerController>();
     }
@@ -130,10 +132,8 @@ public class GameManager : MonoBehaviour
         if (CurrentState == GameState.Playing)
         {
             CheckOutOfBounds();
-            if (!triggerTransition && platformsLanded>=platformInterval)
-            {
-                triggerTransition = true;
-            }
+            triggerTransition = platformsLanded >= platformInterval;
+            triggerSpace = platformsLanded >= spacePlatformInterval;
         }
 
         if (Input.GetKeyDown(KeyCode.L))

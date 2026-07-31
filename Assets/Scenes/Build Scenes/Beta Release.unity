@@ -248,6 +248,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 9211585654831993159, guid: 3f670221ad314473fa48705f6d58ff3b, type: 3}
+      propertyPath: speedEffect
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -323,6 +327,11 @@ GameObject:
 Camera:
   m_CorrespondingSourceObject: {fileID: 1275341219493091467, guid: 3f670221ad314473fa48705f6d58ff3b, type: 3}
   m_PrefabInstance: {fileID: 271177559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &458321998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3300171330777090525, guid: 4c3a195842dfe864892261540c231952, type: 3}
+  m_PrefabInstance: {fileID: 273342554}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &475512527 stripped
 GameObject:
@@ -421,7 +430,7 @@ PrefabInstance:
     - target: {fileID: 1417270955056586049, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 116156805800923033, guid: 4c9d1bdf8bf994aab883ae2cb4182d04, type: 2}
+      objectReference: {fileID: 3382475935638445813, guid: 3e727a3cc0da24b6aaff556d2122086d, type: 2}
     - target: {fileID: 2385017416331466857, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
       propertyPath: maxSpeed
       value: 12
@@ -776,6 +785,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1105780315}
     - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
+      propertyPath: raySpawner
+      value: 
+      objectReference: {fileID: 458321998}
+    - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
       propertyPath: titlePanel
       value: 
       objectReference: {fileID: 568646095}
@@ -807,6 +820,10 @@ PrefabInstance:
       propertyPath: audioManagerPrefab
       value: 
       objectReference: {fileID: 475512527}
+    - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
+      propertyPath: spacePlatformInterval
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

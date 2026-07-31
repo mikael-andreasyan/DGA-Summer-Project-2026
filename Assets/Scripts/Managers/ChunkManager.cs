@@ -5,7 +5,8 @@ public class ChunkManager : MonoBehaviour
 {
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private GameObject firstChunkPrefab;
-    [SerializeField] private GameObject[] chunkPrefabs;
+    [SerializeField] private GameObject[] skyChunks;
+    [SerializeField] private GameObject[] spaceChunks;
 
     [SerializeField] private int chunksAhead = 5;
 
@@ -38,7 +39,7 @@ public class ChunkManager : MonoBehaviour
         GameObject prefab =
             firstChunkPrefab != null
                 ? firstChunkPrefab
-                : chunkPrefabs[Random.Range(0, chunkPrefabs.Length)];
+                : skyChunks[Random.Range(0, skyChunks.Length)];
 
         GameObject chunk = Instantiate(
             prefab,
@@ -55,9 +56,20 @@ public class ChunkManager : MonoBehaviour
         Transform previousTop =
             highestChunk.transform.Find("Top");
 
-        GameObject chunk = Instantiate(
-            chunkPrefabs[Random.Range(0, chunkPrefabs.Length)]
-        );
+        GameObject chunk = null;
+
+        if (GameManager.Instance.triggerSpace)
+        {
+             chunk = Instantiate(
+                spaceChunks[Random.Range(0, spaceChunks.Length)]
+            );
+        } else
+        {
+             chunk = Instantiate(
+                skyChunks[Random.Range(0, skyChunks.Length)]
+            );
+        }
+        
 
         Transform newBottom =
             chunk.transform.Find("Bottom");
