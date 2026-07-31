@@ -545,10 +545,13 @@ public void Stun(float duration)
         var audioManager = ServiceLocator.Get<AudioManager>();
         if (audioManager == null) return;
 
-        AudioClip clip = boosted ? boostedJumpSound : jumpSound;
-        if (clip != null)
+        if (jumpSound != null)
         {
-            audioManager.PlaySFX(clip);
+            audioManager.PlaySFX(jumpSound);
+        }
+        if (boosted && boostedJumpSound != null)
+        {
+            audioManager.PlaySFX(boostedJumpSound);
         }
     }
 

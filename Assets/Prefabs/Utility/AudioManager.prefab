@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   musicSource: {fileID: 448938569836649973}
   powerupPickupSound: {fileID: 8300000, guid: 77b8cf6162e914d3eb2e0a75365840bd, type: 3}
+  pauseSound: {fileID: 8300000, guid: 03971b327ebad4785804d5b1c25901b5, type: 3}
+  loseSound: {fileID: 8300000, guid: e69f3689d12ce48eeb47e36e5f9638fe, type: 3}
   sfxMixerGroup: {fileID: -5557666456665314070, guid: ea6167a116e91462983163055c0d4f8a, type: 2}
   sfxPoolSize: 5
 --- !u!82 &448938569836649973

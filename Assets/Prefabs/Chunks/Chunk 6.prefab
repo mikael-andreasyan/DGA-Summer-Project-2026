@@ -279,14 +279,6 @@ PrefabInstance:
       value: Wings
       objectReference: {fileID: 0}
     - target: {fileID: 7847495156414689132, guid: 9a2550dd8764e74478aaaef7aafb4f81, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.08843565
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847495156414689132, guid: 9a2550dd8764e74478aaaef7aafb4f81, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.09989942
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847495156414689132, guid: 9a2550dd8764e74478aaaef7aafb4f81, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.14494467
       objectReference: {fileID: 0}
