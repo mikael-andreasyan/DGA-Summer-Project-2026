@@ -400,7 +400,10 @@ MonoBehaviour:
     m_Bits: 64
   afterImage: {fileID: 4188444214118477219}
   stunned: {fileID: -6077976744475655974, guid: a72d575b7635e4d839c5062ef28946a3, type: 3}
+  jump: {fileID: -6451560049795037086, guid: 6ecacf0a8317a4b1dbae533280e23509, type: 3}
   fall: {fileID: 629310625751224280, guid: 42ef09f9f5b814f8097e1232e31de8f4, type: 3}
+  jumpBoots: {fileID: -7942437636509688671, guid: c18d58ab1cfb443c79fe2b8416beb950, type: 3}
+  fallBoots: {fileID: -8614804283770804624, guid: 6456e878c69a847648531ad15a40c317, type: 3}
   jumpSound: {fileID: 8300000, guid: 0a91619ec28224e01912da61e66201dd, type: 3}
   boostedJumpSound: {fileID: 8300000, guid: 0a91619ec28224e01912da61e66201dd, type: 3}
   isGrounded: 0
