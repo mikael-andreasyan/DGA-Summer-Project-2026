@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkManager
   cameraTransform: {fileID: 0}
-  firstChunkPrefab: {fileID: 5622106204164219265, guid: 03bfab3c7378d9f439e67b46ea000d84, type: 3}
-  chunkPrefabs: []
-  chunksAhead: 5
+  firstChunkPrefab: {fileID: 2532506237784716197, guid: 749f0c93f015e594895ace4efe3f2e3a, type: 3}
+  chunkPrefabs:
+  - {fileID: 2532506237784716197, guid: 749f0c93f015e594895ace4efe3f2e3a, type: 3}
+  - {fileID: 5622106204164219265, guid: a225820c20d21184785ad744bc0eaca3, type: 3}
+  - {fileID: 5622106204164219265, guid: bc6c6de2631678044a8a88b54110c529, type: 3}
+  chunksAhead: 3
