@@ -97,6 +97,7 @@ public class BarrelLauncher : MonoBehaviour
     {
         if (isWaiting)
         {
+            Debug.Log("Barrel time: " + t);
             handlePreLaunch();
         }
     }
@@ -232,6 +233,7 @@ public class BarrelLauncher : MonoBehaviour
             playerRB.AddForce(boostVector, ForceMode2D.Impulse);
             playerController.enabled = true;
             playerController.Launch();
+            exitBarrel();
             Destroy(gameObject);
         }
     }

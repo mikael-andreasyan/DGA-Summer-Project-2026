@@ -123,6 +123,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {   
+        if (isLaunching && rb.linearVelocityY <= 0)
+        {
+            isLaunching = false;
+        } 
+
         CheckGrounded();
         UpdateTimers();
         UpdateStun();
@@ -183,6 +188,11 @@ public class PlayerController : MonoBehaviour
 
     public bool CheckGrounded()
     {
+        // if (isLaunching)
+        // {
+        //     return false;
+        // }
+    
         if (cloudScript != null)
         {
             lastGroundedCloud = cloudScript;
