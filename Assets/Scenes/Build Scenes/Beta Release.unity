@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &97420705 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8605333233283516105, guid: 3f670221ad314473fa48705f6d58ff3b, type: 3}
+  m_PrefabInstance: {fileID: 271177559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &202601776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -265,6 +270,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 552034372}
+    - target: {fileID: 249791965911890602, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: leftWall
+      value: 
+      objectReference: {fileID: 2094693367}
+    - target: {fileID: 249791965911890602, guid: 4c3a195842dfe864892261540c231952, type: 3}
+      propertyPath: rightWall
+      value: 
+      objectReference: {fileID: 97420705}
     - target: {fileID: 824435176488570713, guid: 4c3a195842dfe864892261540c231952, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.51147
@@ -705,6 +718,11 @@ PrefabInstance:
 --- !u!4 &1861394270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 238400358363692368, guid: 3f670221ad314473fa48705f6d58ff3b, type: 3}
+  m_PrefabInstance: {fileID: 271177559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2094693367 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2877495355387218537, guid: 3f670221ad314473fa48705f6d58ff3b, type: 3}
   m_PrefabInstance: {fileID: 271177559}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5203977304908421135
