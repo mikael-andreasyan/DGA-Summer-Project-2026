@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 74ffd134689194664b535cc7ea4209d4
+guid: 9368d2a5613e848209fa531cb772d757
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4921608692018493553
-    second: city_foreground_0
+      213: -7029904682543693312
+    second: cityscape 150x100_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: city_foreground_0
+      name: cityscape 150x100_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 400
-        height: 230
+        width: 150
+        height: 87
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 178bc3397011d4440800000000000000
-      internalID: 4921608692018493553
+      spriteID: 002c020ffe2c07e90800000000000000
+      internalID: -7029904682543693312
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      city_foreground_0: 4921608692018493553
+      cityscape 150x100_0: -7029904682543693312
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
