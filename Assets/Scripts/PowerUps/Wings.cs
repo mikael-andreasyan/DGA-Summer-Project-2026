@@ -18,11 +18,59 @@ public class Wings : MonoBehaviour
     [Tooltip("Small gap kept between the player and a wall so they don't overlap it")]
     public float wallSkin = 0.05f;
 
+    [Header("Player Visuals")]
+    [Tooltip("Bunny-with-wings sprite drawn by the player's own renderer during the boost")]
+    [SerializeField] private Sprite playerWithWings;
+
     public static bool isBoosting = false;
+
+    private SpriteRenderer wingsRenderer;
+    private SpriteRenderer playerRenderer;
+    private Animator playerAnimator;
 
     void Awake()
     {
         boostTime = boostDistance / boostSpeed;
+        wingsRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    /// <summary>
+    /// Hides the wings' own sprite and draws the combined bunny-with-wings
+    /// artwork on the player instead, so the two don't overlap.
+    /// </summary>
+    private void EnterWings(Collider2D playerCollider)
+    {
+        if (wingsRenderer != null)
+        {
+            wingsRenderer.enabled = false;
+        }
+
+        playerRenderer = playerCollider.GetComponent<SpriteRenderer>();
+        playerAnimator = playerCollider.GetComponent<Animator>();
+
+        // The Animator keyframes the sprite every frame, so it has to stand
+        // down or the swap gets overwritten immediately. Disabling
+        // PlayerController isn't enough - the Animator is its own component.
+        if (playerAnimator != null)
+        {
+            playerAnimator.enabled = false;
+        }
+
+        if (playerRenderer != null && playerWithWings != null)
+        {
+            playerRenderer.sprite = playerWithWings;
+        }
+    }
+
+    /// <summary>
+    /// Gives the sprite back to the Animator once the boost is over.
+    /// </summary>
+    private void ExitWings()
+    {
+        if (playerAnimator != null)
+        {
+            playerAnimator.enabled = true;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -50,6 +98,8 @@ public class Wings : MonoBehaviour
             playerController.enabled = false;
             playerController.isFlying = true;
         }
+
+        EnterWings(playerCollider);
 
         // Take manual control of the player's position for the duration of the boost,
         // so gravity/other physics don't fight the upward lerp.
@@ -84,6 +134,8 @@ public class Wings : MonoBehaviour
         playerRb.bodyType = originalBodyType;
         float finalHorizontalInput = Input.GetAxisRaw("Horizontal");
         playerRb.linearVelocity = new Vector2(finalHorizontalInput * wingsMovementSpeed, boostSpeed);
+
+        ExitWings();
 
         // Hand control back to the player's own controller
         if (playerController != null)
