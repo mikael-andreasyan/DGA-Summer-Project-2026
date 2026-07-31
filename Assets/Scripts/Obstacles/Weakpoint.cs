@@ -18,6 +18,7 @@ public class Weakpoint : MonoBehaviour
     void Start()
     {
         cloudScript = GetComponentInParent<BasicCloud>();
+        // Debug.Log(cloudScript);
         switch (type)
         {
             case WeakpointType.Left:
