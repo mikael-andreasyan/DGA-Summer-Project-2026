@@ -14,6 +14,8 @@ public class BarrelLauncher : MonoBehaviour
     [SerializeField] public float launchDistance;
     [SerializeField] public LayerMask wallLayer;
 
+    [Header("Player Visuals")]
+    [SerializeField] private Sprite playerInBarrel;
 
     private UnityEngine.Vector2 a;
     private UnityEngine.Vector2 b;
@@ -25,6 +27,9 @@ public class BarrelLauncher : MonoBehaviour
     private Transform player;
     private PlayerController playerController;
     private Rigidbody2D playerRB;
+    private SpriteRenderer playerRenderer;
+    private Animator playerAnimator;
+    private SpriteRenderer barrelRenderer;
 
     private static bool isBoosting;
     private bool isWaiting;
@@ -41,14 +46,46 @@ public class BarrelLauncher : MonoBehaviour
 
             player = other.gameObject.transform;
             player.position = transform.position;
-            
+
+            enterBarrel(other);
+
             isWaiting = true;
         }
     }
 
 
+    void enterBarrel(Collider2D playerCollider)
+    {
+        if (barrelRenderer != null)
+        {
+            barrelRenderer.enabled = false;
+        }
+
+        playerRenderer = playerCollider.GetComponent<SpriteRenderer>();
+        playerAnimator = playerCollider.GetComponent<Animator>();
+
+        playerAnimator.enabled = false;
+
+        if (playerRenderer != null && playerInBarrel != null)
+        {
+            playerRenderer.flipX = false; 
+            playerRenderer.sprite = playerInBarrel;
+        }
+    }
+
+    void exitBarrel()
+    {
+        playerAnimator.enabled = true;
+
+        if (player != null)
+        {
+            player.rotation = UnityEngine.Quaternion.identity;
+        }
+    }
+
     void Start()
     {
+        barrelRenderer = GetComponent<SpriteRenderer>();
         establishAngles();
         t = 0f;
         timeIncreasing = true;
@@ -60,6 +97,7 @@ public class BarrelLauncher : MonoBehaviour
     {
         if (isWaiting)
         {
+            Debug.Log("Barrel time: " + t);
             handlePreLaunch();
         }
     }
@@ -76,24 +114,24 @@ public class BarrelLauncher : MonoBehaviour
 
     void FlowTime()
     {
-
-        if (t >= 1 || t <= 0)
+        if (timeIncreasing)
         {
-           
-            reverseTime();
+            increaseTime();
+            if (t >= 1f)
+            {
+                t = 1f;
+                timeIncreasing = false;
+            }
         }
-
-        switch (timeIncreasing)
+        else
         {
-            case true:
-                increaseTime();
-                break;
-            
-            case false:
-                decreaseTime();
-                break;
+            decreaseTime();
+            if (t <= 0f)
+            {
+                t = 0f;
+                timeIncreasing = true;
+            }
         }
-
     }
 
     void increaseTime()
@@ -164,6 +202,8 @@ public class BarrelLauncher : MonoBehaviour
         player.position = finalPos;
     }
 
+    exitBarrel();
+
     playerController.enabled = true;
     playerRB.linearVelocity = boostVector;
 
@@ -178,15 +218,23 @@ public class BarrelLauncher : MonoBehaviour
         FlowTime();
 
         directionalVector = UnityEngine.Vector2.Lerp(a, b, t);
-        boostVector = directionalVector.normalized * launchDistance;
+        // boostVector = directionalVector.normalized * launchDistance;
+        boostVector = directionalVector.normalized * launchSpeed;
         transform.up = directionalVector.normalized;
         transform.position = new UnityEngine.Vector3(transform.position.x, transform.position.y, 10);
 
+        player.rotation = transform.rotation;
 
         if (Input.GetButtonDown("Jump"))
         {
             isWaiting = false;
-            StartCoroutine(Boost());
+            // StartCoroutine(Boost());
+            exitBarrel();
+            playerRB.AddForce(boostVector, ForceMode2D.Impulse);
+            playerController.enabled = true;
+            playerController.Launch();
+            exitBarrel();
+            Destroy(gameObject);
         }
     }
 

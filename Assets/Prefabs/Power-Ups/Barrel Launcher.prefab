@@ -110,11 +110,12 @@ MonoBehaviour:
   angularSpeed: 1
   angleHalfBound: 10
   verticalDisplacement: 5
-  launchSpeed: 40
+  launchSpeed: 75
   launchDistance: 30
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
+  playerInBarrel: {fileID: -8568042794190644651, guid: 860a83080b8cb4b5fab51bd40fb3606f, type: 3}
 --- !u!61 &348365027687310869
 BoxCollider2D:
   m_ObjectHideFlags: 0
