@@ -113,24 +113,24 @@ public class BarrelLauncher : MonoBehaviour
 
     void FlowTime()
     {
-
-        if (t >= 1 || t <= 0)
+        if (timeIncreasing)
         {
-           
-            reverseTime();
+            increaseTime();
+            if (t >= 1f)
+            {
+                t = 1f;
+                timeIncreasing = false;
+            }
         }
-
-        switch (timeIncreasing)
+        else
         {
-            case true:
-                increaseTime();
-                break;
-            
-            case false:
-                decreaseTime();
-                break;
+            decreaseTime();
+            if (t <= 0f)
+            {
+                t = 0f;
+                timeIncreasing = true;
+            }
         }
-
     }
 
     void increaseTime()
