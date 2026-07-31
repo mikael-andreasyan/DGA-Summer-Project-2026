@@ -228,6 +228,7 @@ public class BarrelLauncher : MonoBehaviour
         {
             isWaiting = false;
             // StartCoroutine(Boost());
+            exitBarrel();
             playerRB.AddForce(boostVector, ForceMode2D.Impulse);
             playerController.enabled = true;
             playerController.Launch();
