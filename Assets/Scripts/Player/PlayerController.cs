@@ -29,7 +29,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Effects")]
-    [SerializeField] private AfterImageEffect afterImage; 
+    [SerializeField] private AfterImageEffect afterImage;
+
+    [Header("Visuals")]
+    [SerializeField] private Sprite stunned;
+    [SerializeField] private Sprite fall;
+
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
+
+    private bool facingRight = true;
 
     [Header("Audio")]
     [SerializeField] private AudioClip jumpSound;
@@ -64,6 +73,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f; // gravity is applied manually below
         col = GetComponent<Collider2D>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         // Derive jump velocity and the two gravity values (rising vs falling)
         // from the desired height and timing, so tuning stays intuitive:
@@ -127,6 +139,41 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && velocity.y <= 0f)
         {
             isJumping = false;
+        }
+
+        UpdateVisuals();
+    }
+
+    private void UpdateVisuals()
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = !facingRight;
+        }
+
+        if (animator == null)
+        {
+            return;
+        }
+
+        bool moving = Mathf.Abs(velocity.x) > 0.01f || !isGrounded;
+        animator.SetBool("isMoving", moving);
+
+        // Stun owns the sprite while it lasts, so stay out of its way.
+        if (isStunned)
+        {
+            return;
+        }
+
+        // Past the apex and still in the air: freeze on the fall pose rather
+        // than let the clip loop back round to the launch frames mid-jump.
+        // The clip covers the rise; this covers everything after it.
+        bool holdFall = !isGrounded && velocity.y <= 0f;
+        animator.enabled = !holdFall;
+
+        if (holdFall && fall != null)
+        {
+            spriteRenderer.sprite = fall;
         }
     }
 
@@ -321,6 +368,15 @@ public class PlayerController : MonoBehaviour
         
         float inputDir = CanControl() ? Input.GetAxisRaw("Horizontal") : 0f;
 
+        if (inputDir > 0.01f)
+        {
+            facingRight = true;
+        }
+        else if (inputDir < -0.01f)
+        {
+            facingRight = false;
+        }
+
         float accel = isGrounded ? acceleration : airAcceleration; //a.i told me this is a shorthand notation for if statements, so if isGrounded is true, accel = acceleration, otherwise accel = airAcceleration
         float fric = isGrounded ? friction : airFriction;
 
@@ -349,6 +405,25 @@ public class PlayerController : MonoBehaviour
         {
             isStunned = false;
             stunTimer = 0f;
+            ShowStunnedSprite(false);
+        }
+    }
+
+    private void ShowStunnedSprite(bool active)
+    {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
+        if (animator != null)
+        {
+            animator.enabled = !active;
+        }
+
+        if (active)
+        {
+            spriteRenderer.sprite = stunned;
         }
     }
     
@@ -386,6 +461,7 @@ public void Stun(float duration)
         if (isFlying) return;
         stunTimer = duration;
         isStunned = true;
+        ShowStunnedSprite(true);
     }
 
     private void restrictPlayerWithinBounds()

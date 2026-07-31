@@ -14,6 +14,8 @@ public class BarrelLauncher : MonoBehaviour
     [SerializeField] public float launchDistance;
     [SerializeField] public LayerMask wallLayer;
 
+    [Header("Player Visuals")]
+    [SerializeField] private Sprite playerInBarrel;
 
     private UnityEngine.Vector2 a;
     private UnityEngine.Vector2 b;
@@ -25,6 +27,9 @@ public class BarrelLauncher : MonoBehaviour
     private Transform player;
     private PlayerController playerController;
     private Rigidbody2D playerRB;
+    private SpriteRenderer playerRenderer;
+    private Animator playerAnimator;
+    private SpriteRenderer barrelRenderer;
 
     private static bool isBoosting;
     private bool isWaiting;
@@ -41,14 +46,46 @@ public class BarrelLauncher : MonoBehaviour
 
             player = other.gameObject.transform;
             player.position = transform.position;
-            
+
+            enterBarrel(other);
+
             isWaiting = true;
         }
     }
 
 
+    void enterBarrel(Collider2D playerCollider)
+    {
+        if (barrelRenderer != null)
+        {
+            barrelRenderer.enabled = false;
+        }
+
+        playerRenderer = playerCollider.GetComponent<SpriteRenderer>();
+        playerAnimator = playerCollider.GetComponent<Animator>();
+
+        playerAnimator.enabled = false;
+
+        if (playerRenderer != null && playerInBarrel != null)
+        {
+            playerRenderer.flipX = false; 
+            playerRenderer.sprite = playerInBarrel;
+        }
+    }
+
+    void exitBarrel()
+    {
+        playerAnimator.enabled = true;
+
+        if (player != null)
+        {
+            player.rotation = UnityEngine.Quaternion.identity;
+        }
+    }
+
     void Start()
     {
+        barrelRenderer = GetComponent<SpriteRenderer>();
         establishAngles();
         t = 0f;
         timeIncreasing = true;
@@ -164,6 +201,8 @@ public class BarrelLauncher : MonoBehaviour
         player.position = finalPos;
     }
 
+    exitBarrel();
+
     playerController.enabled = true;
     playerRB.linearVelocity = boostVector;
 
@@ -181,6 +220,8 @@ public class BarrelLauncher : MonoBehaviour
         boostVector = directionalVector.normalized * launchDistance;
         transform.up = directionalVector.normalized;
         transform.position = new UnityEngine.Vector3(transform.position.x, transform.position.y, 10);
+
+        player.rotation = transform.rotation;
 
 
         if (Input.GetButtonDown("Jump"))

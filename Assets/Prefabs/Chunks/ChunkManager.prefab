@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3dd9bcfb298bc84aac28a3cf328ddd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkManager
-  chunkPrefab: {fileID: 0}
-  cam: {fileID: 0}
-  player: {fileID: 0}
+  cameraTransform: {fileID: 0}
+  firstChunkPrefab: {fileID: 5622106204164219265, guid: 03bfab3c7378d9f439e67b46ea000d84, type: 3}
+  chunkPrefabs: []
   chunksAhead: 5
