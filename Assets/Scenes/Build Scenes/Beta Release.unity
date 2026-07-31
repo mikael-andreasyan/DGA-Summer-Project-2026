@@ -777,6 +777,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 552034372}
     - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
+      propertyPath: skySong
+      value: 
+      objectReference: {fileID: 8300000, guid: ad9feabc1bf664acaa0a0023c0543ef9, type: 3}
+    - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
+      propertyPath: spaceSong
+      value: 
+      objectReference: {fileID: 8300000, guid: 0d2fa25b5c3204086bc81397f6dd1883, type: 3}
+    - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
       propertyPath: escapeText
       value: 
       objectReference: {fileID: 1158710009}

@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private GameObject audioManagerPrefab;
+    [SerializeField] private AudioClip skySong;
+    [SerializeField] private AudioClip spaceSong;
 
     private float comboTimer;
     private bool isAlive = true;
@@ -101,6 +103,8 @@ public class GameManager : MonoBehaviour
         triggerSpace = false;
         highScore = PlayerPrefs.GetInt("player_HighScore");
         playerController = player.GetComponent<PlayerController>();
+
+        ServiceLocator.Get<AudioManager>()?.PlayMusic(skySong);
     }
 
     // Update is called once per frame
@@ -132,7 +136,12 @@ public class GameManager : MonoBehaviour
         if (CurrentState == GameState.Playing)
         {
             CheckOutOfBounds();
-            triggerTransition = platformsLanded >= platformInterval;
+            if (!triggerTransition && platformsLanded>=platformInterval)
+            {
+                triggerTransition = true;
+                ServiceLocator.Get<AudioManager>()?.PlayMusic(spaceSong);
+            }
+            
             triggerSpace = platformsLanded >= spacePlatformInterval;
         }
 
@@ -220,6 +229,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         ServiceLocator.Get<AudioManager>()?.PlayLose();
+        ServiceLocator.Get<AudioManager>()?.PlayMusic(skySong);
 
         if (Score > PlayerPrefs.GetInt("player_HighScore"))
         {
