@@ -251,14 +251,6 @@ PrefabInstance:
       value: Star (2)
       objectReference: {fileID: 0}
     - target: {fileID: 9141626564864428077, guid: c32c2a329480c2f47b08808e171b64e7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.044217825
-      objectReference: {fileID: 0}
-    - target: {fileID: 9141626564864428077, guid: c32c2a329480c2f47b08808e171b64e7, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.049949706
-      objectReference: {fileID: 0}
-    - target: {fileID: 9141626564864428077, guid: c32c2a329480c2f47b08808e171b64e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.36034265
       objectReference: {fileID: 0}
@@ -319,14 +311,6 @@ PrefabInstance:
     - target: {fileID: 7829596731795337291, guid: c32c2a329480c2f47b08808e171b64e7, type: 3}
       propertyPath: m_Name
       value: Star (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 9141626564864428077, guid: c32c2a329480c2f47b08808e171b64e7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.044217825
-      objectReference: {fileID: 0}
-    - target: {fileID: 9141626564864428077, guid: c32c2a329480c2f47b08808e171b64e7, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.049949706
       objectReference: {fileID: 0}
     - target: {fileID: 9141626564864428077, guid: c32c2a329480c2f47b08808e171b64e7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -461,14 +445,6 @@ PrefabInstance:
       value: Wings
       objectReference: {fileID: 0}
     - target: {fileID: 7847495156414689132, guid: 9a2550dd8764e74478aaaef7aafb4f81, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.08843565
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847495156414689132, guid: 9a2550dd8764e74478aaaef7aafb4f81, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.09989941
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847495156414689132, guid: 9a2550dd8764e74478aaaef7aafb4f81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.3787621
       objectReference: {fileID: 0}
@@ -529,14 +505,6 @@ PrefabInstance:
     - target: {fileID: 636122016188249325, guid: 46fa798a1dad2464b9e5528c2a3df09c, type: 3}
       propertyPath: m_Name
       value: Barrel Launcher
-      objectReference: {fileID: 0}
-    - target: {fileID: 3422306126777304045, guid: 46fa798a1dad2464b9e5528c2a3df09c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.07738119
-      objectReference: {fileID: 0}
-    - target: {fileID: 3422306126777304045, guid: 46fa798a1dad2464b9e5528c2a3df09c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.087411985
       objectReference: {fileID: 0}
     - target: {fileID: 3422306126777304045, guid: 46fa798a1dad2464b9e5528c2a3df09c, type: 3}
       propertyPath: m_LocalPosition.x
