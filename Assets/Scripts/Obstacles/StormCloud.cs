@@ -20,6 +20,9 @@ public class StormCloud : BasicCloud
     [Header("Player Effects")]
     [SerializeField] private float zapDuration = 1.5f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip lightningStrikeSound;
+
     private float phaseCooldownTimer;
 
     protected override void Start()
@@ -113,6 +116,8 @@ public class StormCloud : BasicCloud
         {
             lightningAnimator.Play("Lightning", 0, 0f);
         }
+
+        ServiceLocator.Get<AudioManager>()?.PlaySFX(lightningStrikeSound);
 
         //testing
         StartCoroutine(FlashColor());

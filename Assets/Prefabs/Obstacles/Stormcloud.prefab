@@ -387,6 +387,7 @@ MonoBehaviour:
   lightningSprite: {fileID: 5326379844242253436}
   lightningAnimator: {fileID: 8084142667263845624}
   zapDuration: 1.5
+  lightningStrikeSound: {fileID: 8300000, guid: b93db965e12e14e8f93551e87eee8eda, type: 3}
 --- !u!1 &3119092281393883353
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioClip powerupPickupSound;
+    [SerializeField] private AudioClip pauseSound;
+    [SerializeField] private AudioClip loseSound;
     [SerializeField] private AudioMixerGroup sfxMixerGroup;
     [SerializeField] private int sfxPoolSize = 5;
 
@@ -103,6 +105,16 @@ public class AudioManager : MonoBehaviour
     public void PlayPowerupPickup()
     {
         PlaySFX(powerupPickupSound, 1f, false);
+    }
+
+    public void PlayPause()
+    {
+        PlaySFX(pauseSound, 1f, false);
+    }
+
+    public void PlayLose()
+    {
+        PlaySFX(loseSound, 1f, false);
     }
 
     public void StopAll()
