@@ -219,6 +219,8 @@ public class GameManager : MonoBehaviour
         newRecordText.SetActive(false);
         Time.timeScale = 0f;
 
+        ServiceLocator.Get<AudioManager>()?.PlayLose();
+
         if (Score > PlayerPrefs.GetInt("player_HighScore"))
         {
             PlayerPrefs.SetInt("player_HighScore", Score);
@@ -271,6 +273,7 @@ public class GameManager : MonoBehaviour
             pausePanel.SetActive(true);
             countdownText.SetActive(false);
             escapeText.SetActive(true);
+            ServiceLocator.Get<AudioManager>()?.PlayPause();
 
 
             Time.timeScale = 0f;
@@ -286,6 +289,8 @@ public class GameManager : MonoBehaviour
 
         else if (CurrentState == GameState.Paused && Input.GetKeyDown(KeyCode.Escape))
         {
+
+            ServiceLocator.Get<AudioManager>()?.PlayPause();
            if (!isUnPausing)
             StartCoroutine(ResumeGame());
         }
