@@ -383,6 +383,7 @@ MonoBehaviour:
   acceleration: 120
   friction: 70
   airAcceleration: 120
+  launchAcceleration: 60
   airFriction: 30
   jumpHeight: 5
   jumpTimeToPeak: 0.4

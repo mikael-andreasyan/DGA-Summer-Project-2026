@@ -328,7 +328,7 @@ public class PlayerController : MonoBehaviour
         float accel;
         if (isLaunching)
         {
-            accel = airAcceleration;
+            accel = launchAcceleration;
         }
         else
         {
@@ -438,6 +438,10 @@ private void restrictPlayerWithinBounds()
     public void Launch()
     {
         isLaunching = true;
+        if (afterImage != null)
+        {
+            afterImage.Play();
+        }
     }
 
     
