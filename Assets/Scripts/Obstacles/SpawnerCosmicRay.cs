@@ -31,12 +31,17 @@ public class SpawnerCosmicRay : MonoBehaviour
 
     private IEnumerator RayLoop()
     {
+        while (GameManager.Instance == null || !GameManager.Instance.triggerSpace)
+        {
+            yield return null;
+        }
+
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(minTimer, maxTimer));
 
             if (GameManager.Instance == null ||
-                GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+                GameManager.Instance.CurrentState != GameManager.GameState.Playing || !GameManager.Instance.triggerSpace)
             {
                 continue;
             }

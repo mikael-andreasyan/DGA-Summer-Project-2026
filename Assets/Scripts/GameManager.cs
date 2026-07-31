@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.SceneManagement;
 
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject titlePanel;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject countdownText;
     [SerializeField] private GameObject escapeText;
     [SerializeField] private GameObject newRecordText;
@@ -45,18 +47,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip skySong;
     [SerializeField] private AudioClip spaceSong;
 
-
     private float comboTimer;
     private bool isAlive = true;
     private bool isPaused = false;
     private bool isUnPausing = false;
+    private bool settingsOpen = false;
+    private bool settingsCameFromPause = false;
 
     private PlayerController playerController;
 
     public int platformInterval;
+    public int spacePlatformInterval;
     [HideInInspector] public int platformsLanded;
     [HideInInspector] public bool triggerTransition;
-    
+    [HideInInspector] public bool triggerSpace;
+
     public int Score
     {
         get;
@@ -99,6 +104,7 @@ public class GameManager : MonoBehaviour
     {
         platformsLanded = 0;
         triggerTransition = false;
+        triggerSpace = false;
         highScore = PlayerPrefs.GetInt("player_HighScore");
         playerController = player.GetComponent<PlayerController>();
 
@@ -108,6 +114,29 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (settingsOpen)
+        {
+            // Enter is also the EventSystem's Submit key, so a toggle left
+            // selected by a click would get flipped again on the way out.
+            if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                CloseSettings();
+            }
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) &&
+            (CurrentState == GameState.PreStart || CurrentState == GameState.Paused))
+        {
+            OpenSettings();
+            return;
+        }
+
         if (CurrentState == GameState.PreStart)
         {
             Welcome();
@@ -137,6 +166,11 @@ public class GameManager : MonoBehaviour
             if (!triggerTransition && platformsLanded>=platformInterval)
             {
                 triggerTransition = true;
+            }
+
+            if (!triggerSpace && platformsLanded >= spacePlatformInterval)
+            {
+                triggerSpace = true;
                 ServiceLocator.Get<AudioManager>()?.PlayMusic(spaceSong);
             }
         }
@@ -150,6 +184,43 @@ public class GameManager : MonoBehaviour
     private void Welcome()
     {
         titlePanel.SetActive(true);
+    }
+
+    private void OpenSettings()
+    {
+        if (settingsPanel == null)
+        {
+            return;
+        }
+
+        settingsCameFromPause = CurrentState == GameState.Paused;
+        settingsOpen = true;
+
+        if (settingsCameFromPause)
+        {
+            pausePanel.SetActive(false);
+        }
+        else
+        {
+            titlePanel.SetActive(false);
+        }
+
+        settingsPanel.SetActive(true);
+    }
+
+    private void CloseSettings()
+    {
+        settingsOpen = false;
+        settingsPanel.SetActive(false);
+
+        if (settingsCameFromPause)
+        {
+            pausePanel.SetActive(true);
+        }
+        else
+        {
+            titlePanel.SetActive(true);
+        }
     }
 
     // Called by cloud when the player lands on a fresh cloud
