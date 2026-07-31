@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip skySong;
     [SerializeField] private AudioClip spaceSong;
 
-
     private float comboTimer;
     private bool isAlive = true;
     private bool isPaused = false;
@@ -58,9 +57,11 @@ public class GameManager : MonoBehaviour
     private PlayerController playerController;
 
     public int platformInterval;
+    public int spacePlatformInterval;
     [HideInInspector] public int platformsLanded;
     [HideInInspector] public bool triggerTransition;
-    
+    [HideInInspector] public bool triggerSpace;
+
     public int Score
     {
         get;
@@ -103,6 +104,7 @@ public class GameManager : MonoBehaviour
     {
         platformsLanded = 0;
         triggerTransition = false;
+        triggerSpace = false;
         highScore = PlayerPrefs.GetInt("player_HighScore");
         playerController = player.GetComponent<PlayerController>();
 
@@ -164,6 +166,11 @@ public class GameManager : MonoBehaviour
             if (!triggerTransition && platformsLanded>=platformInterval)
             {
                 triggerTransition = true;
+            }
+
+            if (!triggerSpace && platformsLanded >= spacePlatformInterval)
+            {
+                triggerSpace = true;
                 ServiceLocator.Get<AudioManager>()?.PlayMusic(spaceSong);
             }
         }

@@ -104,13 +104,18 @@ public class CosmicRay : MonoBehaviour
         }
     }
 
+    private bool started = false;
 
-    void OnEnable()
+    void Update()
     {
-        DesignRay();
-        StartCoroutine(RunRaySequence());
+        if (!started &&
+            GameManager.Instance.triggerSpace)
+        {
+            started = true;
+            DesignRay();
+            StartCoroutine(RunRaySequence());
+        }
     }
-
 
     private IEnumerator RunRaySequence()
     {
