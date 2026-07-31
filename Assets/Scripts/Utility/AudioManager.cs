@@ -48,7 +48,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(AudioClip clip, float volume = 1, float fadeTime = 0.5f)
     {
-        if (musicSource.clip == clip) return;
+        if (musicSource.clip == clip && musicSource.isPlaying) return;
 
         if (musicRoutine != null) StopCoroutine(musicRoutine);
 
@@ -72,7 +72,7 @@ public class AudioManager : MonoBehaviour
 
         while (time < duration)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             musicSource.volume = Mathf.Lerp(startValue, endValue, time / duration);
             yield return null;
         }
