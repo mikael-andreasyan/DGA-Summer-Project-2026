@@ -139,10 +139,13 @@ public class GameManager : MonoBehaviour
             if (!triggerTransition && platformsLanded>=platformInterval)
             {
                 triggerTransition = true;
+            }
+
+            if (!triggerSpace && platformsLanded >= spacePlatformInterval)
+            {
+                triggerSpace = true;
                 ServiceLocator.Get<AudioManager>()?.PlayMusic(spaceSong);
             }
-            
-            triggerSpace = platformsLanded >= spacePlatformInterval;
         }
 
         if (Input.GetKeyDown(KeyCode.L))
