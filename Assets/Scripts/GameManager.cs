@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
         private set;
     }
 
-    public enum GameState { PreStart, Playing, Paused, GameOver }
+    public enum GameState { PreStart, Playing, Paused, GameOver, Credits }
     public GameState CurrentState { get; private set; } = GameState.PreStart;
 
     [Header("Main Build Scene Name")]
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject countdownText;
     [SerializeField] private GameObject escapeText;
     [SerializeField] private GameObject newRecordText;
+    [SerializeField] private GameObject creditsImage;
 
     [Header("Audio")]
     [SerializeField] private GameObject audioManagerPrefab;
@@ -136,10 +137,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
-            resetHighScore();
         
         handlePause();
+        handleCredits();
     }
 
     private void Welcome()
@@ -293,6 +293,27 @@ public class GameManager : MonoBehaviour
             ServiceLocator.Get<AudioManager>()?.PlayPause();
            if (!isUnPausing)
             StartCoroutine(ResumeGame());
+        }
+    }
+
+    private void handleCredits()
+    {
+        bool cPressed = Input.GetKeyDown(KeyCode.C);
+        bool quit = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q);
+        if (cPressed && CurrentState == GameState.PreStart)
+        {
+            CurrentState = GameState.Credits;
+
+            Time.timeScale = 0f;
+            creditsImage.SetActive(true);
+
+
+        }
+
+        else if (quit && CurrentState == GameState.Credits)
+        {
+            CurrentState = GameState.PreStart;
+            creditsImage.SetActive(false);
         }
     }
 
