@@ -37,6 +37,7 @@ public class DoubleBoots : MonoBehaviour
             if (col != null) col.enabled = false;
 
             SetVisible(false); // hide the pickup while it's "held"
+            pc.SetBoots(true); // draw the player wearing them
             print("boost ready!");
             ServiceLocator.Get<AudioManager>()?.PlayPowerupPickup();
         }
@@ -44,25 +45,27 @@ public class DoubleBoots : MonoBehaviour
 
     private void Update()
     {
-        if (!canBoost) return;
+        if (pc == null) return;
 
-        // Follow the player while the boost is armed.
+        // Follow the player while the boots are worn.
         transform.position = pc.transform.position;
 
-        // If the player lands without using the boost, it expires.
+        // Landing is the only thing that takes the boots off, whether or not
+        // the boost got used. Keeping the object alive past the boost is what
+        // lets the player wear them through the jump they paid for.
         if (pc.isGrounded)
         {
             canBoost = false;
+            pc.SetBoots(false);
             Destroy(gameObject);
             return;
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (canBoost && Input.GetButtonDown("Jump"))
         {
             print("boosted!");
             pc.ForceJump(boostMultiplier); // apply the boosted jump directly
             canBoost = false;
-            Destroy(gameObject);
         }
     }
 

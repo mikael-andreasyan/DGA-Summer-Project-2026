@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioClip powerupPickupSound;
+    [SerializeField] private AudioClip pauseSound;
+    [SerializeField] private AudioClip loseSound;
     [SerializeField] private AudioMixerGroup sfxMixerGroup;
     [SerializeField] private int sfxPoolSize = 5;
 
@@ -46,7 +48,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(AudioClip clip, float volume = 1, float fadeTime = 0.5f)
     {
-        if (musicSource.clip == clip) return;
+        if (musicSource.clip == clip && musicSource.isPlaying) return;
 
         if (musicRoutine != null) StopCoroutine(musicRoutine);
 
@@ -70,7 +72,7 @@ public class AudioManager : MonoBehaviour
 
         while (time < duration)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             musicSource.volume = Mathf.Lerp(startValue, endValue, time / duration);
             yield return null;
         }
@@ -103,6 +105,16 @@ public class AudioManager : MonoBehaviour
     public void PlayPowerupPickup()
     {
         PlaySFX(powerupPickupSound, 1f, false);
+    }
+
+    public void PlayPause()
+    {
+        PlaySFX(pauseSound, 1f, false);
+    }
+
+    public void PlayLose()
+    {
+        PlaySFX(loseSound, 1f, false);
     }
 
     public void StopAll()
