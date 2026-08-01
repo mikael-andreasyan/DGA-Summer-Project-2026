@@ -1,8 +1,6 @@
 using System.Collections;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.Interactions;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
