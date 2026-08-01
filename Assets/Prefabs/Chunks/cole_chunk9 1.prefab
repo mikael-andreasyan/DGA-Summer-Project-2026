@@ -10,11 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5828225451773493537}
   m_Layer: 0
-<<<<<<<< HEAD:Assets/Prefabs/Chunks/Space Chunks/Space-chunk-13.prefab
-  m_Name: Space-chunk-13
-========
   m_Name: cole_chunk9 1
->>>>>>>> main:Assets/Prefabs/Chunks/cole_chunk9 1.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
