@@ -34,10 +34,18 @@ public class PlayerController : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] private Sprite stunned;
+    [Tooltip("Held while rising")]
+    [SerializeField] private Sprite jump;
+    [Tooltip("Held from the apex until they land")]
     [SerializeField] private Sprite fall;
+
+    [Header("Boots Variants")]
+    [SerializeField] private Sprite jumpBoots;
+    [SerializeField] private Sprite fallBoots;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private bool hasBoots;
 
     private bool facingRight = true;
 
@@ -78,6 +86,7 @@ public class PlayerController : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
 
         // Derive jump velocity and the two gravity values (rising vs falling)
         // from the desired height and timing, so tuning stays intuitive:
@@ -172,16 +181,38 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Past the apex and still in the air: freeze on the fall pose rather
-        // than let the clip loop back round to the launch frames mid-jump.
-        // The clip covers the rise; this covers everything after it.
-        bool holdFall = !isGrounded && velocity.y <= 0f;
-        animator.enabled = !holdFall;
+        // Both airborne poses are single sprites, so the Animator stands down
+        // for the whole jump and the clips only ever run on the ground.
+        animator.enabled = isGrounded;
 
-        if (holdFall && fall != null)
+        if (!isGrounded)
         {
-            spriteRenderer.sprite = fall;
+            bool rising = velocity.y > 0f;
+            Sprite pose = rising ? PickBoots(jump, jumpBoots) : PickBoots(fall, fallBoots);
+
+            if (pose != null)
+            {
+                spriteRenderer.sprite = pose;
+            }
         }
+    }
+
+    /// <summary>
+    /// Returns the boots version of a pose when the player is wearing them,
+    /// falling back to the plain one if the variant was never assigned.
+    /// </summary>
+    private Sprite PickBoots(Sprite plain, Sprite boots)
+    {
+        return hasBoots && boots != null ? boots : plain;
+    }
+
+    /// <summary>
+    /// Boots are only ever worn mid-air, so they just switch which airborne
+    /// pose gets drawn. Nothing on the ground changes.
+    /// </summary>
+    public void SetBoots(bool equipped)
+    {
+        hasBoots = equipped;
     }
 
     private int framesOffCloud = 10;
