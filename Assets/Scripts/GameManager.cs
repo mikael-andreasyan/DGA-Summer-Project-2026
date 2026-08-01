@@ -358,7 +358,7 @@ public class GameManager : MonoBehaviour
             CurrentState = GameState.Paused;
         }
 
-        else if (CurrentState == GameState.Paused && Input.GetKeyDown(KeyCode.Q))
+        else if (((CurrentState == GameState.Paused) || (CurrentState == GameState.PreStart)) && Input.GetKeyDown(KeyCode.Q))
         {
             print("quit game");
             Application.Quit();
