@@ -511,6 +511,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
+--- !u!1 &767187634 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4431172687823231315, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
+  m_PrefabInstance: {fileID: 1127775002}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &850845756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 43957500294127363, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
@@ -616,11 +621,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: ebf773cf07a4a4be48badc5e16bdf300, type: 3}
---- !u!1 &1103430781 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 972541835686392689, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
-  m_PrefabInstance: {fileID: 1127775002}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1105780315 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8341838603241027396, guid: 37f2b153877974a168f9f5c88fa6c07c, type: 3}
@@ -927,7 +927,7 @@ PrefabInstance:
     - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
       propertyPath: creditsImage
       value: 
-      objectReference: {fileID: 1103430781}
+      objectReference: {fileID: 767187634}
     - target: {fileID: 5004710500919969618, guid: f4ced894e1f9c40b684b07064cc63ba7, type: 3}
       propertyPath: countdownText
       value: 
