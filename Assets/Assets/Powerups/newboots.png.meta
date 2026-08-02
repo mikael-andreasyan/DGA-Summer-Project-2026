@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c0b0be5dc055a984ca49e90de3089494
+guid: f02f61696e8854d768ba4939e8bb75a9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8630435554779211992
-    second: boots_0
+      213: -6652258123783374027
+    second: newboots_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 15
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,24 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boots_0
+      name: newboots_0
       rect:
         serializedVersion: 2
         x: 0
@@ -126,16 +113,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 827db74c6988a3880800000000000000
-      internalID: -8630435554779211992
+      spriteID: cf69b101ec3564f26bb8cb21697e1c21
+      internalID: -547214294
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boots_1
+      name: newboots_1
       rect:
         serializedVersion: 2
         x: 20
@@ -150,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41019bee232a2ba48be598d13da6e7d6
-      internalID: 1640753565
+      spriteID: 26d4b9b1d64ba4894a027281b93ddced
+      internalID: 1800134744
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boots_2
+      name: newboots_2
       rect:
         serializedVersion: 2
         x: 40
@@ -172,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da491404be5f771448b2055d0db585e9
-      internalID: 389130870
+      spriteID: 89d44615f76a74892925578c0f7db258
+      internalID: 1424334341
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boots_3
+      name: newboots_3
       rect:
         serializedVersion: 2
         x: 60
@@ -194,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f229cf3a8e2de6448036e5fbe9fe140
-      internalID: 1497824415
+      spriteID: c4ce25c5222c34e75b18bb65bfc5dd2f
+      internalID: -268537524
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boots_4
+      name: newboots_4
       rect:
         serializedVersion: 2
         x: 80
@@ -216,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfeacbd4b9a1229448160ff1f87c5082
-      internalID: -312796855
+      spriteID: 0475c518c8ffc44ed88f2655e2536cb3
+      internalID: 297542707
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boots_5
+      name: newboots_5
       rect:
         serializedVersion: 2
         x: 100
@@ -238,14 +225,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7832fb4a24878174aa44c0a9722a50f0
-      internalID: 740008964
+      spriteID: da397269f77f94a23a3e6d59e8eefc13
+      internalID: 1908973175
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boots_6
+      name: newboots_6
       rect:
         serializedVersion: 2
         x: 120
@@ -260,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c61f332c8f9d43341b72df9abcb7e9f7
-      internalID: 1403623946
+      spriteID: f3af6eb2c0ccb4f5480f5d945ca2ad19
+      internalID: 502136846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boots_7
+      name: newboots_7
       rect:
         serializedVersion: 2
         x: 140
@@ -282,8 +269,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 630df95273f0f49409e5e19c2c3a9468
-      internalID: -1058391325
+      spriteID: 6af1d3602eb0b43eab82630e20e1b707
+      internalID: 826600300
       vertices: []
       indices: 
       edges: []
@@ -292,7 +279,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 40bb917c4f5536e41aaa102241215dee
+    spriteID: a78196823bfc3477e96cc9ac190c717e
     internalID: 0
     vertices: []
     indices: 
@@ -302,16 +289,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":1.0},"gridSpriteSize":{"x":20.0,"y":20.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":20.0,"y":20.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      boots_0: -8630435554779211992
-      boots_1: 1640753565
-      boots_2: 389130870
-      boots_3: 1497824415
-      boots_4: -312796855
-      boots_5: 740008964
-      boots_6: 1403623946
-      boots_7: -1058391325
+      newboots_0: -547214294
+      newboots_1: 1800134744
+      newboots_2: 1424334341
+      newboots_3: -268537524
+      newboots_4: 297542707
+      newboots_5: 1908973175
+      newboots_6: 502136846
+      newboots_7: 826600300
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
