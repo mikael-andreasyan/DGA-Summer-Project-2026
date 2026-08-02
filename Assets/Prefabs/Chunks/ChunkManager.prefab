@@ -48,9 +48,10 @@ MonoBehaviour:
   firstChunkPrefab: {fileID: 2532506237784716197, guid: 749f0c93f015e594895ace4efe3f2e3a, type: 3}
   skyChunks:
   - {fileID: 2532506237784716197, guid: 749f0c93f015e594895ace4efe3f2e3a, type: 3}
+  - {fileID: 2532506237784716197, guid: 56a3210f490294cb68be8ca4ec969dd4, type: 3}
   - {fileID: 5622106204164219265, guid: bc6c6de2631678044a8a88b54110c529, type: 3}
-  - {fileID: 8748129523788346456, guid: 4f1f63e1a31e85d43a364a46af08e74f, type: 3}
-  - {fileID: 1851276689697914883, guid: 20c3e043ba9da95438d5e20a19f3bd6f, type: 3}
+  - {fileID: 5622106204164219265, guid: 430d9106e8f94422ea39a6eba6369bfc, type: 3}
+  - {fileID: 5622106204164219265, guid: 80a5827bc298f478983099da2d8079b4, type: 3}
   spaceChunks:
   - {fileID: 6613618261013052406, guid: 06674be1069591a40b3714226a4211fa, type: 3}
   - {fileID: 7782843744466649663, guid: 6bff93d9842fd1e42aee02d53c3f02c6, type: 3}
