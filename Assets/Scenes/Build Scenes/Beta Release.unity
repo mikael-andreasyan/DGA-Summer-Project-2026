@@ -376,7 +376,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1190808781259890827, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.73694
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1190808781259890827, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -426,10 +426,6 @@ PrefabInstance:
       propertyPath: chunkPrefabs.Array.size
       value: 21
       objectReference: {fileID: 0}
-    - target: {fileID: 8133763114722512393, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
-      propertyPath: 'skyChunks.Array.data[2]'
-      value: 
-      objectReference: {fileID: 2532506237784716197, guid: f78dbee44a21b47b5a0444901ff730af, type: 3}
     - target: {fileID: 8133763114722512393, guid: 3ca1c9f9ece419f499120fc9eb56a1a8, type: 3}
       propertyPath: 'chunkPrefabs.Array.data[1]'
       value: 
